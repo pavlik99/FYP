@@ -1,31 +1,31 @@
-//import axios from 'axios'
+import axios from 'axios'
 import { ADD_TO_BASKET, REMOVE_FROM_BASKET } from '../constants/basketTypes'
 import * as crud from '../crud/index.js'
 
 export const addProduct = (id, quantity) => async (dispatch, getState) => {
-  // const { data } = await axios.get(`/api/products/${id}`)
+  const { data } = await axios.get(`/api/products/${id}`)
+  // const { data } = await crud.fetchProduct(id)
+  // try {
+  dispatch({
+    type: ADD_TO_BASKET,
+    payload: {
+      product: data._id,
+      title: data.title,
+      image: data.productImage,
+      price: data.price,
+      countInStock: data.countInStock,
+      quantity,
+    },
+  })
 
-  try {
-    const { data } = await crud.fetchProduct(id) //
-    dispatch({
-      type: ADD_TO_BASKET,
-      payload: {
-        product: data._id,
-        title: data.title,
-        image: data.productImage,
-        price: data.price,
-        countInStock: data.countInStock,
-        quantity,
-      },
-    })
+  localStorage.setItem(
+    'basketItems',
+    JSON.stringify(getState().basket.basketItems)
+  )
 
-    localStorage.saveItem(
-      'basketProducts',
-      JSON.stringify(getState().basket.basketItems)
-    )
-  } catch (error) {
-    console.log(error.message)
-  }
+  // } catch (error) {
+  //   console.log(error.message)
+  // }
   // try again kater
   // axios.post('/api/basket', { id, quantity }).then((res) =>
   //   dispatch({

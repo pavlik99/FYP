@@ -11,11 +11,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import Reviews from '../components/Reviews'
 import PopOver from '../components/PopOver'
+import Loading from '../components/Loading'
+import ModalBasket from '../components/ModalBasket'
 //import ProductsRecommnedation from '../components/ProductsRecommnedation'
 import ProductAccordion from '../components/ProductAccordion'
 import { fetchProduct } from '../actions/productActions'
-import Loading from '../components/Loading'
-import ModalBasket from '../components/ModalBasket'
 
 import { useHistory } from 'react-router-dom' //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 // const product = products.find(p => p._id ===  props.match.params.id )

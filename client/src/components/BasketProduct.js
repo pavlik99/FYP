@@ -11,12 +11,7 @@ const BasketProduct = ({
     <>
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
         <Link to={`/product/${item.product}`}>
-          <Card.Img
-            src={item.image}
-            className='rounded-top'
-            variant='top'
-            rounded
-          />
+          <Card.Img src={item.image} className='rounded-top' variant='top' />
         </Link>
         <Card.Body>
           <Card.Title as='div' className='pl-2'>
@@ -46,7 +41,7 @@ const BasketProduct = ({
                 variant='dark'
                 onClick={() => removeProductFromBasketHandler(item.product)}
               >
-                <i class='fa-solid fa-user-xmark'></i>
+                <i className='fa-solid fa-user-xmark'></i>
               </Button>
             </Col>
           </Row>

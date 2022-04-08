@@ -25,8 +25,9 @@ const HomePage = () => {
         <Loading />
       ) : success ? (
         <Row>
+          {/* <Col lg={4} sm={12} xl={3} md={6} key={product._id}> */}
           {products.map((product) => (
-            <Col lg={4} sm={12} xl={3} md={6}>
+            <Col lg={4} sm={12} xl={3} md={6} key={product._id}>
               <Product product={product} />
             </Col>
           ))}

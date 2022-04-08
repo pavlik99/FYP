@@ -1,18 +1,23 @@
 const router = express.Router()
 import express from 'express'
-import { signin, profile, signup } from '../controllers/authControllers.js'
+import {
+  signin,
+  getProfile,
+  signup,
+  updateProfile,
+} from '../controllers/authControllers.js'
 import { protect } from '../middleware/authentication.js'
 
 // POST /api/account/signin
 router.post('/signin', signin)
 
-//POST /api/accounts
-router.post('/', signup)
-// GET /api/account/profile
-router.get('/profile', protect, profile)
+//POST /api/account/signup
+router.post('/signup', signup) // make it /signup
 
-// router.post('/signup')
+//GET /api/account/profile
+router.get('/profile', protect, getProfile)
 
-// router.get('/user')
+// PUT /api/account/profile
+router.put('/profile', protect, updateProfile)
 
 export default router

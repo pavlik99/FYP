@@ -32,9 +32,9 @@ const ModalBasket = ({
           <Col>
             {product.countInStock > 0 && (
               <Col>
-                <Row>Quantity </Row>
+                {/* <Row>Quantity </Row> */}
                 <Row>
-                  <Form.Control
+                  <Form.Select
                     as='select'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
@@ -44,7 +44,7 @@ const ModalBasket = ({
                         {x + 1}
                       </option>
                     ))}
-                  </Form.Control>
+                  </Form.Select>
                 </Row>
               </Col>
             )}
@@ -57,7 +57,7 @@ const ModalBasket = ({
           <Button
             onClick={addToBasketHandler}
             variant='primary'
-            size='lg'
+            size='md'
             className='btn-block'
             type='button'
             disabled={product.countInStock === 0}

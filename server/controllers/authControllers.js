@@ -36,7 +36,7 @@ const signin = expressAsyncHandler(async (req, res) => {
   })
 })
 
-//GET /api/accounts
+//GET /api/account/signup
 const signup = expressAsyncHandler(async (req, res) => {
   const { forename, surname, email, password } = req.body
 
@@ -120,14 +120,21 @@ const signup = expressAsyncHandler(async (req, res) => {
 })
 
 // GET /api/account/profile
-const profile = expressAsyncHandler(async (req, res) => {
+const getProfile = expressAsyncHandler(async (req, res) => {
   User.findById(req.user._id)
     .select('-password')
     .then((account) => {
       if (!account) {
         res.status(400).json({ msg: 'Unable to find user' })
       } else {
-        res.json(account)
+        res.json({
+          //account
+          _id: account._id,
+          forename: account.forename,
+          surname: account.surname,
+          email: account.email,
+          isAdmin: account.isAdmin,
+        })
       }
     })
 })
@@ -155,4 +162,57 @@ const profile = expressAsyncHandler(async (req, res) => {
 //     res.status(401).json({ msg: 'Invalid email or password' })
 //   }
 
-export { signin, profile, signup }
+// UPDATE USER PROFILE
+// PUT /api/account/profile
+const updateProfile = expressAsyncHandler(async (req, res) => {
+  //start
+  const { forename, surname, email, password } = req.body //add picture
+  const account = await User.findById(req.user._id)
+
+  if (account) {
+    account.forename = forename || account.forename
+    account.surname = surname || account.surname
+    account.email = email || account.email
+    if (password) {
+      account.password = password
+      const salt = await bcrypt.genSalt(10)
+      account.password = await bcrypt.hash(account.password, salt)
+    }
+  }
+
+  const updatedAccount = await account.save()
+
+  // bcrypt.genSalt(10, (salt) => {
+  //   bcrypt.hash(password, salt, (err, hash) => {
+  //     if (err) throw err
+  //     account.password = hash
+  //     account.save().then((account) => {
+  //       jwt.sign(
+  //         { id: account._id },
+  //         process.env.JWT_SECRET,
+  //         { expiresIn: 3600 },
+  //         (err) => {
+  //           if (err) throw err
+  //           res.json({
+  //             account,
+  //             token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
+  //               expiresIn: '60d',
+  //             }),
+  //           })
+  //         }
+  //       )
+  //     })
+  //   })
+  // })
+
+  res.json({
+    updatedAccount,
+    token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
+      expiresIn: '60d',
+    }),
+  })
+
+  //end
+})
+
+export { signin, signup, getProfile, updateProfile }

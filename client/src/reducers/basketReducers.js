@@ -1,35 +1,33 @@
 import { ADD_TO_BASKET, REMOVE_FROM_BASKET } from '../constants/basketTypes'
 
 const initialState = {
-  basketProducts: [],
+  basketItems: [],
 }
 
 export const basketReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_BASKET:
       const product = action.payload
-      const exist = state.basketProducts.find(
-        (x) => x.product === product.product
-      )
+      const exist = state.basketItems.find((x) => x.product === product.product)
 
       if (exist) {
         return {
           ...state,
-          basketProducts: state.basketProducts.map((x) =>
+          basketItems: state.basketItems.map((x) =>
             x.product === exist.product ? product : x
           ),
         }
       } else {
         return {
           ...state,
-          basketProducts: [...state.basketProducts, product],
+          basketItems: [...state.basketItems, product],
         }
       }
     case REMOVE_FROM_BASKET:
       return {
         ...state,
-        basketProducts: state.basketProducts.filter(
-          (item) => item.product !== action.payload
+        basketItems: state.basketItems.filter(
+          (x) => x.product !== action.payload
         ),
       }
 

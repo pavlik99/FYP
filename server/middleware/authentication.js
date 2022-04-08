@@ -11,10 +11,18 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(' ')[1]
+      const isCustomAuth = token.length < 500
+      let decoded
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-      req.user = await User.findById(decoded.id).select('-password')
+      if (token && isCustomAuth) {
+        decoded = jwt.verify(token, process.env.JWT_SECRET)
+        //req.userId = decoded?.id
+        req.user = await User.findById(decoded.id).select('-password')
+      } else {
+        decoded = jwt.decode(token)
+        // req.userId = decoded.sub
+        req.user = await User.findById(sub)
+      }
 
       next()
     } catch (error) {
