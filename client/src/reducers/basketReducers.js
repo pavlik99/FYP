@@ -1,7 +1,12 @@
-import { ADD_TO_BASKET, REMOVE_FROM_BASKET } from '../constants/basketTypes'
+import {
+  ADD_TO_BASKET,
+  REMOVE_FROM_BASKET,
+  SET_DELIVERY_ADDRESS,
+} from '../constants/basketTypes'
 
 const initialState = {
   basketItems: [],
+  deliveryAddress: {},
 }
 
 export const basketReducer = (state = initialState, action) => {
@@ -12,6 +17,7 @@ export const basketReducer = (state = initialState, action) => {
 
       if (exist) {
         return {
+          addedtoBasket: true,
           ...state,
           basketItems: state.basketItems.map((x) =>
             x.product === exist.product ? product : x
@@ -29,6 +35,12 @@ export const basketReducer = (state = initialState, action) => {
         basketItems: state.basketItems.filter(
           (x) => x.product !== action.payload
         ),
+      }
+    case SET_DELIVERY_ADDRESS:
+      return {
+        ...state,
+        deliveryAddress: action.payload,
+        addedAddress: true,
       }
 
     default:

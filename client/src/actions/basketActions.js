@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { ADD_TO_BASKET, REMOVE_FROM_BASKET } from '../constants/basketTypes'
+import {
+  ADD_TO_BASKET,
+  REMOVE_FROM_BASKET,
+  SET_DELIVERY_ADDRESS,
+} from '../constants/basketTypes'
 import * as crud from '../crud/index.js'
 
 export const addProduct = (id, quantity) => async (dispatch, getState) => {
@@ -52,6 +56,19 @@ export const removeProduct = (id) => (dispatch, getState) => {
       'basketProducts',
       JSON.stringify(getState().basket.basketItems)
     )
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const setDeliveryAdress = (data) => (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SET_DELIVERY_ADDRESS,
+      payload: data,
+    })
+
+    localStorage.setItem('deliveryAddress', JSON.stringify(data))
   } catch (error) {
     console.log(error.message)
   }

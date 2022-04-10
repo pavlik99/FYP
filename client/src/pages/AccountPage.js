@@ -71,7 +71,7 @@ const AccountPage = () => {
       {error && <Alert variant='danger'>Unsuccessful Attempt</Alert>}
       {loading && <Loading />}
 
-      <Container fluid>
+      <Container className='pt-4' fluid>
         <Row>
           <Col>
             <Form onSubmit={submitHandler}>
@@ -183,10 +183,7 @@ const AccountPage = () => {
               <Row className='py-3'></Row>
             </Form>
           </Col>
-          <Col>
-            {' '}
-            <h1> Orders</h1>
-          </Col>
+          <Col></Col>
         </Row>
       </Container>
     </>

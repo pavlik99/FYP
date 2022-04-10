@@ -23,7 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     const token = googleUser?.token
-    setGoogleUser(JSON.parse(localStorage.getItem('googleProfile')))
+    setGoogleUser(JSON.parse(localStorage.getItem('accountData'))) //googleProfile
   }, [location])
 
   const signoutHandler = () => {
@@ -64,6 +64,11 @@ const Header = () => {
                       ACCOUNT
                     </Nav.Link>
                   </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to='/orders'>
+                      ORDERS
+                    </Nav.Link>
+                  </NavDropdown.Item>
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={signoutHandler}>
@@ -75,6 +80,11 @@ const Header = () => {
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to='/profile'>
                       ACCOUNT
+                    </Nav.Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to='/orders'>
+                      ORDERS
                     </Nav.Link>
                   </NavDropdown.Item>
 

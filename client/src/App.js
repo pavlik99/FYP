@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Footer from './components/Footer'
 import Header from './components/Header'
 import HomePage from './pages/HomePage'
@@ -7,9 +8,10 @@ import SigninPage from './pages/SigninPage'
 import ProductPage from './pages/ProductPage'
 import BasketPage from './pages/BasketPage'
 import AccountPage from './pages/AccountPage'
-import { Container } from 'react-bootstrap'
+import OrderPage from './pages/OrderPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css' // Maybe delete later
 import 'slick-carousel/slick/slick.css' //delete if no coursel
 import 'slick-carousel/slick/slick-theme.css' // -.-.-.-.-
@@ -27,6 +29,7 @@ function App() {
             <Route path='/signin' component={SigninPage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/basket/:id?' component={BasketPage} />
+            <Route path='/checkout' component={OrderPage} />
           </Container>
         </main>
         <Footer />

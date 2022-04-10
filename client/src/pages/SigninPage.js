@@ -39,7 +39,7 @@ const SigninPage = () => {
   const googleSuccess = async (res) => {
     const result = res?.profileObj
     const token = res?.tokenId
-    console.log(token, result)
+    console.log(result)
     dispatch(googleSignin(result, token))
     history.push('/')
   }
@@ -102,6 +102,7 @@ const SigninPage = () => {
               cookiePolicy='single_host_origin'
             />
           </Form.Group>
+
           <Button variant='primary' type='submit'>
             LOGIN
           </Button>

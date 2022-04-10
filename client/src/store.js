@@ -19,8 +19,15 @@ const accountStorage = localStorage.getItem('accountData')
   ? JSON.parse(localStorage.getItem('accountData'))
   : null
 
+const deiveryAddressStorage = localStorage.getItem('deliveryAddress')
+  ? JSON.parse(localStorage.getItem('deliveryAddress'))
+  : {}
+
 const initialState = {
-  basket: { basketItems: basketProductsStorage },
+  basket: {
+    basketItems: basketProductsStorage,
+    deliveryAdress: deiveryAddressStorage,
+  },
   authSignin: { accountData: accountStorage },
 }
 const middleWare = [thunk]

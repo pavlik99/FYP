@@ -63,7 +63,7 @@ export const googleSignin = (token, result) => async (dispatch) => {
       payload: data,
     })
 
-    localStorage.setItem('googleProfile', JSON.stringify(data))
+    localStorage.setItem('accountData', JSON.stringify(data))
   } catch (error) {
     dispatch({ type: GOOGLE_AUTH_ERROR, payload: error.response })
   }
@@ -71,7 +71,7 @@ export const googleSignin = (token, result) => async (dispatch) => {
 
 //AUTH GOOGLE SIGNOUT
 export const googleSignout = () => (dispatch) => {
-  localStorage.removeItem('googleProfile')
+  localStorage.removeItem('accountData')
   dispatch({
     type: GOOGLE_SIGNOUT,
   })
