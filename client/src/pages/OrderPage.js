@@ -10,12 +10,17 @@ import {
   Col,
   Row,
   Container,
+  ListGroupItem,
+  CardGroup,
+  Image,
+  Alert,
 } from 'react-bootstrap'
 
 import { setDeliveryAdress } from '../actions/basketActions'
+import PopOver from '../components/PopOver'
+
 const OrderPage = () => {
   const history = useHistory()
-  const location = useLocation()
   const dispatch = useDispatch()
 
   const basket = useSelector((state) => state.basket)
@@ -42,10 +47,35 @@ const OrderPage = () => {
         zipCode,
       })
     )
+    // history.push('/pay')
+    history.push('/order')
   }
   return (
     <div>
       <Row>
+        <Col>
+          <Container fluid className='pt-4'>
+            {basket.basketItems.length === 0 ? (
+              <Alert variant='danger'>Empty Basket </Alert>
+            ) : (
+              <CardGroup variant='flush'>
+                {basket.basketItems.map((item, index) => (
+                  <ListGroupItem key={index}>
+                    <Row>
+                      <Col md={3}>
+                        <Image src={item.image} fluid rounded />
+                      </Col>
+                      <Col>{item.title}</Col>
+                      <Col>
+                        <PopOver product={item} />
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+                ))}
+              </CardGroup>
+            )}
+          </Container>
+        </Col>
         <Col>
           <Container className='pt-4'>
             <Form onSubmit={submitHandler}>
@@ -121,14 +151,21 @@ const OrderPage = () => {
                   </FloatingLabel>
                 </Form.Group>
               </Row>
-
-              <Button variant='outline-secondary' type='submit'>
-                CHECKOUT
-              </Button>
+              <Container>
+                <Row>
+                  <Button
+                    variant='outline-dark'
+                    type='submit'
+                    className='text-center'
+                    size='lg'
+                  >
+                    CHECKOUT
+                  </Button>
+                </Row>
+              </Container>
             </Form>
           </Container>
         </Col>
-        <Col></Col>
       </Row>
     </div>
   )

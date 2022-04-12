@@ -2,6 +2,7 @@ import {
   ADD_TO_BASKET,
   REMOVE_FROM_BASKET,
   SET_DELIVERY_ADDRESS,
+  SET_PAYMENT,
 } from '../constants/basketTypes'
 
 const initialState = {
@@ -41,6 +42,12 @@ export const basketReducer = (state = initialState, action) => {
         ...state,
         deliveryAddress: action.payload,
         addedAddress: true,
+      }
+
+    case SET_PAYMENT:
+      return {
+        ...state,
+        payment: action.payload,
       }
 
     default:

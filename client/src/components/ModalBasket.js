@@ -14,7 +14,7 @@ const ModalBasket = ({
   return (
     <>
       <Button
-        variant='primary'
+        variant='outline-dark'
         onClick={handleShow}
         className='btn-block'
         size='lg'
@@ -51,12 +51,12 @@ const ModalBasket = ({
           </Col>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
+          <Button variant='outline-secondary' onClick={handleClose}>
             Close
           </Button>
           <Button
             onClick={addToBasketHandler}
-            variant='primary'
+            variant='outline-dark'
             size='md'
             className='btn-block'
             type='button'

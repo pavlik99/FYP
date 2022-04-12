@@ -1,7 +1,10 @@
-import { combineReducers, applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
+import { combineReducers, applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+
+//IMPORTING REDUCERS
 import { productsReducer, productReducer } from './reducers/productReducers'
+import { createOrderReducer } from './reducers/orderReducer'
 import { basketReducer } from './reducers/basketReducers'
 import {
   signinReducer,
@@ -40,6 +43,7 @@ const rootReducer = combineReducers({
   accountInfo: accountInfoReducer,
   updateInfo: accountUpdateReducer,
   googleSignin: googleReducer,
+  createOrder: createOrderReducer,
 })
 
 const store = createStore(

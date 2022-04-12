@@ -2,15 +2,31 @@ import mongoose from 'mongoose'
 
 const orderItemsSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
-    qty: {
+    title: { type: String, required: true },
+    countInStock: {
       type: Number,
       required: true,
       min: [1, 'Quantity can not be less then 1.'],
     },
-    productImage: { type: String, required: true },
+    productImage: { type: String, required: false },
     price: { type: Number, required: true },
-    item: {
+    isVegeterian: {
+      type: Boolean,
+      default: false,
+    },
+    isVegan: {
+      type: Boolean,
+      default: false,
+    },
+    isKeto: {
+      type: Boolean,
+      default: false,
+    },
+    isOrganic: {
+      type: Boolean,
+      default: false,
+    },
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'Product',
@@ -28,18 +44,13 @@ const orderSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    items: [orderItemsSchema],
+    productItems: [orderItemsSchema],
     deliveryAddress: {
-      address: { type: String, required: true },
-      address2: { type: String, required: true },
+      deliveryAdress1: { type: String, required: true },
+      address2: { type: String, required: false, default: 'N/A' },
       town: { type: String, required: true },
-      postCode: { type: String, required: true },
+      zipCode: { type: String, required: true },
       county: { type: String, required: true },
-      country: { type: String, required: true },
-    },
-    paymentProcess: {
-      type: String,
-      required: true,
     },
     paymentResult: {
       id: { type: String },
@@ -47,11 +58,6 @@ const orderSchema = mongoose.Schema(
       update_time: { type: String },
       email_address: { type: String },
     },
-    // tax: {
-    //   type: Number,
-    //   required: [true, 'Please add a tax price'],
-    //   default: 0.0,
-    // },
     deliveryPrice: {
       type: Number,
       required: [true, 'Please add a delivery price'],

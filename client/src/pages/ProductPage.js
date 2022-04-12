@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+
 import {
   Col,
   Row,
@@ -8,30 +9,33 @@ import {
   ListGroupItem,
   Container,
 } from 'react-bootstrap'
+
 import { useDispatch, useSelector } from 'react-redux'
+
 import Reviews from '../components/Reviews'
 import PopOver from '../components/PopOver'
 import Loading from '../components/Loading'
 import ModalBasket from '../components/ModalBasket'
-//import ProductsRecommnedation from '../components/ProductsRecommnedation'
 import ProductAccordion from '../components/ProductAccordion'
+//import ProductsRecommnedation from '../components/ProductsRecommnedation'
+
 import { fetchProduct } from '../actions/productActions'
 
-import { useHistory } from 'react-router-dom' //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+import { useHistory } from 'react-router-dom'
 // const product = products.find(p => p._id ===  props.match.params.id )
 //{match}
 //props.match
 const ProductPage = (props) => {
   // {match} instead props
   let history = useHistory() //aaaaaaaaaaaaaaaaaaaaaaaaa section 6 video 1
-  const [quantity, setQuantity] = useState(1) //MAYBE DELETE
+  const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const oneProduct = useSelector((state) => state.oneProduct)
   const { loading, product, success, error } = oneProduct
 
-  const [show, setShow] = useState(false) //modal
-  const handleClose = () => setShow(false) //modal
-  const handleShow = () => setShow(true) //modal
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   useEffect(() => {
     dispatch(fetchProduct(props.match.params.id)) //match.params.id
@@ -39,7 +43,7 @@ const ProductPage = (props) => {
 
   const addToBasketHandler = () => {
     //Handler
-    history.push(`/basket/${props.match.params.id}?quantity=${quantity}`) //?quantity=${quantity} add it if you need just beofre `
+    history.push(`/basket/${props.match.params.id}?quantity=${quantity}`)
   }
 
   return (
@@ -54,7 +58,6 @@ const ProductPage = (props) => {
               <Image
                 className='rounded'
                 src={product.productImage}
-                alt={product.title}
                 fluid
               />{' '}
             </Col>
@@ -87,18 +90,6 @@ const ProductPage = (props) => {
                       quantity={quantity}
                       addToBasketHandler={addToBasketHandler}
                     />
-                    {/* <Col> old button delete soon
-                      <Button
-                        onClick={addToBasketHandler}
-                        variant='primary'
-                        size='lg'
-                        className='btn-block'
-                        type='button'
-                        disabled={product.countInStock === 0}
-                      >
-                        ADD TO BASKET
-                      </Button>
-                    </Col> */}
 
                     <Col className='pt-4'>
                       {product.countInStock > 0 ? (

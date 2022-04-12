@@ -3,6 +3,7 @@ import {
   ADD_TO_BASKET,
   REMOVE_FROM_BASKET,
   SET_DELIVERY_ADDRESS,
+  SET_PAYMENT,
 } from '../constants/basketTypes'
 import * as crud from '../crud/index.js'
 
@@ -69,6 +70,19 @@ export const setDeliveryAdress = (data) => (dispatch, getState) => {
     })
 
     localStorage.setItem('deliveryAddress', JSON.stringify(data))
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const setPay = (data) => (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SET_PAYMENT,
+      payload: data,
+    })
+
+    localStorage.setItem('payment', JSON.stringify(data))
   } catch (error) {
     console.log(error.message)
   }

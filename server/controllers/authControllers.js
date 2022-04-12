@@ -40,7 +40,7 @@ const signin = expressAsyncHandler(async (req, res) => {
 const signup = expressAsyncHandler(async (req, res) => {
   const { forename, surname, email, password } = req.body
 
-  if (!surname || !forename) {
+  if (!surname || !forename || !password || !email) {
     res.status(400).json({ msg: 'Please fill name' })
   }
 

@@ -5,6 +5,7 @@ import connDB from './dataconfig/database.js'
 //IMPORTING ROUTES
 import productRoutes from './routes/productRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 dotenv.config()
 connDB()
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', productRoutes)
 app.use('/api/account', authRoutes)
+app.use('/api/orders', orderRoutes)
 
 const PORT = process.env.PORT || 5000
 

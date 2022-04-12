@@ -9,6 +9,8 @@ import ProductPage from './pages/ProductPage'
 import BasketPage from './pages/BasketPage'
 import AccountPage from './pages/AccountPage'
 import OrderPage from './pages/OrderPage'
+import CompleteOrderPage from './pages/CompleteOrderPage'
+//import CheckoutPage from './pages/CheckoutPage' DELETE
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -30,6 +32,7 @@ function App() {
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/basket/:id?' component={BasketPage} />
             <Route path='/checkout' component={OrderPage} />
+            <Route path='/order' component={CompleteOrderPage} />
           </Container>
         </main>
         <Footer />
