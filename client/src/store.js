@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 //IMPORTING REDUCERS
 import { productsReducer, productReducer } from './reducers/productReducers'
-import { createOrderReducer } from './reducers/orderReducer'
+import { createOrderReducer, getOrderReducer } from './reducers/orderReducer'
 import { basketReducer } from './reducers/basketReducers'
 import {
   signinReducer,
@@ -44,6 +44,7 @@ const rootReducer = combineReducers({
   updateInfo: accountUpdateReducer,
   googleSignin: googleReducer,
   createOrder: createOrderReducer,
+  getOrder: getOrderReducer,
 })
 
 const store = createStore(

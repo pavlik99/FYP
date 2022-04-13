@@ -30,7 +30,9 @@ const CompleteOrderPage = () => {
   // Price for the delivery
   basket.deliveryPrice = basket.productsTotal > 50 ? 0 : 4.99
   // Final price
-  basket.total = Number(basket.productsTotal) + Number(basket.deliveryPrice)
+  basket.total =
+    Number(basket.productsTotal).toFixed(2) +
+    Number(basket.deliveryPrice).toFixed(2)
 
   const completeOrder = () => {
     dispatch(
@@ -39,7 +41,7 @@ const CompleteOrderPage = () => {
         deliveryAddress: basket.deliveryAdress,
         productsTotal: basket.productsTotal,
         deliveryPrice: basket.deliveryPrice,
-        total: basket.total,
+        finalPrice: basket.total,
       })
     )
   }

@@ -63,7 +63,7 @@ const OrderPage = () => {
                   <ListGroupItem key={index}>
                     <Row>
                       <Col md={3}>
-                        <Image src={item.image} fluid rounded />
+                        <Image src={item.productImage} fluid rounded />
                       </Col>
                       <Col>{item.title}</Col>
                       <Col>

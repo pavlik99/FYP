@@ -11,7 +11,11 @@ const BasketProduct = ({
     <>
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
         <Link to={`/product/${item.product}`}>
-          <Card.Img src={item.image} className='rounded-top' variant='top' />
+          <Card.Img
+            src={item.productImage}
+            className='rounded-top'
+            variant='top'
+          />
         </Link>
         <Card.Body>
           <Card.Title as='div' className='pl-2'>

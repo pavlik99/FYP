@@ -1,10 +1,15 @@
 import expressAsyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 
-// New Order
+// NEW ORDER
 const putOrderProducts = expressAsyncHandler(async (req, res) => {
-  const { productItems, deliveryAddress, productsTotal, deliveryPrice, total } =
-    req.body
+  const {
+    productItems,
+    deliveryAddress,
+    productsTotal,
+    deliveryPrice,
+    finalPrice,
+  } = req.body
 
   if (productItems && productItems.length === 0) {
     res.status(400)
@@ -17,7 +22,7 @@ const putOrderProducts = expressAsyncHandler(async (req, res) => {
       deliveryAddress,
       productsTotal,
       deliveryPrice,
-      total,
+      finalPrice,
     })
 
     const newOrder = await order.save()
@@ -26,4 +31,19 @@ const putOrderProducts = expressAsyncHandler(async (req, res) => {
   }
 })
 
-export { putOrderProducts }
+//GET ORDER
+const getOrder = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'forename surname email'
+  )
+
+  if (order) {
+    res.json(order)
+  } else {
+    res.status(400)
+    throw new Error('Unable to find order')
+  }
+})
+
+export { putOrderProducts, getOrder }
