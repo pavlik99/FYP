@@ -1,5 +1,14 @@
 import expressAsyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
+// const stripe = require('stripe')(
+//   'sk_test_51Kob94BBFBRBiiwm8rb6Gp0hUkRWHkQGW7pKOz3R3572N6PQMPweFIOURHW1rCH1MD4NX6r8PwrIyxZJ5DFkerwP00Gi0bi2Vv'
+// )
+//(process.env.STRIPE_SECRET)
+
+import Stripe from 'stripe'
+const stripe = new Stripe(
+  'sk_test_51Kob94BBFBRBiiwm8rb6Gp0hUkRWHkQGW7pKOz3R3572N6PQMPweFIOURHW1rCH1MD4NX6r8PwrIyxZJ5DFkerwP00Gi0bi2Vv'
+)
 
 // NEW ORDER
 const putOrderProducts = expressAsyncHandler(async (req, res) => {
@@ -41,9 +50,59 @@ const getOrder = expressAsyncHandler(async (req, res) => {
   if (order) {
     res.json(order)
   } else {
-    res.status(400)
+    res.status(404)
     throw new Error('Unable to find order')
   }
 })
 
-export { putOrderProducts, getOrder }
+//PAY ORDER
+const payOrder = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isPaid = true
+    order.paidAt = Date.now()
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
+    }
+
+    const newOrder = await order.save()
+    res.json(newOrder)
+  } else {
+    res.status(404)
+    throw new Error('Unable to find order')
+  }
+})
+
+//STRIPE PAYMENT
+const stripePayment = expressAsyncHandler(async (req, res) => {
+  const charge = await stripe.charges.create({
+    currency: 'usd',
+    description: 'charge',
+    amount: 500,
+    source: req.body.id,
+  })
+
+  console.log(charge)
+  const order = await Order.findById(req.params.id)
+  if (order) {
+    order.isPaid = true
+    const updatedOrder = await order.save()
+
+    res.json(updatedOrder)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+})
+
+// GET USER ORDERS
+const getOrders = expressAsyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id })
+  res.json(orders)
+})
+
+export { putOrderProducts, getOrder, payOrder, stripePayment, getOrders }

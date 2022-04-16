@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connDB from './dataconfig/database.js'
-
+import bodyParser from 'body-parser'
 //IMPORTING ROUTES
 import productRoutes from './routes/productRoutes.js'
 import authRoutes from './routes/authRoutes.js'
@@ -11,6 +11,7 @@ dotenv.config()
 connDB()
 
 const app = express()
+app.use(bodyParser.json())
 
 app.use(express.json())
 

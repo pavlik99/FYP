@@ -9,11 +9,11 @@ import {
   ListGroupItem,
 } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { orderCreate } from '../actions/orders'
 
-const CompleteOrderPage = () => {
+const CompleteOrderPage = (props) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const basket = useSelector((state) => state.basket)
@@ -30,9 +30,9 @@ const CompleteOrderPage = () => {
   // Price for the delivery
   basket.deliveryPrice = basket.productsTotal > 50 ? 0 : 4.99
   // Final price
-  basket.total =
-    Number(basket.productsTotal).toFixed(2) +
-    Number(basket.deliveryPrice).toFixed(2)
+  basket.total = Number(
+    Number(basket.productsTotal) + Number(basket.deliveryPrice)
+  ).toFixed(2)
 
   const completeOrder = () => {
     dispatch(
@@ -48,7 +48,7 @@ const CompleteOrderPage = () => {
 
   useEffect(() => {
     if (created) {
-      history.push(`/`)
+      history.push(`/orders/${order._id}`)
     }
     // eslint-disable-next-line
   }, [history, created])
@@ -76,27 +76,31 @@ const CompleteOrderPage = () => {
                 <ListGroupItem>
                   <Row>
                     <Col>Subtotal</Col>
-                    <Col>{basket.productsTotal}</Col>
+                    <Col>£{basket.productsTotal}</Col>
                   </Row>
                 </ListGroupItem>
                 <ListGroupItem>
                   <Row>
                     <Col>Delivery</Col>
                     <Col>
-                      {basket.deliveryPrice === 0 ? 'Free Delivery' : ''}{' '}
+                      {basket.deliveryPrice === 0
+                        ? 'Free Delivery'
+                        : `£${basket.deliveryPrice}`}{' '}
                     </Col>
                   </Row>
                 </ListGroupItem>
                 <ListGroupItem>
                   <Row>
                     <Col>Final Price</Col>
-                    <Col>{basket.total}</Col>
+                    <Col>£{basket.total}</Col>
                   </Row>
                 </ListGroupItem>
                 <>
+                  <ListGroupItem></ListGroupItem>
                   <Button variant='outline-dark' onClick={completeOrder}>
                     Complete Order
                   </Button>
+                  <ListGroupItem></ListGroupItem>
                 </>
               </ListGroup>
             </Card>

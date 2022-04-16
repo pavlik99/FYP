@@ -4,7 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 //IMPORTING REDUCERS
 import { productsReducer, productReducer } from './reducers/productReducers'
-import { createOrderReducer, getOrderReducer } from './reducers/orderReducer'
+import {
+  createOrderReducer,
+  getOrderReducer,
+  payOrderReducer,
+  getOrdersReducer,
+} from './reducers/orderReducer'
 import { basketReducer } from './reducers/basketReducers'
 import {
   signinReducer,
@@ -45,6 +50,8 @@ const rootReducer = combineReducers({
   googleSignin: googleReducer,
   createOrder: createOrderReducer,
   getOrder: getOrderReducer,
+  getOrders: getOrdersReducer,
+  payOrder: payOrderReducer,
 })
 
 const store = createStore(

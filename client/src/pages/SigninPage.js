@@ -87,7 +87,7 @@ const SigninPage = () => {
           </Form.Group>
           <Form.Group className='mb-3' controlId='googleLogin'>
             <GoogleLogin
-              clientId='811428273654-d5vk306l3gbbor9ss5qtdmbfj33eae3i.apps.googleusercontent.com'
+              clientId={process.env.GOOGLE_CLIENT_ID}
               render={(renderProps) => (
                 <Button
                   className='googleButton'
