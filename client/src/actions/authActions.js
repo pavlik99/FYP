@@ -9,6 +9,7 @@ import {
   ACCOUNT_INFO_ERROR,
   ACCOUNT_INFO_START,
   ACCOUNT_INFO_SUCCESS,
+  ACCOUNT_INFO_CLEAR,
   UPDATE_ACCOUNT_ERROR,
   UPDATE_ACCOUNT_RESTART,
   UPDATE_ACCOUNT_START,
@@ -17,7 +18,7 @@ import {
   GOOGLE_AUTH_ERROR,
   GOOGLE_SIGNOUT,
 } from '../constants/authTypes'
-
+import { GET_USER_ORDERS_CLEAR } from '../constants/orders'
 //AUTH SIGNUP
 export const signup =
   (forename, surname, email, password) => async (dispatch) => {
@@ -137,6 +138,12 @@ export const signout = () => (dispatch) => {
   localStorage.removeItem('accountData')
   dispatch({
     type: AUTH_SIGNOUT,
+  })
+  dispatch({
+    type: GET_USER_ORDERS_CLEAR,
+  })
+  dispatch({
+    type: ACCOUNT_INFO_CLEAR,
   })
 }
 // export const signout = () => {

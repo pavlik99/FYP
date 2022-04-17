@@ -1,9 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
-// const stripe = require('stripe')(
-//   'sk_test_51Kob94BBFBRBiiwm8rb6Gp0hUkRWHkQGW7pKOz3R3572N6PQMPweFIOURHW1rCH1MD4NX6r8PwrIyxZJ5DFkerwP00Gi0bi2Vv'
-// )
-//(process.env.STRIPE_SECRET)
+import User from '../models/userModel.js'
 
 import Stripe from 'stripe'
 const stripe = new Stripe(
@@ -80,9 +77,9 @@ const payOrder = expressAsyncHandler(async (req, res) => {
 //STRIPE PAYMENT
 const stripePayment = expressAsyncHandler(async (req, res) => {
   const charge = await stripe.charges.create({
-    currency: 'usd',
+    currency: 'GBP',
     description: 'charge',
-    amount: 500,
+    // amount: 500,
     source: req.body.id,
   })
 

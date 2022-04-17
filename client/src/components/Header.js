@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import React from 'react'
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -57,7 +58,6 @@ const Header = () => {
               </Nav.Link>
 
               {accountData ? (
-                //
                 <NavDropdown title={accountData.forename}>
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to='/profile'>
@@ -65,7 +65,7 @@ const Header = () => {
                     </Nav.Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Nav.Link as={Link} to='/orders'>
+                    <Nav.Link as={Link} to='/allOrders'>
                       ORDERS
                     </Nav.Link>
                   </NavDropdown.Item>
@@ -83,7 +83,7 @@ const Header = () => {
                     </Nav.Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Nav.Link as={Link} to='/orders'>
+                    <Nav.Link as={Link} to='/allOrders'>
                       ORDERS
                     </Nav.Link>
                   </NavDropdown.Item>
@@ -97,6 +97,26 @@ const Header = () => {
                 <Nav.Link as={Link} to='/signin'>
                   <i className='fas fa-user'></i> Sign in
                 </Nav.Link>
+              )}
+
+              {accountData && accountData.isManager && (
+                <NavDropdown title={accountData.forename}>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to='/manager/products'>
+                      PRODUCTS
+                    </Nav.Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to='/manager/orders'>
+                      ORDERS
+                    </Nav.Link>
+                  </NavDropdown.Item>
+
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={signoutHandler}>
+                    SIGNOUT
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

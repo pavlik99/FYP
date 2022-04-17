@@ -12,6 +12,7 @@ import {
   GET_USER_ORDERS,
   GET_USER_ORDERS_ERROR,
   GET_USER_ORDERS_START,
+  GET_USER_ORDERS_CLEAR,
 } from '../constants/orders'
 
 // const initialState = {}
@@ -116,6 +117,10 @@ export const getOrdersReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
         success: false,
+      }
+    case GET_USER_ORDERS_CLEAR:
+      return {
+        orders: [],
       }
     default:
       return state

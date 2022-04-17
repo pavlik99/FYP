@@ -18,7 +18,7 @@ const users = [
   {
     forename: 'Manager',
     surname: 'Example 1',
-    email: 'manager1@example.com ',
+    email: 'manager1@example.com',
     password: bcrypt.hashSync('password', 10),
     isManager: true,
   },

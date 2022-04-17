@@ -7,10 +7,12 @@ import {
   stripePayment,
   getOrders,
 } from '../controllers/orders.js'
+import { getProfile } from '../controllers/authControllers.js'
 import { protect } from '../middleware/authentication.js'
 
 //GET /api/orders/allOrders
 router.get('/allOrders', protect, getOrders)
+
 //POST /api/orders
 router.post('/', protect, putOrderProducts)
 //GET /api/orders/:id

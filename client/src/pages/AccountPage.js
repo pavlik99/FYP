@@ -1,13 +1,23 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Button, Row, Col, Form, Container, Alert } from 'react-bootstrap'
+import {
+  Button,
+  Row,
+  Col,
+  Form,
+  Container,
+  Alert,
+  ListGroup,
+} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Loading from '../components/Loading'
 // Redux Actions
 import { getAccountInfo, updateAccountInfo } from '../actions/authActions'
+import { getOrdersAction } from '../actions/orders'
 
 const AccountPage = () => {
   const history = useHistory()
@@ -25,21 +35,22 @@ const AccountPage = () => {
   const authSignin = useSelector((state) => state.authSignin)
   const { accountData } = authSignin
 
+  const getOrders = useSelector((state) => state.getOrders)
+  const { orders } = getOrders
+
   const accountInfo = useSelector((state) => state.accountInfo)
   const { loading, account, error } = accountInfo
 
   const updateInfo = useSelector((state) => state.updateInfo)
   const { success } = updateInfo
 
-  //GOOGLE
-  //const googleSignin =
-
   useEffect(() => {
     if (!accountData) {
       history.push('/signin')
     } else {
       if (!account.forename) {
-        dispatch(getAccountInfo('profile')) //profile or account
+        dispatch(getAccountInfo('profile'))
+        dispatch(getOrdersAction())
       } else {
         setForename(account.forename)
         setSurname(account.surname)
@@ -183,7 +194,7 @@ const AccountPage = () => {
               <Row className='py-3'></Row>
             </Form>
           </Col>
-          <Col></Col>
+          <Col>USER IMAGE</Col>
         </Row>
       </Container>
     </>

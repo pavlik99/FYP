@@ -16,6 +16,7 @@ import {
   GOOGLE_AUTH_ERROR,
   GOOGLE_AUTH_SUCCESS,
   GOOGLE_SIGNOUT,
+  ACCOUNT_INFO_CLEAR,
 } from '../constants/authTypes'
 
 const initialState = {}
@@ -108,6 +109,8 @@ export const accountInfoReducer = (state = { account: {} }, action) => {
     case ACCOUNT_INFO_ERROR:
       return { loading: false, error: action.payload, success: false }
 
+    case ACCOUNT_INFO_CLEAR:
+      return { account: {} }
     default:
       return state
   }

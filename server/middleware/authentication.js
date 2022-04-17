@@ -39,4 +39,12 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   //     throw createError(401, 'Not authorized')
 })
 
-export { protect }
+const manager = (req, res, next) => {
+  if (req.user && req.user.isManager) {
+    next()
+  } else {
+    throw new Error('This page can be accessed just by managers!')
+  }
+}
+
+export { protect, manager }

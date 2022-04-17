@@ -18,4 +18,15 @@ const fetchProduct = expressAsyncHandler(async (req, res) => {
   }
 })
 
-export { fetchAllProducts, fetchProduct }
+//DELETE /api/products/:id
+const destroyProduct = expressAsyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id)
+
+  if (product) {
+    await product.remove()
+  } else {
+    res.status(404).json({ message: 'Unable to find product' })
+  }
+})
+
+export { fetchAllProducts, fetchProduct, destroyProduct }

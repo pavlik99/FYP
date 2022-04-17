@@ -128,7 +128,6 @@ const getProfile = expressAsyncHandler(async (req, res) => {
         res.status(400).json({ msg: 'Unable to find user' })
       } else {
         res.json({
-          //account
           _id: account._id,
           forename: account.forename,
           surname: account.surname,

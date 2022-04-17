@@ -51,8 +51,8 @@ const UserOrdersPage2 = ({ match, history }) => {
             <ListGroup variant='flush'>
               <ListGroupItem>
                 <h3>ORDER DETAILS</h3>
-                {order.createdAt}
               </ListGroupItem>
+
               <ListGroupItem>
                 {order.user.forename} {order.user.surname}
               </ListGroupItem>
@@ -66,6 +66,9 @@ const UserOrdersPage2 = ({ match, history }) => {
                 {order.deliveryAddress.town}, {order.deliveryAddress.zipCode}{' '}
               </ListGroupItem>
               <ListGroupItem>{order.deliveryAddress.county}, UK</ListGroupItem>
+              <ListGroupItem>
+                Ordered on: {order.createdAt.substring(0, 10)}
+              </ListGroupItem>
             </ListGroup>
           </Card>
           <ListGroup variant='flush' className='pt-2'>
@@ -98,7 +101,7 @@ const UserOrdersPage2 = ({ match, history }) => {
             token={tokenHandler}
             billingAddress
             amount={order.finalPrice * 100}
-            currency='usd'
+            currency='GBP'
           >
             <Button className='btn'>
               <i class='fa-solid fa-credit-card'> PAY</i>
