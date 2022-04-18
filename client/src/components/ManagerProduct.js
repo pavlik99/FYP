@@ -29,9 +29,11 @@ const ManagerProduct = ({ item, deleteProductHandler }) => {
               </Button>
             </Col>
             <Col>
-              <Button variant='outline-dark'>
-                <i className='fa-solid fa-sliders'> Edit</i>
-              </Button>
+              <Link to={`/manager/product/${item._id}/update`}>
+                <Button variant='outline-dark'>
+                  <i className='fa-solid fa-sliders'> Edit</i>
+                </Button>
+              </Link>
             </Col>
           </Row>
         </Card.Body>

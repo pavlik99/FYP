@@ -13,6 +13,8 @@ import CompleteOrderPage from './pages/CompleteOrderPage'
 import UserOrdersPage2 from './pages/UserOrdersPage2'
 import OrdersPage from './pages/OrdersPage'
 import ManagerProductsPage from './pages/ManagerProductsPage'
+import ProductUpdateManagerPage from './pages/ProductUpdateManagerPage'
+import OrdersManagerPage from './pages/OrdersManagerPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -37,7 +39,12 @@ function App() {
             <Route path='/order' component={CompleteOrderPage} />
             <Route path='/orders/:id' component={UserOrdersPage2} />
             <Route path='/allOrders' component={OrdersPage} />
+            <Route path='/manager/orders' component={OrdersManagerPage} />
             <Route path='/manager/products' component={ManagerProductsPage} />
+            <Route
+              path='/manager/product/:id/update'
+              component={ProductUpdateManagerPage}
+            />
           </Container>
         </main>
         <Footer />

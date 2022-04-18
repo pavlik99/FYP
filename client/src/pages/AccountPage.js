@@ -35,9 +35,6 @@ const AccountPage = () => {
   const authSignin = useSelector((state) => state.authSignin)
   const { accountData } = authSignin
 
-  const getOrders = useSelector((state) => state.getOrders)
-  const { orders } = getOrders
-
   const accountInfo = useSelector((state) => state.accountInfo)
   const { loading, account, error } = accountInfo
 

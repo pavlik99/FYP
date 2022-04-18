@@ -18,7 +18,12 @@ import {
   accountUpdateReducer,
   googleReducer,
 } from './reducers/authReducers'
-import { managerProductDeleteReducer } from './reducers/managerProductReducer'
+import {
+  managerProductDeleteReducer,
+  managerProductNewReducer,
+  managerProductUpdateReducer,
+} from './reducers/managerProductReducer'
+import { managerOrdersReducer } from './reducers/managerOrderReducer'
 
 const basketProductsStorage = localStorage.getItem('basketItems')
   ? JSON.parse(localStorage.getItem('basketItems'))
@@ -54,6 +59,9 @@ const rootReducer = combineReducers({
   getOrders: getOrdersReducer,
   payOrder: payOrderReducer,
   deleteProductManager: managerProductDeleteReducer,
+  newProductManager: managerProductNewReducer,
+  updateProductManager: managerProductUpdateReducer,
+  getOrdersManager: managerOrdersReducer,
 })
 
 const store = createStore(

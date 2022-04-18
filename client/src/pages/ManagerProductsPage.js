@@ -5,16 +5,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { MANAGER_NEW_PRODUCT_RESTART } from '../constants/managerTypes'
 // Componets
 import ManagerProduct from '../components/ManagerProduct'
 import Loading from '../components/Loading'
 // Redux Actions
 import { fetchProducts } from '../actions/productActions'
-import { managerDeleteProduct } from '../actions/managerActions'
+import {
+  managerDeleteProduct,
+  managerNewProduct,
+} from '../actions/managerActions'
 const ManagerProductsPage = () => {
   const history = useHistory()
-  const location = useLocation()
   const dispatch = useDispatch()
+
+  const authSignin = useSelector((state) => state.authSignin)
+  const { accountData } = authSignin
 
   const allProducts = useSelector((state) => state.allProducts)
   const { loading, products, success, error } = allProducts
@@ -22,10 +28,11 @@ const ManagerProductsPage = () => {
   const deleteProduct = useSelector((state) => state.deleteProductManager)
   const { deleted } = deleteProduct
 
-  const authSignin = useSelector((state) => state.authSignin)
-  const { accountData } = authSignin
+  const newProductManager = useSelector((state) => state.newProductManager)
+  const { created, product } = newProductManager
 
   useEffect(() => {
+    dispatch({ type: MANAGER_NEW_PRODUCT_RESTART })
     if (!accountData) {
       history.push('/signin')
     } else {
@@ -33,13 +40,19 @@ const ManagerProductsPage = () => {
         dispatch(fetchProducts)
       }
     }
-  }, [dispatch, history, accountData, deleted])
+    if (created) {
+      history.push(`/manager/product/${product._id}/update`)
+    } else {
+      dispatch(fetchProducts)
+    }
+  }, [dispatch, history, accountData, deleted, created])
 
   const deleteProductHandler = (id) => {
     dispatch(managerDeleteProduct(id))
+    history.push('/manager/products')
   }
   const newProduct = () => {
-    //dispatch(createProduct())
+    dispatch(managerNewProduct())
   }
 
   return (
