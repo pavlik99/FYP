@@ -17,7 +17,6 @@ import {
 } from 'react-bootstrap'
 
 import { setDeliveryAdress } from '../actions/basketActions'
-import PopOver from '../components/PopOver'
 
 const OrderPage = () => {
   const history = useHistory()
@@ -66,9 +65,32 @@ const OrderPage = () => {
                         <Image src={item.productImage} fluid rounded />
                       </Col>
                       <Col>{item.title}</Col>
+                      <Col>£{item.price}</Col>
+                      {/* CHANGE THIS */}
                       <Col>
-                        <PopOver product={item} />
+                        {item.isVegan ? (
+                          <i class='fa-solid fa-truck-fast'></i>
+                        ) : (
+                          <i class='fa-solid fa-truck-fast'></i>
+                        )}
+
+                        {item.isVegeterian ? (
+                          <i class='fa-solid fa-truck-fast'></i>
+                        ) : (
+                          ' '
+                        )}
+                        {item.isKeto ? (
+                          <i class='fa-solid fa-truck-fast'></i>
+                        ) : (
+                          ' '
+                        )}
+                        {item.isOrganic ? (
+                          <i class='fa-solid fa-truck-fast'></i>
+                        ) : (
+                          ' '
+                        )}
                       </Col>
+                      {/* AAAAAAAAAAAA */}
                     </Row>
                   </ListGroupItem>
                 ))}

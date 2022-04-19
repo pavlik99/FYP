@@ -93,16 +93,13 @@ const ProductPage = (props) => {
 
                     <Col className='pt-4'>
                       {product.countInStock > 0 ? (
-                        <i className='fa-solid fa-circle-check fa-lg'>
-                          {' '}
-                          Available
-                        </i>
+                        <i className='fa-solid fa-circle-check fa-lg'> </i>
                       ) : (
-                        <i className='fa-solid fa-circle-xmark fa-lg'>
-                          {' '}
-                          Not Available{' '}
-                        </i>
+                        <i className='fa-solid fa-circle-xmark fa-lg'> </i>
                       )}
+                      {product.countInStock > 0
+                        ? ' Available'
+                        : ' Not Available'}
                     </Col>
                   </Row>
                   <Row className='pt-5'>

@@ -5,7 +5,7 @@ const ManagerProduct = ({ item, deleteProductHandler }) => {
   return (
     <>
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
-        <Link to={`/product/${item.product}`}>
+        <Link to={`/product/${item._id}`}>
           <Card.Img
             src={item.productImage}
             className='rounded-top'
@@ -25,13 +25,13 @@ const ManagerProduct = ({ item, deleteProductHandler }) => {
                 variant='outline-dark'
                 onClick={() => deleteProductHandler(item._id)}
               >
-                <i className='fa-regular fa-trash-can'> Delete</i>
+                <i className='fa-regular fa-trash-can'> </i> DELETE
               </Button>
             </Col>
             <Col>
               <Link to={`/manager/product/${item._id}/update`}>
                 <Button variant='outline-dark'>
-                  <i className='fa-solid fa-sliders'> Edit</i>
+                  <i className='fa-solid fa-sliders'> </i> EDIT
                 </Button>
               </Link>
             </Col>

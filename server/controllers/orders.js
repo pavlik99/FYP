@@ -52,7 +52,7 @@ const getOrder = expressAsyncHandler(async (req, res) => {
   }
 })
 
-//PAY ORDER
+//PAY ORDER DELETE
 const payOrder = expressAsyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
 
@@ -79,7 +79,7 @@ const stripePayment = expressAsyncHandler(async (req, res) => {
   const charge = await stripe.charges.create({
     currency: 'GBP',
     description: 'charge',
-    // amount: 500,
+    amount: 500,
     source: req.body.id,
   })
 
@@ -108,6 +108,54 @@ const getAllOrdersManager = expressAsyncHandler(async (req, res) => {
   res.json(orders)
 })
 
+//Confirm Order
+const confirmOrder = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isConfirmed = true
+    order.confirmedAt = Date.now()
+
+    const confirmedOrder = await order.save()
+    res.json(confirmedOrder)
+  } else {
+    res.status(404)
+    throw new Error('Unable to find order')
+  }
+})
+
+//Dispatch Order
+const dispatchOrder = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isDispatched = true
+    order.dispatchedAt = Date.now()
+
+    const dispatchedOrder = await order.save()
+    res.json(dispatchedOrder)
+  } else {
+    res.status(404)
+    throw new Error('Unable to find order')
+  }
+})
+
+// Mark order as delivered
+const deliverOrder = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isDelivered = true
+    order.deliveredAt = Date.now()
+
+    const deliverOrder = await order.save()
+    res.json(deliverOrder)
+  } else {
+    res.status(404)
+    throw new Error('Unable to find order')
+  }
+})
+
 export {
   putOrderProducts,
   getOrder,
@@ -115,4 +163,7 @@ export {
   stripePayment,
   getOrders,
   getAllOrdersManager,
+  confirmOrder,
+  dispatchOrder,
+  deliverOrder,
 }

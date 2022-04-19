@@ -25,7 +25,7 @@ const popover = (
 )
 
 const PopOver = ({ product }) => (
-  <OverlayTrigger trigger='hover , focus' placement='right' overlay={popover}>
+  <OverlayTrigger trigger='hover' placement='right' overlay={popover}>
     <Row>
       <Col>
         <i

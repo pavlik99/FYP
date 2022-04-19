@@ -91,6 +91,12 @@ const orderSchema = mongoose.Schema(
       default: false,
       required: true,
     },
+    confirmedAt: {
+      type: Date,
+    },
+    dispatchedAt: {
+      type: Date,
+    },
     deliveredAt: {
       type: Date,
     },

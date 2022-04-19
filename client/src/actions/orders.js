@@ -95,32 +95,32 @@ export const getOrdersAction = () => async (dispatch, getState) => {
   }
 }
 //DELTE
-export const payOrder = (orderId) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: PAY_ORDER_START,
-    })
-    const {
-      authSignin: { accountData },
-    } = getState()
+// export const payOrder = (orderId) => async (dispatch, getState) => {
+//   try {
+//     dispatch({
+//       type: PAY_ORDER_START,
+//     })
+//     const {
+//       authSignin: { accountData },
+//     } = getState()
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accountData.token}`,
-      },
-    }
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${accountData.token}`,
+//       },
+//     }
 
-    const { data } = await axios.put(`/api/orders/${orderId}/payment`, config)
+//     const { data } = await axios.put(`/api/orders/${orderId}/payment`, config)
 
-    dispatch({
-      type: PAY_ORDER,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({ type: PAY_ORDER_ERROR, payload: error.response })
-  }
-}
+//     dispatch({
+//       type: PAY_ORDER,
+//       payload: data,
+//     })
+//   } catch (error) {
+//     dispatch({ type: PAY_ORDER_ERROR, payload: error.response })
+//   }
+// }
 //END DELETE
 export const handleToken = (token, orderId) => async (dispatch, getState) => {
   dispatch({
@@ -143,7 +143,7 @@ export const handleToken = (token, orderId) => async (dispatch, getState) => {
   })
 }
 
-//ORIGINAL
+//ORIGINAL DELETE
 // export const payOrder =
 //   (orderId, paymentResult) => async (dispatch, getState) => {
 //     try {

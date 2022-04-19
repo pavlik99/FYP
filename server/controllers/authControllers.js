@@ -89,7 +89,7 @@ const signup = expressAsyncHandler(async (req, res) => {
               forename: account.forename,
               surname: account.surname,
               email: account.email,
-              isAdmin: account.isAdmin,
+              isManager: account.isManager,
               token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
                 expiresIn: '60d',
               }),
@@ -132,7 +132,7 @@ const getProfile = expressAsyncHandler(async (req, res) => {
           forename: account.forename,
           surname: account.surname,
           email: account.email,
-          isAdmin: account.isAdmin,
+          isManager: account.isManager,
         })
       }
     })

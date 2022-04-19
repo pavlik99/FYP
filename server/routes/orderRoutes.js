@@ -7,6 +7,9 @@ import {
   stripePayment,
   getOrders,
   getAllOrdersManager,
+  confirmOrder,
+  dispatchOrder,
+  deliverOrder,
 } from '../controllers/orders.js'
 import { protect, manager } from '../middleware/authentication.js'
 
@@ -27,5 +30,14 @@ router.put('/:id/payment', protect, payOrder)
 
 //POST /api/orders/:id/stripe
 router.post('/:id/stripe', protect, stripePayment)
+
+//POST /api/orders/:id/confirm
+router.put('/:id/confirm', confirmOrder)
+
+//POST /api/orders/:id/dispatch
+router.put('/:id/dispatch', dispatchOrder)
+
+//POST /api/orders/:id/deliver
+router.put('/:id/deliver', deliverOrder)
 
 export default router

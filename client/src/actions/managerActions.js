@@ -13,6 +13,18 @@ import {
   GET_ALL_ORDERS_MANAGER,
   GET_ALL_ORDERS_MANAGER_ERROR,
   GET_ALL_ORDERS_MANAGER_START,
+  CONFIRM_ORDER_MANAGER_START,
+  CONFIRM_ORDER_MANAGER,
+  CONFIRM_ORDER_MANAGER_ERROR,
+  DISPATCH_ORDER_MANAGER,
+  DISPATCH_ORDER_MANAGER_START,
+  DISPATCH_ORDER_MANAGER_ERROR,
+  DELIVER_ORDER_MANAGER,
+  DELIVER_ORDER_MANAGER_ERROR,
+  DELIVER_ORDER_MANAGER_START,
+  DELIVER_ORDER_MANAGER_RESTART,
+  DISPATCH_ORDER_MANAGER_RESTART,
+  CONFIRM_ORDER_MANAGER_RESTART,
 } from '../constants/managerTypes'
 
 export const managerDeleteProduct = (id) => async (dispatch, getState) => {
@@ -112,6 +124,84 @@ export const managerGetAllOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ORDERS_MANAGER_ERROR,
+      payload: error.response,
+    })
+  }
+}
+
+export const confirmOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CONFIRM_ORDER_MANAGER_START })
+
+    const {
+      authSignin: { accountData },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accountData.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/orders/${order._id}/confirm`, config)
+
+    dispatch({ type: CONFIRM_ORDER_MANAGER, payload: data })
+  } catch (error) {
+    dispatch({
+      type: CONFIRM_ORDER_MANAGER_ERROR,
+      payload: error.response,
+    })
+  }
+}
+
+export const dispatchOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DISPATCH_ORDER_MANAGER_START })
+
+    const {
+      authSignin: { accountData },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accountData.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/dispatch`,
+      config
+    )
+
+    dispatch({ type: DISPATCH_ORDER_MANAGER, payload: data })
+  } catch (error) {
+    dispatch({
+      type: DISPATCH_ORDER_MANAGER_ERROR,
+      payload: error.response,
+    })
+  }
+}
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DELIVER_ORDER_MANAGER_START })
+
+    const {
+      authSignin: { accountData },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accountData.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/orders/${order._id}/deliver`, config)
+
+    dispatch({ type: DELIVER_ORDER_MANAGER, payload: data })
+  } catch (error) {
+    dispatch({
+      type: DELIVER_ORDER_MANAGER_ERROR,
       payload: error.response,
     })
   }

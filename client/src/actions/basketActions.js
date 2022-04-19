@@ -19,6 +19,10 @@ export const addProduct = (id, quantity) => async (dispatch, getState) => {
       productImage: data.productImage,
       price: data.price,
       countInStock: data.countInStock,
+      isVegan: data.isVegan,
+      isKeto: data.isKeto,
+      isVegeterian: data.isVegeterian,
+      isOrganic: data.isOrganic,
       quantity,
     },
   })
