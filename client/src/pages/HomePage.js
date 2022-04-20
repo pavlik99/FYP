@@ -9,14 +9,16 @@ import Icons from '../components/Icons'
 import { fetchProducts } from '../actions/productActions'
 import Loading from '../components/Loading'
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
   const dispatch = useDispatch()
   const allProducts = useSelector((state) => state.allProducts)
   const { loading, products, success, error } = allProducts
 
+  const keyword = match.params.keyword
+
   useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
+    dispatch(fetchProducts(keyword))
+  }, [dispatch, keyword])
 
   return (
     <>

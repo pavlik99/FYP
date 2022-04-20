@@ -3,7 +3,15 @@ import Product from '../models/productModel.js'
 
 // GET /api/products
 const fetchAllProducts = expressAsyncHandler(async (req, res) => {
-  const products = await Product.find({})
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {}
+  const products = await Product.find({ ...keyword })
   res.json(products)
 })
 

@@ -1,23 +1,41 @@
-import { NavLink } from 'react-router-dom'
 import React from 'react'
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
-import { signout, googleSignout } from '../actions/authActions'
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  Button,
+} from 'react-bootstrap'
+
+import { signout, googleSignout } from '../actions/authActions'
+
 const Header = () => {
   const history = useHistory()
+  const [keyword, setKeyword] = useState('')
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    if (keyword.trim()) {
+      history.push(`/search/${keyword}`)
+    } else {
+      history.push('/')
+    }
+  }
+
   const location = useLocation()
   const dispatch = useDispatch()
+
   const authSignin = useSelector((state) => state.authSignin)
   const { accountData } = authSignin
 
   const googleSignin = useSelector((state) => state.googleSignin)
   const { googleData } = googleSignin
 
-  //GOOGLE
   const [googleUser, setGoogleUser] = useState(
     JSON.parse(localStorage.getItem('googleProfile'))
   )
@@ -52,6 +70,18 @@ const Header = () => {
                 <i className='fas fa-utensils'></i> Recepies
               </Nav.Link>
             </Nav>
+
+            <Form className='d-flex' onSubmit={submitHandler}>
+              <Form.Control
+                type='search'
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder='Search'
+                aria-label='Search'
+                className='me-2'
+              ></Form.Control>
+              <Button variant='outline-secondary'>Search</Button>
+            </Form>
+
             <Nav className='ms-auto'>
               <Nav.Link as={Link} to='/basket'>
                 <i className='fas fa-bag-shopping'></i> Shopping bag

@@ -18,7 +18,7 @@ import OrdersManagerPage from './pages/OrdersManagerPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css' // Maybe delete later
+//import 'bootstrap/dist/css/bootstrap.min.css' // Maybe delete later
 import 'slick-carousel/slick/slick.css' //delete if no coursel
 import 'slick-carousel/slick/slick-theme.css' // -.-.-.-.-
 
@@ -30,6 +30,7 @@ function App() {
         <main className='py-2'>
           <Container>
             <Route path='/' component={HomePage} exact />
+            <Route path='/search/:keyword' component={HomePage} />
             <Route path='/profile' component={AccountPage} />
             <Route path='/signup' component={SignupPage} />
             <Route path='/signin' component={SigninPage} />
@@ -41,6 +42,7 @@ function App() {
             <Route path='/allOrders' component={OrdersPage} />
             <Route path='/manager/orders' component={OrdersManagerPage} />
             <Route path='/manager/products' component={ManagerProductsPage} />
+
             <Route
               path='/manager/product/:id/update'
               component={ProductUpdateManagerPage}
