@@ -3,7 +3,11 @@ import { combineReducers, applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 //IMPORTING REDUCERS
-import { productsReducer, productReducer } from './reducers/productReducers'
+import {
+  productsReducer,
+  productReducer,
+  rateProductReducer,
+} from './reducers/productReducers'
 import {
   createOrderReducer,
   getOrderReducer,
@@ -70,6 +74,7 @@ const rootReducer = combineReducers({
   confirmOrderManager: confirmOrderReducer,
   dispatchOrderManager: dispatchOrderReducer,
   deliverOrderManager: deliverOrderReducer,
+  rateProduct: rateProductReducer,
 })
 
 const store = createStore(

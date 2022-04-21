@@ -5,6 +5,10 @@ import {
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_ERROR,
+  RATE_PRODUCT_ERROR,
+  RATE_PRODUCT_REQUEST,
+  RATE_PRODUCT_RESTART,
+  RATE_PRODUCT_SUCCESS,
 } from '../constants/productTypes'
 import axios from 'axios'
 
@@ -34,7 +38,40 @@ export const fetchProduct = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FETCH_PRODUCT_ERROR,
-      payload: error.response && error.response.data.message,
+      payload: error.response,
+    })
+  }
+}
+
+//RATE PRODUCT
+export const rateProductAction = (id, review) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: RATE_PRODUCT_REQUEST })
+
+    const {
+      authSignin: { accountData },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accountData.token}`,
+      },
+    }
+
+    // const { data } = await axios.post(
+    //   `/api/products/${id}/reviews`,
+    //   review,
+    //   config
+    // )
+
+    await axios.post(`/api/products/${id}/reviews`, review, config)
+
+    dispatch({ type: RATE_PRODUCT_SUCCESS })
+  } catch (error) {
+    dispatch({
+      type: RATE_PRODUCT_ERROR,
+      payload: error.response,
     })
   }
 }

@@ -21,6 +21,7 @@ const BasketPage = (props) => {
 
   const basket = useSelector((state) => state.basket)
   const { basketItems } = basket
+
   const quantity = location.search ? Number(location.search.split('=')[1]) : 1
   const dispatch = useDispatch()
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import {
   Col,
   Row,
@@ -8,9 +9,9 @@ import {
   ListGroup,
   ListGroupItem,
   Container,
+  Form,
+  Button,
 } from 'react-bootstrap'
-
-import { useDispatch, useSelector } from 'react-redux'
 
 import Reviews from '../components/Reviews'
 import PopOver from '../components/PopOver'
@@ -19,31 +20,46 @@ import ModalBasket from '../components/ModalBasket'
 import ProductAccordion from '../components/ProductAccordion'
 //import ProductsRecommnedation from '../components/ProductsRecommnedation'
 
-import { fetchProduct } from '../actions/productActions'
+// REDUX ACTIONS
+import { fetchProduct, rateProductAction } from '../actions/productActions'
+import { RATE_PRODUCT_RESTART } from '../constants/productTypes'
 
-import { useHistory } from 'react-router-dom'
-// const product = products.find(p => p._id ===  props.match.params.id )
-//{match}
-//props.match
 const ProductPage = (props) => {
-  // {match} instead props
-  let history = useHistory() //aaaaaaaaaaaaaaaaaaaaaaaaa section 6 video 1
-  const [quantity, setQuantity] = useState(1)
+  const productId = props.match.params.id
+  let history = useHistory()
   const dispatch = useDispatch()
-  const oneProduct = useSelector((state) => state.oneProduct)
-  const { loading, product, success, error } = oneProduct
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
+  const [quantity, setQuantity] = useState(1)
+  const [rating, setRating] = useState(0)
+
+  const authSignin = useSelector((state) => state.authSignin)
+  const { accountData } = authSignin
+
+  const oneProduct = useSelector((state) => state.oneProduct)
+  const { loading, product, success, error } = oneProduct
+
+  const rateProduct = useSelector((state) => state.rateProduct)
+  const { rated } = rateProduct
+
   useEffect(() => {
-    dispatch(fetchProduct(props.match.params.id)) //match.params.id
-  }, [dispatch, props.match.params.id]) //maybe delete "props.match.params.id"
+    if (rated) {
+      setRating(0)
+      dispatch({ type: RATE_PRODUCT_RESTART })
+    }
+    dispatch(fetchProduct(props.match.params.id))
+  }, [dispatch, props.match.params.id, rated])
 
   const addToBasketHandler = () => {
-    //Handler
     history.push(`/basket/${props.match.params.id}?quantity=${quantity}`)
+  }
+
+  const ratingHandler = (e) => {
+    e.preventDefault()
+    dispatch(rateProductAction(productId, { rating }))
   }
 
   return (
@@ -75,7 +91,7 @@ const ProductPage = (props) => {
                 </ListGroupItem>
                 <ListGroupItem>Price: £{product.price}</ListGroupItem>
                 <ListGroupItem>
-                  <PopOver product={product} />
+                  {/* <PopOver product={product} /> */}
                 </ListGroupItem>
                 <ListGroupItem>{product.description}</ListGroupItem>
                 <ListGroupItem>
@@ -101,17 +117,47 @@ const ProductPage = (props) => {
                         ? ' Available'
                         : ' Not Available'}
                     </Col>
-                  </Row>
-                  <Row className='pt-5'>
-                    <Col>
+                    <Col className='pt-4'>
                       <text className='px-3'>Share</text>
                       <i className='fa-brands fa-twitter px-1'> </i>
                       <i className='fa-brands fa-facebook px-1'> </i>
                       <i className='fa-brands fa-pinterest px-1'> </i>
                     </Col>
                   </Row>
+                  {/* <Row className='pt-5'> */}
+                  {/* <Col>
+                      <text className='px-3'>Share</text>
+                      <i className='fa-brands fa-twitter px-1'> </i>
+                      <i className='fa-brands fa-facebook px-1'> </i>
+                      <i className='fa-brands fa-pinterest px-1'> </i>
+                    </Col> */}
+                  {/* </Row> */}
                 </ListGroupItem>
               </ListGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form onSubmit={ratingHandler}>
+                <Form.Group controlId='rating'>
+                  <Form.Label>Rating</Form.Label>
+                  <Form.Select
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                  >
+                    <option value=''>Select...</option>
+                    <option value='1'>1 - Poor</option>
+                    <option value='2'>2 - Fair</option>
+                    <option value='3'>3 - Good</option>
+                    <option value='4'>4 - Very Good</option>
+                    <option value='5'>5 - Excellent</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Button type='submit' variant='primary'>
+                  Submit
+                </Button>
+              </Form>
             </Col>
           </Row>
 

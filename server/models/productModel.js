@@ -3,8 +3,12 @@ import mongoose from 'mongoose'
 const ratingSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    review: { type: Number, required: true },
-    comment: { type: String, required: true },
+    rating: { type: Number, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,
@@ -76,14 +80,14 @@ const productSchema = mongoose.Schema(
       default: false,
     },
     reviews: [ratingSchema],
-    review: {
+    rating: {
       type: Number,
       required: true,
       default: 0,
     },
     numReviews: {
       type: Number,
-      required: false,
+      required: true,
       default: 0,
     },
     countInStock: {

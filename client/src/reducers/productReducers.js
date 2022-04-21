@@ -5,6 +5,10 @@ import {
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_ERROR,
+  RATE_PRODUCT_ERROR,
+  RATE_PRODUCT_REQUEST,
+  RATE_PRODUCT_RESTART,
+  RATE_PRODUCT_SUCCESS,
 } from '../constants/productTypes'
 
 const originalState = {
@@ -63,6 +67,38 @@ export const productReducer = (state = initialState, action) => {
 
     case FETCH_PRODUCT_ERROR:
       return { ...state, loading: false, error: action.payload, success: false }
+
+    default:
+      return state
+  }
+}
+
+export const rateProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RATE_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        // ...state,
+        rated: false,
+      }
+
+    case RATE_PRODUCT_SUCCESS:
+      return {
+        // ...state,
+        loading: false,
+        rated: true,
+      }
+
+    case RATE_PRODUCT_ERROR:
+      return {
+        //...state,
+        loading: false,
+        error: action.payload,
+        rated: false,
+      }
+
+    case RATE_PRODUCT_RESTART:
+      return {}
 
     default:
       return state

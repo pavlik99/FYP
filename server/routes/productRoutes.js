@@ -5,6 +5,7 @@ import {
   destroyProduct,
   updateProduct,
   newProduct,
+  newReview,
 } from '../controllers/productControllers.js'
 const router = express.Router()
 import { manager, protect } from '../middleware/authentication.js'
@@ -14,6 +15,9 @@ router.get('/', fetchAllProducts)
 
 //GET /api/products/:id
 router.get('/:id', fetchProduct)
+
+//REVIEW ROUTE
+router.post('/:id/reviews', protect, newReview)
 
 // MANAGER ROUTES
 // DELETE A PRODUCT
