@@ -9,17 +9,16 @@ import {
   ListGroup,
   ListGroupItem,
   Container,
-  Form,
-  Button,
 } from 'react-bootstrap'
 
 import Reviews from '../components/Reviews'
 import PopOver from '../components/PopOver'
 import Loading from '../components/Loading'
 import ModalBasket from '../components/ModalBasket'
+//import ModalRateProduct from '../components/ModalRateProduct'
 import ProductAccordion from '../components/ProductAccordion'
 //import ProductsRecommnedation from '../components/ProductsRecommnedation'
-
+import ModalReview from '../components/ModalReview'
 // REDUX ACTIONS
 import { fetchProduct, rateProductAction } from '../actions/productActions'
 import { RATE_PRODUCT_RESTART } from '../constants/productTypes'
@@ -33,11 +32,15 @@ const ProductPage = (props) => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
+  const [showReview, setShowReview] = useState(false)
+  const handleCloseReview = () => setShowReview(false)
+  const handleShowReview = () => setShowReview(true)
+
   const [quantity, setQuantity] = useState(1)
   const [rating, setRating] = useState(0)
 
   const authSignin = useSelector((state) => state.authSignin)
-  const { accountData } = authSignin
+  const { accountData } = authSignin //delete if still not using this one
 
   const oneProduct = useSelector((state) => state.oneProduct)
   const { loading, product, success, error } = oneProduct
@@ -84,14 +87,26 @@ const ProductPage = (props) => {
                   <h4>{product.title}</h4>{' '}
                 </ListGroupItem>
                 <ListGroupItem>
-                  <Reviews
-                    value={product.review}
-                    text={`${product.numReviews} reviews`}
-                  />
+                  <Row>
+                    <Col>
+                      <ModalReview
+                        showReview={showReview}
+                        setShowReview={setShowReview}
+                        handleCloseReview={handleCloseReview}
+                        handleShowReview={handleShowReview}
+                        rated={rated}
+                        rating={rating}
+                        setRating={setRating}
+                        ratingHandler={ratingHandler}
+                        value={product.review}
+                        text={`${product.numReviews} reviews`}
+                      />
+                    </Col>
+                  </Row>
                 </ListGroupItem>
                 <ListGroupItem>Price: £{product.price}</ListGroupItem>
                 <ListGroupItem>
-                  {/* <PopOver product={product} /> */}
+                  <PopOver product={product} />
                 </ListGroupItem>
                 <ListGroupItem>{product.description}</ListGroupItem>
                 <ListGroupItem>
@@ -138,7 +153,7 @@ const ProductPage = (props) => {
           </Row>
           <Row>
             <Col>
-              <Form onSubmit={ratingHandler}>
+              {/* <Form onSubmit={ratingHandler}>
                 <Form.Group controlId='rating'>
                   <Form.Label>Rating</Form.Label>
                   <Form.Select
@@ -146,7 +161,13 @@ const ProductPage = (props) => {
                     onChange={(e) => setRating(e.target.value)}
                   >
                     <option value=''>Select...</option>
-                    <option value='1'>1 - Poor</option>
+                    <option value='1'>
+                      <img
+                        alt='reviews'
+                        className='px-1'
+                        src='/images/full-star.png'
+                      />
+                    </option>
                     <option value='2'>2 - Fair</option>
                     <option value='3'>3 - Good</option>
                     <option value='4'>4 - Very Good</option>
@@ -157,7 +178,7 @@ const ProductPage = (props) => {
                 <Button type='submit' variant='primary'>
                   Submit
                 </Button>
-              </Form>
+              </Form> */}
             </Col>
           </Row>
 

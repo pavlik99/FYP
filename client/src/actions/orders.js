@@ -122,6 +122,7 @@ export const getOrdersAction = () => async (dispatch, getState) => {
 //   }
 // }
 //END DELETE
+//STRIPE CHECKOUT
 export const handleToken = (token, orderId) => async (dispatch, getState) => {
   dispatch({
     type: PAY_ORDER_START,

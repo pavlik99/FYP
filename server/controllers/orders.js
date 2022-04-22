@@ -52,34 +52,12 @@ const getOrder = expressAsyncHandler(async (req, res) => {
   }
 })
 
-//PAY ORDER DELETE
-const payOrder = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
-
-  if (order) {
-    order.isPaid = true
-    order.paidAt = Date.now()
-    order.paymentResult = {
-      id: req.body.id,
-      status: req.body.status,
-      update_time: req.body.update_time,
-      email_address: req.body.payer.email_address,
-    }
-
-    const newOrder = await order.save()
-    res.json(newOrder)
-  } else {
-    res.status(404)
-    throw new Error('Unable to find order')
-  }
-})
-
 //STRIPE PAYMENT
 const stripePayment = expressAsyncHandler(async (req, res) => {
   const charge = await stripe.charges.create({
     currency: 'GBP',
     description: 'charge',
-    amount: 500,
+    amount: 100,
     source: req.body.id,
   })
 
@@ -159,7 +137,6 @@ const deliverOrder = expressAsyncHandler(async (req, res) => {
 export {
   putOrderProducts,
   getOrder,
-  payOrder,
   stripePayment,
   getOrders,
   getAllOrdersManager,

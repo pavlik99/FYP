@@ -7,6 +7,7 @@ import path from 'path'
 import productRoutes from './routes/productRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+//import recipeRoutes from './routes/recipeRoutes.js'
 import imageRoutes from './routes/imageRoutes.js'
 
 dotenv.config()
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes)
 app.use('/api/account', authRoutes)
 app.use('/api/orders', orderRoutes)
+//app.use('/api/recipes', recipeRoutes)
 app.use('/api/upload', imageRoutes)
 
 const __dirname = path.resolve()

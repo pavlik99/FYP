@@ -3,7 +3,6 @@ import express from 'express'
 import {
   getOrder,
   putOrderProducts,
-  payOrder,
   stripePayment,
   getOrders,
   getAllOrdersManager,
@@ -24,9 +23,6 @@ router.get('/', protect, getAllOrdersManager)
 
 //GET /api/orders/:id
 router.get('/:id', protect, getOrder)
-
-//PUT /api/orders/:id/payment DELETE
-router.put('/:id/payment', protect, payOrder)
 
 //POST /api/orders/:id/stripe
 router.post('/:id/stripe', protect, stripePayment)

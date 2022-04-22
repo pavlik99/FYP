@@ -24,7 +24,14 @@ const ModalBasket = ({
         ADD TO BASKET
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop='static'
+        keyboard={false}
+        aria-labelledby='contained-modal-title-vcenter'
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Select Quantity</Modal.Title>
         </Modal.Header>
@@ -38,6 +45,7 @@ const ModalBasket = ({
                     as='select'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
+                    autoFocus
                   >
                     {[...Array(product.countInStock).keys()].map((x) => (
                       <option key={x + 1} value={x + 1}>

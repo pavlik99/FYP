@@ -136,7 +136,13 @@ const ProductUpdateManagerPage = (props) => {
               </Button>
               <Row className='pt-2'>
                 <Col>
-                  <Image src={product.productImage} fluid rounded width='500' />
+                  <Image
+                    src={product.productImage}
+                    fluid
+                    rounded
+                    width={600}
+                    height={600}
+                  />
 
                   {/* Product Image*/}
                   <Form.Group className='mb-3 mt-3' controlId='formBasicImage'>
