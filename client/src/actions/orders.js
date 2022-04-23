@@ -84,7 +84,7 @@ export const getOrdersAction = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get('/api/orders/allOrders', config)
+    const { data } = await axios.get('/api/orders/allorders', config)
 
     dispatch({
       type: GET_USER_ORDERS,
@@ -94,34 +94,7 @@ export const getOrdersAction = () => async (dispatch, getState) => {
     dispatch({ type: GET_USER_ORDERS_ERROR, payload: error.response })
   }
 }
-//DELTE
-// export const payOrder = (orderId) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: PAY_ORDER_START,
-//     })
-//     const {
-//       authSignin: { accountData },
-//     } = getState()
 
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${accountData.token}`,
-//       },
-//     }
-
-//     const { data } = await axios.put(`/api/orders/${orderId}/payment`, config)
-
-//     dispatch({
-//       type: PAY_ORDER,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({ type: PAY_ORDER_ERROR, payload: error.response })
-//   }
-// }
-//END DELETE
 //STRIPE CHECKOUT
 export const handleToken = (token, orderId) => async (dispatch, getState) => {
   dispatch({
@@ -143,36 +116,3 @@ export const handleToken = (token, orderId) => async (dispatch, getState) => {
     payload: res.data,
   })
 }
-
-//ORIGINAL DELETE
-// export const payOrder =
-//   (orderId, paymentResult) => async (dispatch, getState) => {
-//     try {
-//       dispatch({
-//         type: PAY_ORDER_START,
-//       })
-//       const {
-//         authSignin: { accountData },
-//       } = getState()
-
-//       const config = {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization: `Bearer ${accountData.token}`,
-//         },
-//       }
-
-//       const { data } = await axios.put(
-//         `/api/orders/${orderId}/payment`,
-//         paymentResult,
-//         config
-//       )
-
-//       dispatch({
-//         type: PAY_ORDER,
-//         payload: data,
-//       })
-//     } catch (error) {
-//       dispatch({ type: PAY_ORDER_ERROR, payload: error.response })
-//     }
-//   }

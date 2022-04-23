@@ -33,6 +33,15 @@ import {
   dispatchOrderReducer,
   deliverOrderReducer,
 } from './reducers/managerOrderReducer'
+import {
+  recipeReducer,
+  recipesReducer,
+  likeRecipeReducer,
+  deleteRecipeReducer,
+  newRecipeReducer,
+  updateRecipeReducer,
+  getUserRecipesReducer,
+} from './reducers/recipeReducers'
 
 const basketProductsStorage = localStorage.getItem('basketItems')
   ? JSON.parse(localStorage.getItem('basketItems'))
@@ -75,6 +84,13 @@ const rootReducer = combineReducers({
   dispatchOrderManager: dispatchOrderReducer,
   deliverOrderManager: deliverOrderReducer,
   rateProduct: rateProductReducer,
+  allRecipes: recipesReducer,
+  oneRecipe: recipeReducer,
+  likeRecipe: likeRecipeReducer,
+  deleteRecipe: deleteRecipeReducer,
+  newRecipe: newRecipeReducer,
+  updateRecipe: updateRecipeReducer,
+  getUserRecipes: getUserRecipesReducer,
 })
 
 const store = createStore(

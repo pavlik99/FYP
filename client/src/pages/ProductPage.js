@@ -11,14 +11,13 @@ import {
   Container,
 } from 'react-bootstrap'
 
-import Reviews from '../components/Reviews'
 import PopOver from '../components/PopOver'
 import Loading from '../components/Loading'
 import ModalBasket from '../components/ModalBasket'
-//import ModalRateProduct from '../components/ModalRateProduct'
 import ProductAccordion from '../components/ProductAccordion'
-//import ProductsRecommnedation from '../components/ProductsRecommnedation'
 import ModalReview from '../components/ModalReview'
+//import ProductsRecommnedation from '../components/ProductsRecommnedation'
+
 // REDUX ACTIONS
 import { fetchProduct, rateProductAction } from '../actions/productActions'
 import { RATE_PRODUCT_RESTART } from '../constants/productTypes'

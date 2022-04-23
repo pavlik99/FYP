@@ -19,7 +19,7 @@ import {
 // const originalState = {
 //   orders: [],
 // }
-// GET ALL PRODUCTS
+// GET ALL ORDERS
 export const managerOrdersReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case GET_ALL_ORDERS_MANAGER_START:

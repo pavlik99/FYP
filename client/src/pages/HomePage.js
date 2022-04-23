@@ -9,6 +9,7 @@ import Icons from '../components/Icons'
 import { fetchProducts } from '../actions/productActions'
 import Loading from '../components/Loading'
 
+//make it props instead of match
 const HomePage = ({ match }) => {
   const dispatch = useDispatch()
   const allProducts = useSelector((state) => state.allProducts)

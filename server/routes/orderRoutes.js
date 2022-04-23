@@ -12,8 +12,8 @@ import {
 } from '../controllers/orders.js'
 import { protect, manager } from '../middleware/authentication.js'
 
-//GET /api/orders/allOrders
-router.get('/allOrders', protect, getOrders)
+//GET /api/orders/allorders
+router.get('/allorders', protect, getOrders)
 
 //POST /api/orders
 router.post('/', protect, putOrderProducts)

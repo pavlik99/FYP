@@ -66,7 +66,7 @@ const Header = () => {
               <Nav.Link as={Link} to='/#action1'>
                 Products
               </Nav.Link>
-              <Nav.Link as={Link} to='/#action2'>
+              <Nav.Link as={Link} to='/recipes'>
                 <i className='fas fa-utensils'></i> Recepies
               </Nav.Link>
             </Nav>
@@ -84,32 +84,44 @@ const Header = () => {
 
             <Nav className='ms-auto'>
               <Nav.Link as={Link} to='/basket'>
-                <i className='fas fa-bag-shopping'></i> Shopping bag
+                <i className='fas fa-bag-shopping'></i> Basket
               </Nav.Link>
 
               {accountData ? (
-                <NavDropdown title={accountData.forename}>
-                  <NavDropdown.Item>
-                    <Nav.Link as={Link} to='/profile'>
-                      ACCOUNT
-                    </Nav.Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Nav.Link as={Link} to='/allOrders'>
-                      ORDERS
-                    </Nav.Link>
-                  </NavDropdown.Item>
+                <>
+                  <NavDropdown title={<i class='fa-solid fa-user'></i>}>
+                    <NavDropdown.Item>
+                      <Nav.Link as={Link} to='/profile'>
+                        ACCOUNT
+                      </Nav.Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Nav.Link as={Link} to='/myrecipes'>
+                        RECIPES
+                      </Nav.Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Nav.Link as={Link} to='/allOrders'>
+                        ORDERS
+                      </Nav.Link>
+                    </NavDropdown.Item>
 
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={signoutHandler}>
-                    SIGNOUT
-                  </NavDropdown.Item>
-                </NavDropdown>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={signoutHandler}>
+                      SIGNOUT
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : googleData ? (
                 <NavDropdown>
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to='/profile'>
                       ACCOUNT
+                    </Nav.Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to='/myrecipes'>
+                      RECIPES
                     </Nav.Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>

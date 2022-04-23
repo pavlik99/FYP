@@ -80,7 +80,7 @@ const getOrders = expressAsyncHandler(async (req, res) => {
   res.json(orders)
 })
 
-// GET USER ORDERS
+// GET All USER ORDERS
 const getAllOrdersManager = expressAsyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', 'id forename surname')
   res.json(orders)

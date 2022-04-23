@@ -72,7 +72,7 @@ export const productReducer = (state = initialState, action) => {
       return state
   }
 }
-
+// RATE A PRODUCT
 export const rateProductReducer = (state = {}, action) => {
   switch (action.type) {
     case RATE_PRODUCT_REQUEST:

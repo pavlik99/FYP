@@ -33,12 +33,12 @@ const AccountPage = () => {
     if (!accountData) {
       history.push('/signin')
     } else {
-      if (!account.forename) {
-        dispatch(getAccountInfo('allOrders'))
+      if (!accountData.forename) {
+        dispatch(getAccountInfo('allorders'))
         dispatch(getOrdersAction())
       }
     }
-  }, [dispatch, history, accountData, account])
+  }, [dispatch, history, accountData])
 
   return (
     <>
@@ -50,12 +50,36 @@ const AccountPage = () => {
                 <ListGroup.Item key={item._id}>
                   <Row>
                     <Col>{item.createdAt.substring(0, 10)}</Col>
-                    <Col></Col>
-                    <Col></Col>
-
+                    <Col>
+                      {' '}
+                      {item.isConfirmed ? (
+                        <i class='fa-regular fa-circle-check'> </i>
+                      ) : (
+                        <i class='fa-solid fa-circle-exclamation'></i>
+                      )}{' '}
+                      {item.isConfirmed ? ' Accepted' : 'Not accepted'}
+                    </Col>
+                    <Col>
+                      {item.isDispatched ? (
+                        <i class='fa-solid fa-truck-fast'></i>
+                      ) : (
+                        <i class='fa-solid fa-plane-slash'></i>
+                      )}{' '}
+                      {item.isDispatched ? ' Dispatched' : ' Not dispatched'}{' '}
+                    </Col>
+                    <Col>
+                      {item.isDelivered ? (
+                        <i class='fa-solid fa-house'> </i>
+                      ) : (
+                        <i class='fa-solid fa-circle-xmark'></i>
+                      )}{' '}
+                      {item.isDelivered ? ' Delivered' : ' Not delivered'}{' '}
+                    </Col>
                     <Col>
                       <Link to={`/orders/${item._id}`}>
-                        <Button variant='outline-dark'>DETAILS </Button>
+                        <Button variant='outline-dark' size='sm'>
+                          DETAILS{' '}
+                        </Button>
                       </Link>
                     </Col>
                   </Row>

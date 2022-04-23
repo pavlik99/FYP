@@ -27,6 +27,11 @@ const recipeSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    likes: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     isVegeterian: {
       type: Boolean,
       default: false,

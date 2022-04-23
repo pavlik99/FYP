@@ -1,4 +1,7 @@
+import express from 'express'
+import mongoose from 'mongoose'
 import expressAsyncHandler from 'express-async-handler'
+
 import Recipe from '../models/recipeModel.js'
 import User from '../models/userModel.js'
 
@@ -19,6 +22,12 @@ const fetchRecipe = expressAsyncHandler(async (req, res) => {
   }
 })
 
+// GET USER RECIPES
+const getUserRecipes = expressAsyncHandler(async (req, res) => {
+  const recipes = await Recipe.find({ user: req.user._id })
+  res.json(recipes)
+})
+
 // CREATE, UPDATE AND DELETE RECIPE CONTROLLERS
 
 // CREATE A RECIPE
@@ -27,12 +36,14 @@ const newRecipe = expressAsyncHandler(async (req, res) => {
   const recipe = new Recipe({
     user: req.user._id,
     title: 'Choose Title',
+    image: '/images/defaultProduct.jpg',
     description: 'Add Desciption',
     body: 'Text',
     ingredients: 'Add Ingredietns',
     isVegeterian: false,
     isVegan: true,
     isKeto: false,
+    likes: 0,
   })
 
   try {
@@ -43,4 +54,74 @@ const newRecipe = expressAsyncHandler(async (req, res) => {
     res.status(409).json({ message: error.message })
   }
 })
-export { fetchAllRecipes, fetchRecipe, newRecipe }
+
+// DELETE A RECIPE
+// DELETE /api/recipes/:id
+const destroyRecipe = expressAsyncHandler(async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+    return res.status(404).send('Recipe with such id does not exist')
+
+  await Recipe.findByIdAndRemove(req.params.id)
+
+  res.json({ message: 'Recipe deleted successfully.' })
+})
+
+// UPDATE RECIPE
+// PUT /api/recipe/:id
+const updateRecipe = expressAsyncHandler(async (req, res) => {
+  const {
+    title,
+    image,
+    description,
+    body,
+    ingredients,
+    isVegeterian,
+    isVegan,
+    isKeto,
+    likes,
+  } = req.body
+
+  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+    return res.status(404).send('Unable to find a recipe with such id')
+
+  const updatedRecipe = {
+    title,
+    description,
+    body,
+    image,
+    ingredients,
+    isVegeterian,
+    isVegan,
+    isKeto,
+    likes,
+    _id: req.params.id,
+  }
+
+  await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe)
+  res.json(updatedRecipe)
+})
+
+// LIKE A RECIPE
+// PATCH /api/recipe/:id/like
+const likeRecipe = expressAsyncHandler(async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+    return res.status(404).send('Unable to find a recipe with such id ')
+
+  const recipe = await Recipe.findById(req.params.id)
+
+  const likedRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
+    likes: recipe.likes + 1,
+  })
+
+  res.json(likedRecipe)
+})
+
+export {
+  fetchAllRecipes,
+  fetchRecipe,
+  newRecipe,
+  destroyRecipe,
+  updateRecipe,
+  likeRecipe,
+  getUserRecipes,
+}

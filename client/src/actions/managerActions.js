@@ -27,6 +27,7 @@ import {
   CONFIRM_ORDER_MANAGER_RESTART,
 } from '../constants/managerTypes'
 
+// DELETE A PRODUCT
 export const managerDeleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: MANAGER_DELETE_PRODUCT_START })
@@ -51,6 +52,7 @@ export const managerDeleteProduct = (id) => async (dispatch, getState) => {
   }
 }
 
+// CREATE A NEW PRODUCT
 export const managerNewProduct = () => async (dispatch, getState) => {
   try {
     dispatch({ type: MANAGER_NEW_PRODUCT_START })
@@ -75,6 +77,7 @@ export const managerNewProduct = () => async (dispatch, getState) => {
   }
 }
 
+// UPDATE A PRODUCT
 export const managerUpdateProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: MANAGER_UPDATE_PRODUCT_START })
@@ -104,6 +107,7 @@ export const managerUpdateProduct = (product) => async (dispatch, getState) => {
   }
 }
 
+// GET ALL ORDERS
 export const managerGetAllOrders = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_ORDERS_MANAGER_START })
@@ -128,7 +132,7 @@ export const managerGetAllOrders = () => async (dispatch, getState) => {
     })
   }
 }
-
+// MARK ORDER AS CONFIRMED
 export const confirmOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: CONFIRM_ORDER_MANAGER_START })
@@ -154,6 +158,7 @@ export const confirmOrder = (order) => async (dispatch, getState) => {
   }
 }
 
+// MARK ORDER AS DISPATCHED
 export const dispatchOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: DISPATCH_ORDER_MANAGER_START })
@@ -182,6 +187,7 @@ export const dispatchOrder = (order) => async (dispatch, getState) => {
   }
 }
 
+// MARK ORDER AS DELIVERED
 export const deliverOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: DELIVER_ORDER_MANAGER_START })

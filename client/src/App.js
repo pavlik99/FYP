@@ -15,10 +15,12 @@ import OrdersPage from './pages/OrdersPage'
 import ManagerProductsPage from './pages/ManagerProductsPage'
 import ProductUpdateManagerPage from './pages/ProductUpdateManagerPage'
 import OrdersManagerPage from './pages/OrdersManagerPage'
+import RecipePage from './pages/RecipePage'
+import OneRecipePage from './pages/OneRecipePage'
+import UserRecipesPage from './pages/UserRecipesPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
-//import 'bootstrap/dist/css/bootstrap.min.css' // Maybe delete later
 import 'slick-carousel/slick/slick.css' //delete if no coursel
 import 'slick-carousel/slick/slick-theme.css' // -.-.-.-.-
 
@@ -42,6 +44,9 @@ function App() {
             <Route path='/allOrders' component={OrdersPage} />
             <Route path='/manager/orders' component={OrdersManagerPage} />
             <Route path='/manager/products' component={ManagerProductsPage} />
+            <Route path='/recipes' component={RecipePage} />
+            <Route path='/recipe/:id' component={OneRecipePage} />
+            <Route path='/myrecipes' component={UserRecipesPage} />
 
             <Route
               path='/manager/product/:id/update'
