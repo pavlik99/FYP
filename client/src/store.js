@@ -13,6 +13,7 @@ import {
   getOrderReducer,
   payOrderReducer,
   getOrdersReducer,
+  accountInfoOrderReducer,
 } from './reducers/orderReducer'
 import { basketReducer } from './reducers/basketReducers'
 import {
@@ -91,6 +92,7 @@ const rootReducer = combineReducers({
   newRecipe: newRecipeReducer,
   updateRecipe: updateRecipeReducer,
   getUserRecipes: getUserRecipesReducer,
+  accountInfoOrder: accountInfoOrderReducer,
 })
 
 const store = createStore(

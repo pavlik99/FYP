@@ -22,6 +22,7 @@ const signin = expressAsyncHandler(async (req, res) => {
         } else {
           res.json({
             _id: account._id,
+            userImage: account.userImage,
             forename: account.forename,
             surname: account.surname,
             email: account.email,
@@ -58,6 +59,7 @@ const signup = expressAsyncHandler(async (req, res) => {
   })
 
   const account = await User.create({
+    userImage: '/images/defaultProduct.jpg',
     forename,
     surname,
     email,
@@ -86,6 +88,7 @@ const signup = expressAsyncHandler(async (req, res) => {
               // },
 
               _id: account._id,
+              userImage: account.userImage,
               forename: account.forename,
               surname: account.surname,
               email: account.email,
@@ -129,6 +132,7 @@ const getProfile = expressAsyncHandler(async (req, res) => {
       } else {
         res.json({
           _id: account._id,
+          userImage: account.userImage,
           forename: account.forename,
           surname: account.surname,
           email: account.email,
@@ -165,10 +169,11 @@ const getProfile = expressAsyncHandler(async (req, res) => {
 // PUT /api/account/profile
 const updateProfile = expressAsyncHandler(async (req, res) => {
   //start
-  const { forename, surname, email, password } = req.body //add picture
+  const { forename, surname, email, password, userImage } = req.body //add picture
   const account = await User.findById(req.user._id)
 
   if (account) {
+    account.userImage = userImage || account.userImage
     account.forename = forename || account.forename
     account.surname = surname || account.surname
     account.email = email || account.email

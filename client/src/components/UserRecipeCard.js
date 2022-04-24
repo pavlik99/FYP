@@ -5,7 +5,7 @@ const UserRecipeCard = ({ item, deleteRecipeHandler }) => {
   return (
     <>
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
-        <Link to={`/product/${item._id}`}>
+        <Link to={`/recipe/${item._id}`}>
           <Card.Img src={item.image} className='rounded-top' variant='top' />
         </Link>
         <Card.Body>
@@ -24,7 +24,7 @@ const UserRecipeCard = ({ item, deleteRecipeHandler }) => {
               </Button>
             </Col>
             <Col>
-              <Link to={`/recipe/${item._id}/update`}>
+              <Link to={`/update/${item._id}`}>
                 <Button variant='outline-dark'>
                   <i className='fa-solid fa-sliders'> </i> EDIT
                 </Button>

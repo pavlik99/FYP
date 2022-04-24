@@ -9,11 +9,15 @@ import {
   confirmOrder,
   dispatchOrder,
   deliverOrder,
+  getProfileOrder,
 } from '../controllers/orders.js'
 import { protect, manager } from '../middleware/authentication.js'
 
 //GET /api/orders/allorders
 router.get('/allorders', protect, getOrders)
+
+//GET /api/account/profile
+router.get('/allorders/profile', protect, getProfileOrder)
 
 //POST /api/orders
 router.post('/', protect, putOrderProducts)

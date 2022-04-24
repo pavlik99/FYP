@@ -15,6 +15,7 @@ import { protect } from '../middleware/authentication.js'
 // GET ALL USER RECIPES
 //GET /api/recipes/myrecipes
 router.get('/myrecipes', protect, getUserRecipes)
+
 // GET ALL RECIPES
 // GET /api/recipes
 router.get('/', fetchAllRecipes)

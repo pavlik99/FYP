@@ -80,6 +80,25 @@ const getOrders = expressAsyncHandler(async (req, res) => {
   res.json(orders)
 })
 
+// GET /api/orders/profile
+const getProfileOrder = expressAsyncHandler(async (req, res) => {
+  User.findById(req.user._id)
+    .select('-password')
+    .then((account) => {
+      if (!account) {
+        res.status(400).json({ msg: 'Unable to find user' })
+      } else {
+        res.json({
+          _id: account._id,
+          forename: account.forename,
+          surname: account.surname,
+          email: account.email,
+          isManager: account.isManager,
+        })
+      }
+    })
+})
+
 // GET All USER ORDERS
 const getAllOrdersManager = expressAsyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', 'id forename surname')
@@ -143,4 +162,5 @@ export {
   confirmOrder,
   dispatchOrder,
   deliverOrder,
+  getProfileOrder,
 }

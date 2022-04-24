@@ -29,7 +29,7 @@ import {
 } from '../actions/managerActions'
 import PopOver from '../components/PopOver'
 
-const UserOrdersPage2 = (props) => {
+const UserOrdersPage = (props) => {
   const orderId = props.match.params.id
 
   const dispatch = useDispatch()
@@ -248,4 +248,4 @@ const UserOrdersPage2 = (props) => {
   )
 }
 
-export default UserOrdersPage2
+export default UserOrdersPage

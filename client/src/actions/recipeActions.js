@@ -68,6 +68,7 @@ export const getAllUserRecipesAction = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        //'Content-Type': 'application/json',
         Authorization: `Bearer ${accountData.token}`,
       },
     }
@@ -161,32 +162,31 @@ export const createRecipeAction = () => async (dispatch, getState) => {
 }
 
 // UPDATE A RECIPE
-export const updateRecipeAction =
-  (id, recipe) => async (dispatch, getState) => {
-    try {
-      dispatch({ type: UPDATE_RECIPE_START })
-      const {
-        authSignin: { accountData },
-      } = getState()
+export const updateRecipeAction = (recipe) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: UPDATE_RECIPE_START })
+    const {
+      authSignin: { accountData },
+    } = getState()
 
-      const headers = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accountData.token}`,
-        },
-      }
-
-      const { updateData } = await axios.put(
-        `/api/recipes/${id}`,
-        recipe,
-        headers
-      )
-
-      dispatch({ type: UPDATE_RECIPE, payload: updateData })
-    } catch (error) {
-      dispatch({
-        type: UPDATE_RECIPE_ERROR,
-        payload: error.response,
-      })
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accountData.token}`,
+      },
     }
+
+    const { updateData } = await axios.put(
+      `/api/recipes/${recipe._id}`,
+      recipe,
+      headers
+    )
+
+    dispatch({ type: UPDATE_RECIPE, payload: updateData })
+  } catch (error) {
+    dispatch({
+      type: UPDATE_RECIPE_ERROR,
+      payload: error.response,
+    })
   }
+}

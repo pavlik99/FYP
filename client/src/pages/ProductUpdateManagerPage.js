@@ -46,6 +46,7 @@ const ProductUpdateManagerPage = (props) => {
     (state) => state.updateProductManager
   )
   const { updated } = updateProductManager
+
   useEffect(() => {
     if (updated) {
       dispatch({ type: MANAGER_UPDATE_PRODUCT_RESTART })

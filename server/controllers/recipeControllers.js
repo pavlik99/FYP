@@ -13,7 +13,10 @@ const fetchAllRecipes = expressAsyncHandler(async (req, res) => {
 
 // GET /api/recipes/:id
 const fetchRecipe = expressAsyncHandler(async (req, res) => {
-  const recipe = await Recipe.findById(req.params.id)
+  const recipe = await Recipe.findById(req.params.id).populate(
+    'user',
+    'forename surname email'
+  )
 
   try {
     res.status(200).json(recipe)
@@ -81,24 +84,43 @@ const updateRecipe = expressAsyncHandler(async (req, res) => {
     likes,
   } = req.body
 
-  if (!mongoose.Types.ObjectId.isValid(req.params.id))
-    return res.status(404).send('Unable to find a recipe with such id')
+  // if (!mongoose.Types.ObjectId.isValid(req.params.id))
+  //   return res.status(404).send('Unable to find a recipe with such id')
 
-  const updatedRecipe = {
-    title,
-    description,
-    body,
-    image,
-    ingredients,
-    isVegeterian,
-    isVegan,
-    isKeto,
-    likes,
-    _id: req.params.id,
+  const item = await Recipe.findById(req.params.id)
+  if (item) {
+    item.title = title
+    item.body = body
+    item.image = image
+    item.description = description
+    item.ingredients = ingredients
+    item.isVegeterian = isVegeterian
+    item.isVegan = isVegan
+    item.isKeto = isKeto
+
+    const updatedRecipe = await item.save()
+
+    res.json(updatedRecipe)
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
   }
 
-  await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe)
-  res.json(updatedRecipe)
+  // const updatedRecipe = {
+  //   title,
+  //   description,
+  //   body,
+  //   image,
+  //   ingredients,
+  //   isVegeterian,
+  //   isVegan,
+  //   isKeto,
+  //   likes,
+  //   _id: req.params.id,
+  // }
+
+  // await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe)
+  // res.json(updatedRecipe)
 })
 
 // LIKE A RECIPE

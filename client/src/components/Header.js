@@ -96,12 +96,7 @@ const Header = () => {
                       </Nav.Link>
                     </NavDropdown.Item>
                     <NavDropdown.Item>
-                      <Nav.Link as={Link} to='/myrecipes'>
-                        RECIPES
-                      </Nav.Link>
-                    </NavDropdown.Item>
-                    <NavDropdown.Item>
-                      <Nav.Link as={Link} to='/allOrders'>
+                      <Nav.Link as={Link} to='/profiles/orders'>
                         ORDERS
                       </Nav.Link>
                     </NavDropdown.Item>
@@ -119,11 +114,7 @@ const Header = () => {
                       ACCOUNT
                     </Nav.Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Nav.Link as={Link} to='/myrecipes'>
-                      RECIPES
-                    </Nav.Link>
-                  </NavDropdown.Item>
+
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to='/allOrders'>
                       ORDERS

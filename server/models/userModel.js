@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema(
     },
     userImage: {
       type: String,
+      required: false,
     },
     email: {
       type: String,

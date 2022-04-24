@@ -1,47 +1,56 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Button, Row, Col, Container, ListGroup } from 'react-bootstrap'
+import {
+  Button,
+  Row,
+  Col,
+  Form,
+  Container,
+  Alert,
+  ListGroup,
+} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+import Loading from '../components/Loading'
 // Redux Actions
 import { getAccountInfo } from '../actions/authActions'
 import { getOrdersAction } from '../actions/orders'
 
-const AccountPage = () => {
+const UserOrders = () => {
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
 
-  // const [message, setMessage] = useState(null)
-
   const authSignin = useSelector((state) => state.authSignin)
   const { accountData } = authSignin
+
+  const accountInfo = useSelector((state) => state.accountInfo)
+  const { loading, account } = accountInfo
 
   const getOrders = useSelector((state) => state.getOrders)
   const { orders } = getOrders
 
-  const accountInfo = useSelector((state) => state.accountInfo)
-  const { loading, account, error } = accountInfo
-
-  const updateInfo = useSelector((state) => state.updateInfo)
-  const { success } = updateInfo
+  const getUserRecipes = useSelector((state) => state.getUserRecipes)
+  const { recipes } = getUserRecipes
 
   useEffect(() => {
     if (!accountData) {
       history.push('/signin')
     } else {
-      if (!accountData.forename) {
-        dispatch(getAccountInfo('allorders'))
+      if (!account.forename) {
+        // dispatch(getAccountInfo('profile'))
         dispatch(getOrdersAction())
       }
     }
-  }, [dispatch, history, accountData])
+  }, [dispatch, history, accountData, account])
 
   return (
     <>
+      {loading && <Loading />}
+
       <Container className='pt-4' fluid>
         <Row>
           <Col>
@@ -93,4 +102,4 @@ const AccountPage = () => {
   )
 }
 
-export default AccountPage
+export default UserOrders

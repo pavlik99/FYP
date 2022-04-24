@@ -13,6 +13,12 @@ import {
   GET_USER_ORDERS_ERROR,
   GET_USER_ORDERS_START,
 } from '../constants/orders'
+import {
+  ACCOUNT_INFO_ERROR,
+  ACCOUNT_INFO_START,
+  ACCOUNT_INFO_SUCCESS,
+  ACCOUNT_INFO_CLEAR,
+} from '../constants/authTypes'
 
 export const orderCreate = (order) => async (dispatch, getState) => {
   try {
@@ -39,6 +45,34 @@ export const orderCreate = (order) => async (dispatch, getState) => {
     })
   } catch (error) {
     dispatch({ type: CREATE_ORDER_ERROR, payload: error.response })
+  }
+}
+
+// GET ACCOUT INFO FOR ORDER
+export const getAccountInfoOrder = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ACCOUNT_INFO_START,
+    })
+
+    const {
+      authSignin: { accountData },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accountData.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/orders/allorders/${id}`, config)
+    dispatch({
+      type: ACCOUNT_INFO_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({ type: ACCOUNT_INFO_ERROR, payload: error.response })
   }
 }
 // GET A SPECIFIC USER ORDER

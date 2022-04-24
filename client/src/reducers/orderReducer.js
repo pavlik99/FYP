@@ -14,6 +14,12 @@ import {
   GET_USER_ORDERS_START,
   GET_USER_ORDERS_CLEAR,
 } from '../constants/orders'
+import {
+  ACCOUNT_INFO_ERROR,
+  ACCOUNT_INFO_START,
+  ACCOUNT_INFO_SUCCESS,
+  ACCOUNT_INFO_CLEAR,
+} from '../constants/authTypes'
 
 // const initialState = {}
 
@@ -93,6 +99,32 @@ export const payOrderReducer = (state = {}, action) => {
       }
     case PAY_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const accountInfoOrderReducer = (state = { account: {} }, action) => {
+  switch (action.type) {
+    case ACCOUNT_INFO_START:
+      return {
+        loading: true,
+        success: false,
+        ...state,
+      }
+
+    case ACCOUNT_INFO_SUCCESS:
+      return {
+        account: action.payload,
+        loading: false,
+        success: true,
+      }
+
+    case ACCOUNT_INFO_ERROR:
+      return { loading: false, error: action.payload, success: false }
+
+    case ACCOUNT_INFO_CLEAR:
+      return { account: {} }
     default:
       return state
   }
