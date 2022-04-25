@@ -40,12 +40,18 @@ const newRecipe = expressAsyncHandler(async (req, res) => {
     user: req.user._id,
     title: 'Choose Title',
     image: '/images/defaultProduct.jpg',
+    image2: '/images/defaultProduct.jpg',
+    image3: '/images/defaultProduct.jpg',
     description: 'Add Desciption',
     body: 'Text',
+    body2: ' ',
     ingredients: 'Add Ingredietns',
     isVegeterian: false,
     isVegan: true,
     isKeto: false,
+    isRecipe: true,
+    isArticle: false,
+    isNews: false,
     likes: 0,
   })
 
@@ -75,12 +81,18 @@ const updateRecipe = expressAsyncHandler(async (req, res) => {
   const {
     title,
     image,
+    image2,
+    image3,
     description,
     body,
+    body2,
     ingredients,
     isVegeterian,
     isVegan,
     isKeto,
+    isRecipe,
+    isArticle,
+    isNews,
     likes,
   } = req.body
 
@@ -91,12 +103,18 @@ const updateRecipe = expressAsyncHandler(async (req, res) => {
   if (item) {
     item.title = title
     item.body = body
+    item.body2 = body2
     item.image = image
+    item.image2 = image2
+    item.image3 = image3
     item.description = description
     item.ingredients = ingredients
     item.isVegeterian = isVegeterian
     item.isVegan = isVegan
     item.isKeto = isKeto
+    item.isRecipe = isRecipe
+    item.isArticle = isArticle
+    item.isNews = isNews
 
     const updatedRecipe = await item.save()
 

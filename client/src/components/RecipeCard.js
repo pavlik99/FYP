@@ -9,14 +9,16 @@ const RecipeCard = ({ recipe }) => {
           <Card.Img
             variant='top'
             src={recipe.image}
-            // height={250}
-            // width={200}
+            height={200}
+            width={200}
             rounded
           />
         </Link>
         <Card.Body>
-          <Card.Title>{recipe.title}</Card.Title>
-          <Card.Text>{recipe.description}</Card.Text>
+          <Card.Title className='uppercase'>{recipe.title}</Card.Title>
+          <Card.Text className='recipeCardFont'>
+            {recipe.description.substring(0, 200)} ...
+          </Card.Text>
         </Card.Body>
         <Card.Footer>
           <Row>

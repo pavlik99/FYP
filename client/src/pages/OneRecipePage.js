@@ -1,21 +1,10 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import {
-  Col,
-  Row,
-  Image,
-  ListGroup,
-  ListGroupItem,
-  Container,
-  Button,
-} from 'react-bootstrap'
+import { Col, Row, Image, Container, Button } from 'react-bootstrap'
 // REDUX ACTIONS
 import { fetchRecipeAction, likeRecipeAction } from '../actions/recipeActions'
 import { LIKE_RECIPE_RESTART } from '../constants/recipeTypes'
-
-//import ProductsRecommnedation from '../components/ProductsRecommnedation'
 
 const OneRecipePage = (props) => {
   const recipeId = props.match.params.id
@@ -42,35 +31,103 @@ const OneRecipePage = (props) => {
 
   return (
     <>
-      <Row>
-        <Row>
-          <Image
-            className='rounded'
-            src={recipe.image}
-            height={500}
-            width={900}
-          />
+      <Container fluid>
+        <Row className='py-4'>
+          <Row>
+            <Col>
+              <Image
+                className='img'
+                src={recipe.image}
+                height={400}
+                width={700}
+              />
+            </Col>
+
+            <Col>
+              {' '}
+              <Row>
+                {' '}
+                <h1 className='uppercase'>{recipe.title}</h1>
+              </Row>
+              <Row className='pt-3 pl-2 recipeFont'> {recipe.description}</Row>
+              <Row className='pt-3'> Add Icons</Row>
+            </Col>
+          </Row>
+
+          <Row className='pt-3 recipeFont'>{recipe.body}</Row>
+          <Row className='pt-3 recipeFont'>{recipe.body2}</Row>
+          {recipe.isRecipe && (
+            <Row className='pt-4 recipeFont'>
+              {' '}
+              Ingredients: {recipe.ingredients}
+            </Row>
+          )}
+
+          <Row className='pt-3'>
+            {recipe.isRecipe && (
+              <div className='cursiveFont'> Did you enjoy the recipe?</div>
+            )}
+
+            {recipe.isArticle && (
+              <div className='cursiveFont'> Did you enjoy the article?</div>
+            )}
+            {recipe.isNews && (
+              <div className='cursiveFont'> Did you enjoy the article?</div>
+            )}
+          </Row>
+          <Row className='pt-3 numberFont'>
+            <Col>
+              {liked ? (
+                <Button
+                  variant='outline-danger'
+                  onClick={likeRecipeHandler}
+                  size={'sm'}
+                >
+                  <i class='fa-regular fa-heart'></i>
+                </Button>
+              ) : (
+                <Button
+                  variant='outline-danger'
+                  onClick={likeRecipeHandler}
+                  size={'sm'}
+                >
+                  <i class='fa-regular fa-heart'></i>
+                </Button>
+              )}
+
+              {'   '}
+              <>{recipe.likes}</>
+            </Col>
+          </Row>
         </Row>
-        <Row>
-          <h1>{recipe.title}</h1>
+
+        <Row md={3}>
+          <>
+            <Image
+              className='img2'
+              src={recipe.image}
+              height={300}
+              width={300}
+            />
+          </>
+          <>
+            <Image
+              className='img2'
+              src={recipe.image2}
+              height={300}
+              width={300}
+            />
+          </>
+          <>
+            <Image
+              className='img2'
+              src={recipe.image2}
+              height={300}
+              width={300}
+            />
+          </>
         </Row>
-        <Row>{recipe.description}</Row>
-        <Row>{recipe.body}</Row>
-        <Row>{recipe.ingredients}</Row>
-        <Row>
-          <Col> Did you enjoy the recipe!</Col>
-          <Col>
-            <Button onClick={likeRecipeHandler}>
-              <i class='fa-regular fa-heart'></i>
-            </Button>
-            {recipe.likes}
-          </Col>
-        </Row>
-      </Row>
-      <Row>
-        ADD PRODUCTS ACCORINF TO WHETEHR THE RECIPY IS VEGAN OR VEGETERIAN OR
-        KETO
-      </Row>
+      </Container>
     </>
   )
 }

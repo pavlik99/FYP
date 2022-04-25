@@ -19,13 +19,22 @@ const UpdateRecipePage = (props) => {
 
   const [title, setTitle] = useState('')
   const [image, setImage] = useState('')
+  const [image2, setImage2] = useState('')
+  const [image3, setImage3] = useState('')
   const [description, setDescription] = useState('')
   const [body, setBody] = useState('')
+  const [body2, setBody2] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [isVegeterian, setIsVegeterian] = useState('')
   const [isVegan, setIsVegan] = useState('')
   const [isKeto, setIsKeto] = useState('')
+  const [isRecipe, setIsRecipe] = useState('')
+  const [isArticle, setIsArticle] = useState('')
+  const [isNews, setIsNews] = useState('')
+
   const [uploading, setUploading] = useState(false)
+  const [uploading2, setUploading2] = useState(false)
+  const [uploading3, setUploading3] = useState(false)
 
   const oneRecipe = useSelector((state) => state.oneRecipe)
   const { recipe } = oneRecipe
@@ -43,12 +52,18 @@ const UpdateRecipePage = (props) => {
       } else {
         setTitle(recipe.title)
         setImage(recipe.image)
+        setImage2(recipe.image2)
+        setImage3(recipe.image3)
         setBody(recipe.body)
+        setBody2(recipe.body2)
         setDescription(recipe.description)
         setIngredients(recipe.ingredients)
         setIsVegeterian(recipe.isVegeterian)
         setIsVegan(recipe.isVegan)
         setIsKeto(recipe.isKeto)
+        setIsRecipe(recipe.isRecipe)
+        setIsArticle(recipe.isArticle)
+        setIsNews(recipe.isNews)
       }
     }
   }, [dispatch, recipe, recipeID, updated, history])
@@ -61,12 +76,18 @@ const UpdateRecipePage = (props) => {
         _id: recipeID,
         title,
         image,
+        image2,
+        image3,
         body,
+        body2,
         description,
         ingredients,
         isVegeterian,
         isVegan,
         isKeto,
+        isArticle,
+        isRecipe,
+        isNews,
       })
     )
   }
@@ -87,6 +108,52 @@ const UpdateRecipePage = (props) => {
       const { data } = await axios.post('/api/upload', formData, config)
 
       setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
+
+  const uploadHandler2 = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post('/api/upload', formData, config)
+
+      setImage2(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
+
+  const uploadHandler3 = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post('/api/upload', formData, config)
+
+      setImage3(data)
       setUploading(false)
     } catch (error) {
       console.error(error)
@@ -125,13 +192,31 @@ const UpdateRecipePage = (props) => {
                   />
                 </Form.FloatingLabel>
               </Form.Group>
-              <Form.Group className='mb-3 mt-3' controlId='formBasicImage2'>
+              <Form.Group className='mb-3 mt-3' controlId='formBasicImage'>
                 <Form.Control
                   type='file'
                   id='image-file'
                   label='Choose File'
                   custom
                   onChange={uploadHandler}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group className='mb-3 mt-3' controlId='formBasicImage2'>
+                <Form.Control
+                  type='file'
+                  id='image-file'
+                  label='Choose File'
+                  custom
+                  onChange={uploadHandler2}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group className='mb-3 mt-3' controlId='formBasicImage3'>
+                <Form.Control
+                  type='file'
+                  id='image-file'
+                  label='Choose File'
+                  custom
+                  onChange={uploadHandler3}
                 ></Form.Control>
               </Form.Group>
               {/* TITLE */}
@@ -183,6 +268,24 @@ const UpdateRecipePage = (props) => {
                     placeholder='Body'
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
+                  />
+                </Form.FloatingLabel>
+              </Form.Group>
+
+              {/*  Body 2*/}
+              <Form.Group className='mb-3' controlId='Body2'>
+                <Form.FloatingLabel
+                  controlId='Body2'
+                  label='Body2'
+                  className='mb-3'
+                >
+                  <Form.Control
+                    as='textarea'
+                    type='text'
+                    size='lg'
+                    placeholder='Body'
+                    value={body2}
+                    onChange={(e) => setBody2(e.target.value)}
                   />
                 </Form.FloatingLabel>
               </Form.Group>
@@ -248,6 +351,52 @@ const UpdateRecipePage = (props) => {
                     placeholder='Keto'
                     value={isKeto}
                     onChange={(e) => setIsKeto(e.target.value)}
+                  />
+                </Form.FloatingLabel>
+              </Form.Group>
+
+              {/* isRecipe */}
+              <Form.Group className='mb-3' controlId='isRecipe'>
+                <Form.FloatingLabel
+                  controlId='isRecipe'
+                  label=' isRecipe'
+                  className='mb-3'
+                >
+                  <Form.Control
+                    type='isRecipe'
+                    placeholder='isRecipe'
+                    value={isRecipe}
+                    onChange={(e) => setIsRecipe(e.target.value)}
+                  />
+                </Form.FloatingLabel>
+              </Form.Group>
+              {/* isRecipe */}
+              <Form.Group className='mb-3' controlId='isArticle'>
+                <Form.FloatingLabel
+                  controlId='isArticle'
+                  label=' isArticle'
+                  className='mb-3'
+                >
+                  <Form.Control
+                    type='isArticle'
+                    placeholder='isArticle'
+                    value={isArticle}
+                    onChange={(e) => setIsArticle(e.target.value)}
+                  />
+                </Form.FloatingLabel>
+              </Form.Group>
+              {/* isNews */}
+              <Form.Group className='mb-3' controlId='isNews'>
+                <Form.FloatingLabel
+                  controlId='isNews'
+                  label=' isNews'
+                  className='mb-3'
+                >
+                  <Form.Control
+                    type='isNews'
+                    placeholder='isNews'
+                    value={isNews}
+                    onChange={(e) => setIsNews(e.target.value)}
                   />
                 </Form.FloatingLabel>
               </Form.Group>

@@ -1,8 +1,12 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Button, Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+// Components
 import RecipeCard from '../components/RecipeCard'
+//Redux Actions
 import { fetchRecipesAction } from '../actions/recipeActions'
 
 const RecipePage = () => {
@@ -16,13 +20,46 @@ const RecipePage = () => {
 
   return (
     <>
-      <Row className='pt-3'>
-        {recipes.map((recipe) => (
-          <Col lg={4} sm={12} xl={3} md={6} key={recipe._id}>
-            <RecipeCard recipe={recipe} />
+      <Container fluid>
+        <Row className='py-4'>
+          <Col></Col>
+          <Col>
+            {' '}
+            <Link className='link' to={'a'}>
+              <i className='fas fa-utensils'></i> RECIPES
+            </Link>
           </Col>
-        ))}
-      </Row>
+
+          <Col>
+            <Link className='link' to={'a'}>
+              <i class='fa-solid fa-book'></i> ARTICLES
+            </Link>
+          </Col>
+          <Col>
+            {' '}
+            <Link className='link' to={'a'}>
+              <i class='fa-solid fa-newspaper'></i> NEWS
+            </Link>
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row className='pt-3'>
+          {recipes.map((recipe) => (
+            <Col lg={4} sm={12} xl={3} md={4} key={recipe._id}>
+              <RecipeCard recipe={recipe} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+      {/* 
+      <Row className='pt-3'>
+          {recipes.map((recipe) => (
+            <Col lg={4} sm={12} xl={3} md={4} key={recipe._id}>
+              {recipe.isArticle && <RecipeCard recipe={recipe} />}
+              <RecipeCard recipe={recipe} />
+            </Col>
+          ))}
+        </Row> */}
     </>
   )
 }

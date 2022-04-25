@@ -15,11 +15,23 @@ const recipeSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    image2: {
+      type: String,
+      required: false,
+    },
+    image3: {
+      type: String,
+      required: false,
+    },
     description: {
       type: String,
       required: false,
     },
     body: {
+      type: String,
+      required: false,
+    },
+    body2: {
       type: String,
       required: false,
     },
@@ -41,6 +53,18 @@ const recipeSchema = mongoose.Schema(
       default: false,
     },
     isKeto: {
+      type: Boolean,
+      default: false,
+    },
+    isRecipe: {
+      type: Boolean,
+      default: false,
+    },
+    isArticle: {
+      type: Boolean,
+      default: false,
+    },
+    isNews: {
       type: Boolean,
       default: false,
     },

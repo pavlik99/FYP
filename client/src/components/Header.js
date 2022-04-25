@@ -57,21 +57,21 @@ const Header = () => {
       <Navbar bg='light' collapseOnSelect expand='lg'>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            Name
+            HEALTHY LIVING
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav>
               <Nav.Link as={Link} to='/#action1'>
-                Products
+                PRODUCTS
               </Nav.Link>
               <Nav.Link as={Link} to='/recipes'>
-                <i className='fas fa-utensils'></i> Recepies
+                BLOG
               </Nav.Link>
             </Nav>
 
-            <Form className='d-flex' onSubmit={submitHandler}>
+            <Form className='d-flex p-1 pl-2 ' onSubmit={submitHandler}>
               <Form.Control
                 type='search'
                 onChange={(e) => setKeyword(e.target.value)}
@@ -84,7 +84,7 @@ const Header = () => {
 
             <Nav className='ms-auto'>
               <Nav.Link as={Link} to='/basket'>
-                <i className='fas fa-bag-shopping'></i> Basket
+                <i className='fas fa-bag-shopping'></i> BASKET
               </Nav.Link>
 
               {accountData ? (
