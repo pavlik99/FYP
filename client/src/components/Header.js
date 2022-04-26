@@ -129,7 +129,7 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <Nav.Link as={Link} to='/signin'>
-                  <i className='fas fa-user'></i> Sign in
+                  SIGN IN
                 </Nav.Link>
               )}
 
@@ -146,10 +146,10 @@ const Header = () => {
                     </Nav.Link>
                   </NavDropdown.Item>
 
-                  <NavDropdown.Divider />
+                  {/* <NavDropdown.Divider />
                   <NavDropdown.Item onClick={signoutHandler}>
                     SIGNOUT
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                 </NavDropdown>
               )}
             </Nav>

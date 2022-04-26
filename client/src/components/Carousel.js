@@ -4,7 +4,7 @@ const CarouselElement = () => {
   return (
     <>
       <Carousel>
-        <Carousel.Item interval={1000}>
+        <Carousel.Item interval={9000}>
           <img
             className='d-block w-100'
             src='/images/c1.jpg'
@@ -16,7 +16,7 @@ const CarouselElement = () => {
             <h3 className='promotionText'>Cows scream louder than carrots.</h3>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item interval={500}>
+        <Carousel.Item interval={9000}>
           <img
             className='d-block w-100'
             src='/images/c5.jpg'
@@ -31,7 +31,7 @@ const CarouselElement = () => {
             </h3>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item>
+        <Carousel.Item interval={9000}>
           <img
             className='d-block w-100'
             src='/images/carousel4.jpg'

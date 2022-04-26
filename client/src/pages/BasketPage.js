@@ -69,7 +69,11 @@ const BasketPage = (props) => {
                   .toFixed(2)}
               </ListGroupItem>
               <ListGroupItem className='pt-4'>
-                <Button variant='dark' type='button' onClick={PurchaseHandler}>
+                <Button
+                  variant='outline-dark'
+                  type='button'
+                  onClick={PurchaseHandler}
+                >
                   <i className='fa-regular fa-credit-card'></i> CHECKOUT
                 </Button>
               </ListGroupItem>

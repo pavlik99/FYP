@@ -44,7 +44,7 @@ const BasketProduct = ({
             </Col>
             <Col>
               <Button
-                variant='dark'
+                variant='outline-dark'
                 onClick={() => removeProductFromBasketHandler(item.product)}
               >
                 <i className='fa-solid fa-user-xmark'></i>

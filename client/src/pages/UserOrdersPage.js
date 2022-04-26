@@ -89,7 +89,7 @@ const UserOrdersPage = (props) => {
       <Row>
         <Col className='pt-3' md={8}>
           <Card className='pd-4'>
-            <ListGroup variant='flush'>
+            <ListGroup variant='flush' className='orderFont2'>
               <ListGroupItem>
                 <h3>ORDER DETAILS</h3>
               </ListGroupItem>
@@ -115,7 +115,7 @@ const UserOrdersPage = (props) => {
           </Card>
           <ListGroup variant='flush' className='pt-2'>
             <ListGroupItem>
-              <Row className='pr-3'>
+              <Row className='pr-3 orderFont'>
                 <Col>
                   {order.isPaid ? (
                     <i class='fa-solid fa-check-double'></i>
@@ -155,7 +155,6 @@ const UserOrdersPage = (props) => {
             </ListGroupItem>
           </ListGroup>
 
-          {/* <h2>Payment</h2> */}
           {order.isPaid ? (
             ''
           ) : (
@@ -180,7 +179,7 @@ const UserOrdersPage = (props) => {
             </StripeCheckout>
           )}
         </Col>
-        <Col className='pt-3' md={4}>
+        <Col className='pt-3 orderFont2' md={4}>
           <CardGroup variant='flush'>
             {order.productItems.map((item, index) => (
               <ListGroupItem key={index}>

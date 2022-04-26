@@ -116,16 +116,28 @@ const CompleteOrderPage = (props) => {
           </Row>
         </Col>{' '}
         <Col>
-          <div className='completeOrderText pt-5'>
-            We just wanted to take this opportunity to thank you for the
-            continued trust you have put in our brand. Our ongoing success
-            relies on the loyalty and support of customers like you. We look
-            forward to an enjoyable business experience with you.
-          </div>
-          <div className='completeOrderText pt-5 orderIcon'>
+          <Row>
+            <div className='completeOrderText pt-5'>
+              We just wanted to take this opportunity to thank you for the
+              continued trust you have put in our brand. Our ongoing success
+              relies on the loyalty and support of customers like you. We look
+              forward to an enjoyable business experience with you.
+            </div>
+          </Row>
+          {/* <div className='completeOrderText pt-5 orderIcon'>
             {' '}
             <i class='fa-solid fa-handshake-angle'></i>
-          </div>
+
+          </div> */}
+          <Row>
+            <img
+              src='/images/thank.jpg'
+              className='competeOrderImage'
+              height={300}
+              width={450}
+              alt=''
+            />
+          </Row>
         </Col>
         <Row className='pt-3'>
           <Col>

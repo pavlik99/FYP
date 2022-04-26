@@ -36,7 +36,6 @@ const AccountPage = () => {
   const [verifyEmail, setVerifyEmail] = useState('')
   const [password, setPassword] = useState('')
   const [verifyPassword, setVerifyPassword] = useState('')
-  // const [message, setMessage] = useState(null)
 
   const authSignin = useSelector((state) => state.authSignin)
   const { accountData } = authSignin
@@ -244,7 +243,7 @@ const AccountPage = () => {
                 <Form.Check type='switch' label='Terms and Conditions' />
               </Form.Group>
 
-              <Button variant='primary' type='submit'>
+              <Button variant='outline-dark' type='submit'>
                 UPDATE
               </Button>
               <Row className='py-3'></Row>
@@ -253,23 +252,21 @@ const AccountPage = () => {
           <Col>
             <Row>
               <Image
+                className='productUpdateImage'
                 src={account.userImage}
-                fluid
                 rounded
-                width={600}
-                height={600}
               />
             </Row>
-            <Row className='py-3'>User Image</Row>
+            <Row className='py-3'></Row>
             <Row>
               <Col>
                 <Link to={'/profiles/myrecipes'}>
-                  <Button>My Recipes</Button>
+                  <Button variant='outline-dark'>My Recipes</Button>
                 </Link>
               </Col>
               <Col>
                 <Link to={'/profiles/orders'}>
-                  <Button>My Orders</Button>
+                  <Button variant='outline-dark'>My Orders</Button>
                 </Link>
               </Col>
             </Row>

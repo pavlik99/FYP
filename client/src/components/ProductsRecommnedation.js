@@ -12,8 +12,8 @@ const ProductsRecommnedation = ({ product }) => {
             <Link to={product._id}>
               <img
                 src={product.productImage}
-                height={250}
-                width={250}
+                height={200}
+                width={200}
                 className='homeImage'
                 alt=''
               />
