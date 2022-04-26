@@ -1,23 +1,34 @@
 import { OverlayTrigger, Popover, Col, Row, Container } from 'react-bootstrap'
 import React from 'react'
-////<i className={value >= 4 ? 'fa-solid fa-heart' : value >= 3.5 ? 'fa-solid fa-heart-pulse'  : 'fa-regular fa-heart'}></i>
 
 const popover = (
   <Popover id='popover-basic'>
-    <Popover.Header as='h3'>Tags</Popover.Header>
+    <Popover.Header as='h3'>INFORMATION</Popover.Header>
     <Popover.Body>
       <Container>
-        <Row className='py-3'>
-          <i className='fa-solid fa-seedling fa-lg py-1'> Vegan</i>
+        <Row className='pt-1'>
+          <Col>
+            <img alt='tags' className='px-1' src='/images/letter-v2.png'></img>{' '}
+            <strong>Vegan</strong>
+          </Col>
         </Row>
-        <Row className='py-3'>
-          <i className='fa-solid fa-leaf fa-lg py-1 '> Vegeterian</i>
+        <Row className='pt-1'>
+          <Col>
+            <img alt='tags' className='px-1' src='/images/letter-v.png' />{' '}
+            <strong>Vegetarian</strong>
+          </Col>
         </Row>
-        <Row className='py-3'>
-          <i className='fa-solid fa-k fa-lg py-1 '> Keto</i>
+        <Row className='pt-1'>
+          <Col>
+            <img alt='tags' className='px-1' src='/images/letter-k.png'></img>{' '}
+            <strong>Keto</strong>
+          </Col>
         </Row>
-        <Row className='py-3'>
-          <i className='fa-solid fa-o fa-lg py-1 '> Organic</i>
+        <Row className='pt-1'>
+          <Col>
+            <img alt='tags' className='px-1' src='/images/letter-o.png' />{' '}
+            <strong>Organic</strong>
+          </Col>
         </Row>
       </Container>
     </Popover.Body>
@@ -28,24 +39,34 @@ const PopOver = ({ product }) => (
   <OverlayTrigger trigger='hover' placement='right' overlay={popover}>
     <Row>
       <Col>
-        <i
-          className={
-            product.isVegan === true ? 'fa-solid fa-seedling fa-lg px-1' : ''
-          }
-        ></i>
-        <i
-          className={
-            product.isVegeterian === true ? 'fa-solid fa-leaf fa-lg px-1' : ''
-          }
-        ></i>
-        <i
-          className={product.isKeto === true ? 'fa-solid fa-k fa-lg px-1' : ''}
-        ></i>
-        <i
-          className={
-            product.isOrganic === true ? 'fa-solid fa-o fa-lg px-1' : ''
-          }
-        ></i>
+        {product.isVegeterian && (
+          <img
+            alt='tags'
+            className='px-1'
+            src={product.isVegeterian === true && '/images/letter-v.png'}
+          />
+        )}
+        {product.isVegan && (
+          <img
+            alt='tags'
+            className='px-1'
+            src={product.isVegan === true ? '/images/letter-v2.png' : ' '}
+          />
+        )}
+        {product.isKeto && (
+          <img
+            alt='tags'
+            className='px-1'
+            src={product.isKeto === true ? '/images/letter-k.png' : ' '}
+          />
+        )}
+        {product.isOrganic && (
+          <img
+            alt='tags'
+            className='px-1'
+            src={product.isOrganic === true ? '/images/letter-o.png' : ' '}
+          />
+        )}
       </Col>
     </Row>
   </OverlayTrigger>

@@ -6,17 +6,68 @@ h6 {
   padding: 1rem 0;
 }
 
-.fa-leaf {
-  color: #4c921c;
+
+
+
+/* Home Page */
+
+.center {
+
+  text-align: center;
+}
+.homeIcons {
+  font-size: 40px;
+  color: rgb(64, 64, 64);
 }
 
-.fa-seedling {
-  color: #4c921c;
+.homeImage {
+  border-radius: 6px;
+  opacity: 0.9;
+}
+.promotionImage {
+  border-radius: 6px;
+  opacity: 0.9;
+ 
+}
+.promotionText {
+  color: rgb(64, 64, 64);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  font-weight: 1200;
+  text-transform: uppercase;
+ 
+ 
 }
 
-.rcorners1 {
-  border-radius: 25px;
+/*END Home Page */
+/* Product Page */
+
+
+.productFont {
+  text-align: justify;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 17px;
 }
+
+.accordiontFont {
+  text-align: justify;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 18px;
+}
+
+.productPageImage {
+  width: 600px;
+  height: 400px;
+  object-fit: fill;
+  /* object-fit: contain; */
+
+}
+
+
+
+
+/* END Product Page */
+
 
 /* Recipe Page */
 .img {
@@ -30,6 +81,9 @@ h6 {
   opacity: 0.9;
 }
 
+.rcorners1 {
+  border-radius: 25px;
+}
 .recipeFont {
   text-align: justify;
   font-family: "Times New Roman", Times, serif;
@@ -66,5 +120,64 @@ h6 {
   color: rgb(90, 193, 74);
 }
 
-
 /* End Recipe Page */
+
+/* BASKET */
+.basketFont {
+ 
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+}
+
+.orderFont {
+ 
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+}
+
+.orderFont2 {
+ 
+  font-family: "Times New Roman", Times, serif;
+  font-size: 17px;
+}
+
+.completeOrderText {
+  text-transform: uppercase;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+.basketImage {
+ 
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+}
+
+.orderPageImage {
+ 
+  object-fit: contain;
+  /* object-fit: fill; */
+
+}
+.orderIcon {
+  font-size: 40px;
+}
+/*  END BASKET */
+
+
+/* Update Product Manager */
+
+ .textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+
+}
+.productUpdateImage {
+  width: 600px;
+  height: 400px;
+  object-fit: fill;
+  /* object-fit: contain; */
+}
+
+/* END Update Product Manager */

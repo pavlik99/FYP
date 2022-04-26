@@ -6,7 +6,14 @@ const UserRecipeCard = ({ item, deleteRecipeHandler }) => {
     <>
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
         <Link to={`/recipe/${item._id}`}>
-          <Card.Img src={item.image} className='rounded-top' variant='top' />
+          <Card.Img
+            src={item.image}
+            className='rounded-top'
+            variant='top'
+            height={200}
+            width={200}
+            rounded
+          />
         </Link>
         <Card.Body>
           <Card.Title as='div' className='pl-2'>

@@ -13,6 +13,8 @@ const BasketProduct = ({
         <Link to={`/product/${item.product}`}>
           <Card.Img
             src={item.productImage}
+            width={200}
+            height={250}
             className='rounded-top'
             variant='top'
           />

@@ -1,5 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Col,
   Row,
@@ -8,15 +10,21 @@ import {
   Card,
   ListGroupItem,
 } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-
+import PromotionCard from '../components/PromotionCard'
+import PromotionCard2 from '../components/PromotionCard2'
+import ProductsRecommnedation from '../components/ProductsRecommnedation'
+//Actions
 import { orderCreate } from '../actions/orders'
+import { fetchProducts } from '../actions/productActions'
 
 const CompleteOrderPage = (props) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const basket = useSelector((state) => state.basket)
+
+  const allProducts = useSelector((state) => state.allProducts)
+  const { products } = allProducts
+
   const createOrder = useSelector((state) => state.createOrder)
   const { order, created, loading } = createOrder
 
@@ -47,6 +55,7 @@ const CompleteOrderPage = (props) => {
   }
 
   useEffect(() => {
+    dispatch(fetchProducts())
     if (created) {
       history.push(`/orders/${order._id}`)
     }
@@ -58,7 +67,7 @@ const CompleteOrderPage = (props) => {
       <Row>
         <Col md={4} className='pt-4'>
           <Row>
-            <Card>
+            <Card className='orderFont2'>
               <ListGroup variant='flush'>
                 <ListGroupItem>Delivery Address</ListGroupItem>
                 <ListGroupItem>
@@ -71,7 +80,7 @@ const CompleteOrderPage = (props) => {
             </Card>
           </Row>
           <Row className='pt-4'>
-            <Card className='pt-2'>
+            <Card className='pt-2 orderFont2'>
               <ListGroup variant='flush'>
                 <ListGroupItem>
                   <Row>
@@ -105,8 +114,27 @@ const CompleteOrderPage = (props) => {
               </ListGroup>
             </Card>
           </Row>
+        </Col>{' '}
+        <Col>
+          <div className='completeOrderText pt-5'>
+            We just wanted to take this opportunity to thank you for the
+            continued trust you have put in our brand. Our ongoing success
+            relies on the loyalty and support of customers like you. We look
+            forward to an enjoyable business experience with you.
+          </div>
+          <div className='completeOrderText pt-5 orderIcon'>
+            {' '}
+            <i class='fa-solid fa-handshake-angle'></i>
+          </div>
         </Col>
-        <Col>RECCOMEND MORE PRODUCTS OR BLOGS</Col>
+        <Row className='pt-3'>
+          <Col>
+            <PromotionCard />
+          </Col>
+          <Col>
+            <PromotionCard2 />
+          </Col>
+        </Row>
       </Row>
     </>
   )

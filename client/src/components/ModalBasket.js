@@ -33,13 +33,12 @@ const ModalBasket = ({
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Select Quantity</Modal.Title>
+          <Modal.Title>SELECT QUANTITY</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Col>
             {product.countInStock > 0 && (
               <Col>
-                {/* <Row>Quantity </Row> */}
                 <Row>
                   <Form.Select
                     as='select'

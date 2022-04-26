@@ -131,7 +131,7 @@ const ProductUpdateManagerPage = (props) => {
       <Container className='pt-3' fluid>
         <Row>
           <>
-            <Form onSubmit={updateHandler}>
+            <Form onSubmit={updateHandler} className='textarea'>
               <Button variant='outline-secondary' type='submit'>
                 SAVE CHANGES
               </Button>
@@ -139,10 +139,8 @@ const ProductUpdateManagerPage = (props) => {
                 <Col>
                   <Image
                     src={product.productImage}
-                    fluid
+                    className='productUpdateImage'
                     rounded
-                    width={600}
-                    height={600}
                   />
 
                   {/* Product Image*/}
@@ -234,13 +232,14 @@ const ProductUpdateManagerPage = (props) => {
                 </Col>
                 <Col>
                   {/*  Description */}
-                  <Form.Group className='mb-3' controlId='Description'>
+                  <Form.Group className='mb-3 ' controlId='Description'>
                     <Form.FloatingLabel
                       controlId='Description'
                       label='Description'
                       className='mb-3'
                     >
                       <Form.Control
+                        className='textarea'
                         as='textarea'
                         rows={4}
                         type='text'
@@ -320,8 +319,26 @@ const ProductUpdateManagerPage = (props) => {
                       />
                     </Form.FloatingLabel>
                   </Form.Group>
+                  {/* countInStock */}
+                  <Form.Group className='mb-3' controlId='countInStock'>
+                    <Form.FloatingLabel
+                      controlId='countInStock'
+                      label='countInStock'
+                      className='mb-3'
+                    >
+                      <Form.Control
+                        type='number'
+                        placeholder='Quantity'
+                        value={countInStock}
+                        onChange={(e) => setCountInStock(e.target.value)}
+                      />
+                    </Form.FloatingLabel>
+                  </Form.Group>
+                  <Form.Text className='text-muted py-2'>
+                    Please choose "true" or "false" for the options below!
+                  </Form.Text>
                   {/* isVegeterian */}
-                  <Form.Group className='mb-3' controlId='isVegeterian'>
+                  <Form.Group className='mb-3 pt-2' controlId='isVegeterian'>
                     <Form.FloatingLabel
                       controlId='isVegeterian'
                       label='isVegeterian'
@@ -377,21 +394,6 @@ const ProductUpdateManagerPage = (props) => {
                         placeholder='Organic'
                         value={isOrganic}
                         onChange={(e) => setIsOrganic(e.target.value)}
-                      />
-                    </Form.FloatingLabel>
-                  </Form.Group>
-                  {/* countInStock */}
-                  <Form.Group className='mb-3' controlId='countInStock'>
-                    <Form.FloatingLabel
-                      controlId='countInStock'
-                      label='countInStock'
-                      className='mb-3'
-                    >
-                      <Form.Control
-                        type='number'
-                        placeholder='Quantity'
-                        value={countInStock}
-                        onChange={(e) => setCountInStock(e.target.value)}
                       />
                     </Form.FloatingLabel>
                   </Form.Group>

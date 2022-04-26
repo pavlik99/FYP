@@ -10,6 +10,9 @@ const Product = ({ product }) => {
         <Card.Img
           className='rounded-top'
           variant='top'
+          height={250}
+          width={300}
+          rounded
           src={product.productImage}
         />
       </Link>
@@ -24,9 +27,11 @@ const Product = ({ product }) => {
         </Card.Text>
         <Card.Text as='h6'> £{product.price}</Card.Text>
         <div className='text-center'>
-          <Button className='btn' variant='outline-dark'>
-            ADD TO BASKET
-          </Button>
+          <Link to={`/product/${product._id}`}>
+            <Button className='btn' variant='outline-dark'>
+              VIEW PRODUCT
+            </Button>
+          </Link>
         </div>
       </Card.Body>
     </Card>

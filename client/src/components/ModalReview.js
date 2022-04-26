@@ -36,7 +36,7 @@ const ModalReview = ({
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Rate Product</Modal.Title>
+          <Modal.Title>RATE PRODUCT</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <>
@@ -45,12 +45,12 @@ const ModalReview = ({
                 value={rating}
                 onChange={(e) => setRating(e.target.value)}
               >
-                <option value=''>Select...</option>
-                <option value='1'>1</option>
-                <option value='2'>2 - Fair</option>
-                <option value='3'>3 - Good</option>
-                <option value='4'>4 - Very Good</option>
-                <option value='5'>5 - Excellent</option>
+                <option value=''>Please select an option...</option>
+                <option value='1'>Not happy</option>
+                <option value='2'>Disappointed</option>
+                <option value='3'>Not what you expected</option>
+                <option value='4'>Satisfied</option>
+                <option value='5'>Happy with the product</option>
               </Form.Select>
             </>
           </>

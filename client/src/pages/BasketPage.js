@@ -42,9 +42,7 @@ const BasketPage = (props) => {
   return (
     <>
       <Container>
-        <h2 className='pt-2'>
-          <i className='fa-solid fa-basket-shopping'></i> Your Basket
-        </h2>
+        <h3 className='pt-2 basketFont'>Your Basket</h3>
         <Row>
           {basketItems.map((item) => (
             <Col lg={4} sm={12} xl={3} md={6} key={item.product}>
@@ -60,16 +58,8 @@ const BasketPage = (props) => {
         <Col md={4}>
           <>
             <ListGroup horizontal>
-              <ListGroupItem>
-                <h2>
-                  Subtotal: {/* ( */}
-                  {/* {Products.reduce(
-                    (acc, currentItem) => acc + currentItem.quantity,
-                    0
-                  )}
-                  ) items */}
-                </h2>
-                £{' '}
+              <ListGroupItem className='basketFont'>
+                <h2 className='basketFont'>Subtotal:</h2>£{' '}
                 {basketItems
                   .reduce(
                     (acc, currentItem) =>

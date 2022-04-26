@@ -16,10 +16,14 @@ import Loading from '../components/Loading'
 import ModalBasket from '../components/ModalBasket'
 import ProductAccordion from '../components/ProductAccordion'
 import ModalReview from '../components/ModalReview'
-//import ProductsRecommnedation from '../components/ProductsRecommnedation'
+import ProductsRecommnedation from '../components/ProductsRecommnedation'
 
 // REDUX ACTIONS
-import { fetchProduct, rateProductAction } from '../actions/productActions'
+import {
+  fetchProduct,
+  fetchProducts,
+  rateProductAction,
+} from '../actions/productActions'
 import { RATE_PRODUCT_RESTART } from '../constants/productTypes'
 
 const ProductPage = (props) => {
@@ -44,6 +48,9 @@ const ProductPage = (props) => {
   const oneProduct = useSelector((state) => state.oneProduct)
   const { loading, product, success, error } = oneProduct
 
+  const allProducts = useSelector((state) => state.allProducts)
+  const { products } = allProducts
+
   const rateProduct = useSelector((state) => state.rateProduct)
   const { rated } = rateProduct
 
@@ -53,6 +60,7 @@ const ProductPage = (props) => {
       dispatch({ type: RATE_PRODUCT_RESTART })
     }
     dispatch(fetchProduct(props.match.params.id))
+    dispatch(fetchProducts())
   }, [dispatch, props.match.params.id, rated])
 
   const addToBasketHandler = () => {
@@ -69,19 +77,19 @@ const ProductPage = (props) => {
       {loading ? (
         <Loading />
       ) : success ? (
-        <Container className='py-2'>
+        <Container className='py-3'>
           <Row>
             <Col md={6}>
               {' '}
               <Image
-                className='rounded'
+                className='productPageImage'
+                rounded
                 src={product.productImage}
-                fluid
               />{' '}
             </Col>
             <Col md={5}>
               <ListGroup variant='flush'>
-                <ListGroupItem>
+                <ListGroupItem className='uppercase '>
                   {' '}
                   <h4>{product.title}</h4>{' '}
                 </ListGroupItem>
@@ -97,17 +105,21 @@ const ProductPage = (props) => {
                         rating={rating}
                         setRating={setRating}
                         ratingHandler={ratingHandler}
-                        value={product.review}
+                        value={product.rating} //review
                         text={`${product.numReviews} reviews`}
                       />
                     </Col>
                   </Row>
                 </ListGroupItem>
-                <ListGroupItem>Price: £{product.price}</ListGroupItem>
+                <ListGroupItem className='productFont'>
+                  Price: £{product.price}
+                </ListGroupItem>
                 <ListGroupItem>
                   <PopOver product={product} />
                 </ListGroupItem>
-                <ListGroupItem>{product.description}</ListGroupItem>
+                <ListGroupItem className='productFont'>
+                  {product.description}
+                </ListGroupItem>
                 <ListGroupItem>
                   <Row className='py-3'>
                     <ModalBasket
@@ -138,58 +150,36 @@ const ProductPage = (props) => {
                       <i className='fa-brands fa-pinterest px-1'> </i>
                     </Col>
                   </Row>
-                  {/* <Row className='pt-5'> */}
-                  {/* <Col>
-                      <text className='px-3'>Share</text>
-                      <i className='fa-brands fa-twitter px-1'> </i>
-                      <i className='fa-brands fa-facebook px-1'> </i>
-                      <i className='fa-brands fa-pinterest px-1'> </i>
-                    </Col> */}
-                  {/* </Row> */}
                 </ListGroupItem>
               </ListGroup>
             </Col>
           </Row>
-          <Row>
-            <Col>
-              {/* <Form onSubmit={ratingHandler}>
-                <Form.Group controlId='rating'>
-                  <Form.Label>Rating</Form.Label>
-                  <Form.Select
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                  >
-                    <option value=''>Select...</option>
-                    <option value='1'>
-                      <img
-                        alt='reviews'
-                        className='px-1'
-                        src='/images/full-star.png'
-                      />
-                    </option>
-                    <option value='2'>2 - Fair</option>
-                    <option value='3'>3 - Good</option>
-                    <option value='4'>4 - Very Good</option>
-                    <option value='5'>5 - Excellent</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Button type='submit' variant='primary'>
-                  Submit
-                </Button>
-              </Form> */}
-            </Col>
-          </Row>
+          <Row></Row>
 
           <Row className='py-4'>
-            <ProductAccordion product={product} />
+            <ProductAccordion className='productFont' product={product} />
           </Row>
           <Row>
-            {/* {products.map(product => (
-        <Col lg={4} sm={12} xl={3} md={6}   >
-        <ProductsRecommnedation product={product} />
-        </Col>
-    ))} RECCOMEDED PRODUCTS ACCORIFNG TO TAG HAVE TO GO HERE */}
+            {(product.isVegan || product.isVegeterian) && (
+              <h4 className='productFont uppercase'> Explore more products</h4>
+            )}
+
+            {(product.isVegan || product.isVegeterian) && (
+              <>
+                {' '}
+                {products.map((product) => (
+                  <>
+                    {product.isVegan && (
+                      <>
+                        <Col lg={4} sm={12} xl={3} md={6}>
+                          <ProductsRecommnedation product={product} />
+                        </Col>{' '}
+                      </>
+                    )}
+                  </>
+                ))}{' '}
+              </>
+            )}
           </Row>
         </Container>
       ) : (

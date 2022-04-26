@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Row, Col, Button, Container } from 'react-bootstrap'
+import { Row, Col, Button, Container, Card } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -25,19 +25,19 @@ const RecipePage = () => {
           <Col></Col>
           <Col>
             {' '}
-            <Link className='link' to={'a'}>
+            <Link className='link' to={'/link/recipes'}>
               <i className='fas fa-utensils'></i> RECIPES
             </Link>
           </Col>
 
           <Col>
-            <Link className='link' to={'a'}>
+            <Link className='link' to={'/link/articles'}>
               <i class='fa-solid fa-book'></i> ARTICLES
             </Link>
           </Col>
           <Col>
             {' '}
-            <Link className='link' to={'a'}>
+            <Link className='link' to={'/link/news'}>
               <i class='fa-solid fa-newspaper'></i> NEWS
             </Link>
           </Col>

@@ -7,9 +7,12 @@ const ManagerProduct = ({ item, deleteProductHandler }) => {
       <Card className='my-3  rounded' style={{ width: '18rem' }}>
         <Link to={`/product/${item._id}`}>
           <Card.Img
-            src={item.productImage}
             className='rounded-top'
+            height={250}
+            width={300}
+            rounded
             variant='top'
+            src={item.productImage}
           />
         </Link>
         <Card.Body>

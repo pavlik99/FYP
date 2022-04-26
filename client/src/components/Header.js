@@ -84,12 +84,13 @@ const Header = () => {
 
             <Nav className='ms-auto'>
               <Nav.Link as={Link} to='/basket'>
-                <i className='fas fa-bag-shopping'></i> BASKET
+                BASKET
               </Nav.Link>
 
               {accountData ? (
                 <>
-                  <NavDropdown title={<i class='fa-solid fa-user'></i>}>
+                  {/* <NavDropdown title={<i class='fa-solid fa-user'></i>}> */}
+                  <NavDropdown title='PROFILE '>
                     <NavDropdown.Item>
                       <Nav.Link as={Link} to='/profile'>
                         ACCOUNT
@@ -133,7 +134,7 @@ const Header = () => {
               )}
 
               {accountData && accountData.isManager && (
-                <NavDropdown title={accountData.forename}>
+                <NavDropdown title='MANAGER '>
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to='/manager/products'>
                       PRODUCTS

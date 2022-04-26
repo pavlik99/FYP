@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import {
@@ -16,6 +15,7 @@ import {
   Alert,
 } from 'react-bootstrap'
 
+import PopOver from '../components/PopOver'
 import { setDeliveryAdress } from '../actions/basketActions'
 
 const OrderPage = () => {
@@ -46,7 +46,6 @@ const OrderPage = () => {
         zipCode,
       })
     )
-    // history.push('/pay')
     history.push('/order')
   }
   return (
@@ -57,40 +56,23 @@ const OrderPage = () => {
             {basket.basketItems.length === 0 ? (
               <Alert variant='danger'>Empty Basket </Alert>
             ) : (
-              <CardGroup variant='flush'>
+              <CardGroup variant='flush' className='orderFont'>
                 {basket.basketItems.map((item, index) => (
                   <ListGroupItem key={index}>
                     <Row>
-                      <Col md={3}>
-                        <Image src={item.productImage} fluid rounded />
+                      <Col md={2}>
+                        <Image
+                          className='orderPageImage'
+                          src={item.productImage}
+                          rounded
+                          fluid
+                        />
                       </Col>
                       <Col>{item.title}</Col>
                       <Col>£{item.price}</Col>
-                      {/* CHANGE THIS */}
                       <Col>
-                        {item.isVegan ? (
-                          <i class='fa-solid fa-truck-fast'></i>
-                        ) : (
-                          <i class='fa-solid fa-truck-fast'></i>
-                        )}
-
-                        {item.isVegeterian ? (
-                          <i class='fa-solid fa-truck-fast'></i>
-                        ) : (
-                          ' '
-                        )}
-                        {item.isKeto ? (
-                          <i class='fa-solid fa-truck-fast'></i>
-                        ) : (
-                          ' '
-                        )}
-                        {item.isOrganic ? (
-                          <i class='fa-solid fa-truck-fast'></i>
-                        ) : (
-                          ' '
-                        )}
+                        <PopOver product={item} />
                       </Col>
-                      {/* AAAAAAAAAAAA */}
                     </Row>
                   </ListGroupItem>
                 ))}

@@ -18,6 +18,9 @@ import OneRecipePage from './pages/OneRecipePage'
 import UserRecipe from './pages/UserRecipe'
 import UserOrders from './pages/UserOrders'
 import UpdateRecipePage from './pages/UpdateRecipePage'
+import LinkArticlePage from './pages/LinkArticlePage'
+import LinkRecipePage from './pages/LinkRecipePage'
+import LinkNewsPage from './pages/LinkNewsPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -52,6 +55,9 @@ function App() {
               component={ProductUpdateManagerPage}
             />
             <Route path='/update/:id' component={UpdateRecipePage} />
+            <Route path='/link/articles' component={LinkArticlePage} />
+            <Route path='/link/recipes' component={LinkRecipePage} />
+            <Route path='/link/news' component={LinkNewsPage} />
           </Container>
         </main>
         <Footer />
