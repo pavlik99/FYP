@@ -17,38 +17,51 @@ const putOrderProducts = expressAsyncHandler(async (req, res) => {
     finalPrice,
   } = req.body
 
-  if (productItems && productItems.length === 0) {
-    res.status(400)
-    throw new Error('Empty')
-    return
-  } else {
-    const order = new Order({
-      user: req.user._id,
-      productItems,
-      deliveryAddress,
-      productsTotal,
-      deliveryPrice,
-      finalPrice,
-    })
+  if (!deliveryAddress) {
+    res.status(400).json({ msg: 'Missing Address' })
+  }
 
-    const newOrder = await order.save()
-
-    res.status(201).json(newOrder)
+  if (!productsTotal || !finalPrice) {
+    res.status(400).json({ msg: 'Error with prices' })
+  }
+  try {
+    if (productItems && productItems.length === 0) {
+      res.status(400)
+      throw new Error('Empty')
+      return
+    } else {
+      const order = new Order({
+        user: req.user._id,
+        productItems,
+        deliveryAddress,
+        productsTotal,
+        deliveryPrice,
+        finalPrice,
+      })
+      const newOrder = await order.save()
+      res.status(201).json(newOrder)
+    }
+  } catch (error) {
+    res.status(404).json({ message: 'Unable to create a new order' })
   }
 })
 
 //GET ORDER
 const getOrder = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(
+  const { id } = req.params
+  const order = await Order.findById(id).populate(
     'user',
     'forename surname email'
   )
-
-  if (order) {
-    res.json(order)
-  } else {
-    res.status(404)
-    throw new Error('Unable to find order')
+  try {
+    if (order) {
+      res.json(order)
+    } else {
+      res.status(404)
+      throw new Error('Unable to find order')
+    }
+  } catch (error) {
+    res.status(404).json({ message: 'Order with such id does not exist' })
   }
 })
 
@@ -76,8 +89,12 @@ const stripePayment = expressAsyncHandler(async (req, res) => {
 
 // GET USER ORDERS
 const getOrders = expressAsyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id })
-  res.json(orders)
+  try {
+    const orders = await Order.find({ user: req.user._id })
+    res.json(orders)
+  } catch (error) {
+    res.status(404).json({ message: 'Unable to find user orders' })
+  }
 })
 
 // GET /api/orders/profile
@@ -99,15 +116,20 @@ const getProfileOrder = expressAsyncHandler(async (req, res) => {
     })
 })
 
-// GET All USER ORDERS
+// GET All ORDERS
 const getAllOrdersManager = expressAsyncHandler(async (req, res) => {
-  const orders = await Order.find({}).populate('user', 'id forename surname')
-  res.json(orders)
+  try {
+    const orders = await Order.find({}).populate('user', 'id forename surname')
+    res.json(orders)
+  } catch (error) {
+    res.status(404).json({ message: 'Unable to get all orders' })
+  }
 })
 
 //Confirm Order
 const confirmOrder = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
+  const { id } = req.params
+  const order = await Order.findById(id)
 
   if (order) {
     order.isConfirmed = true
@@ -123,7 +145,8 @@ const confirmOrder = expressAsyncHandler(async (req, res) => {
 
 //Dispatch Order
 const dispatchOrder = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
+  const { id } = req.params
+  const order = await Order.findById(id)
 
   if (order) {
     order.isDispatched = true
@@ -139,7 +162,8 @@ const dispatchOrder = expressAsyncHandler(async (req, res) => {
 
 // Mark order as delivered
 const deliverOrder = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
+  const { id } = req.params
+  const order = await Order.findById(id)
 
   if (order) {
     order.isDelivered = true

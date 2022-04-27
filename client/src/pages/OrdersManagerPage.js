@@ -79,7 +79,6 @@ const OrdersManagerPage = () => {
                         <Col>
                           <Link to={`/orders/${item._id}`}>
                             <Button variant='outline-dark' size='sm'>
-                              {/* <i class='fa-solid fa-gears'></i> */}
                               Details
                             </Button>
                           </Link>

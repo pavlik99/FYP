@@ -79,14 +79,6 @@ const signup = expressAsyncHandler(async (req, res) => {
           (err, token) => {
             if (err) throw err
             res.json({
-              // token,
-              // account: {
-              //   id: account._id,
-              //   forename: account.forename,
-              //   surname: account.surname,
-              //   email: account.email,
-              // },
-
               _id: account._id,
               userImage: account.userImage,
               forename: account.forename,
@@ -102,24 +94,6 @@ const signup = expressAsyncHandler(async (req, res) => {
       })
     })
   })
-  //////////////////////////////////
-  // const salt = await bcrypt.genSalt(10)
-  // account.password = await bcrypt.hash(this.password, salt) //this.password
-
-  // if (account) {
-  //   res.status(201).json({
-  //     _id: account._id,
-  //     forename: account.forename,
-  //     surname: account.surname,
-  //     email: account.email,
-  //     isAdmin: account.isAdmin,
-  //     token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
-  //       expiresIn: '60d',
-  //     }),
-  //   })
-  // } else {
-  //   res.status(400).json({ msg: 'Unexpected error' })
-  // }
 })
 
 // GET /api/account/profile
@@ -142,34 +116,10 @@ const getProfile = expressAsyncHandler(async (req, res) => {
     })
 })
 
-//GENERATING JWT WEB TOKEN delete
-//jwt.sign({ id: account._id }, process.env.JWT_SECRET, { expiresIn: '60d' })
-
-// DELETE LATER
-//   const account = await User.findOne({ email: email })
-//   if (!account)
-//     return res
-//       .status(400)
-//       .json({ msg: 'Account with this email does not exist' })
-
-//   if (account && (await account.isPassword(password))) {
-//     res.json({
-//       _id: account._id,
-//       forename: account.forename,
-//       surname: account.surname,
-//       email: account.email,
-//       isManager: account.isManager,
-//       token: null,
-//     })
-//   } else {
-//     res.status(401).json({ msg: 'Invalid email or password' })
-//   }
-
 // UPDATE USER PROFILE
 // PUT /api/account/profile
 const updateProfile = expressAsyncHandler(async (req, res) => {
-  //start
-  const { forename, surname, email, password, userImage } = req.body //add picture
+  const { forename, surname, email, password, userImage } = req.body
   const account = await User.findById(req.user._id)
 
   if (account) {
@@ -186,37 +136,12 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
 
   const updatedAccount = await account.save()
 
-  // bcrypt.genSalt(10, (salt) => {
-  //   bcrypt.hash(password, salt, (err, hash) => {
-  //     if (err) throw err
-  //     account.password = hash
-  //     account.save().then((account) => {
-  //       jwt.sign(
-  //         { id: account._id },
-  //         process.env.JWT_SECRET,
-  //         { expiresIn: 3600 },
-  //         (err) => {
-  //           if (err) throw err
-  //           res.json({
-  //             account,
-  //             token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
-  //               expiresIn: '60d',
-  //             }),
-  //           })
-  //         }
-  //       )
-  //     })
-  //   })
-  // })
-
   res.json({
     updatedAccount,
     token: jwt.sign({ id: account._id }, process.env.JWT_SECRET, {
       expiresIn: '60d',
     }),
   })
-
-  //end
 })
 
 export { signin, signup, getProfile, updateProfile }

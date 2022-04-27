@@ -9,22 +9,22 @@ const userSchema = mongoose.Schema(
     },
     forename: {
       type: String,
-      required: true,
+      required: [true, 'Please add a First Name'],
       maxlength: 32,
     },
     surname: {
       type: String,
-      required: true,
+      required: [true, 'Please add a Family Name'],
       maxlength: 32,
     },
     accountName: {
       type: String,
-      required: false,
+      required: [false, 'Please add an account name'],
       maxlength: 32,
     },
     userImage: {
       type: String,
-      required: false,
+      required: [false, 'Please add an Image'],
     },
     email: {
       type: String,

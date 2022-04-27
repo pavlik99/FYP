@@ -1,36 +1,46 @@
 import expressAsyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+import mongoose from 'mongoose'
 
 // GET /api/products
 const fetchAllProducts = expressAsyncHandler(async (req, res) => {
-  const keyword = req.query.keyword
-    ? {
-        title: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
-    : {}
-  const products = await Product.find({ ...keyword })
-  res.json(products)
+  try {
+    const keyword = req.query.keyword
+      ? {
+          title: {
+            $regex: req.query.keyword,
+            $options: 'i',
+          },
+        }
+      : {}
+    const products = await Product.find({ ...keyword })
+    res.json(products)
+  } catch (error) {
+    res.status(404).json({ message: 'Error when fetching products' })
+  }
 })
 
 //GET /api/products/:id
 const fetchProduct = expressAsyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
-
-  if (product) {
-    res.json(product)
-  } else {
-    res.status(404).json({ message: 'Unable to find product' })
+  const { id } = req.params
+  const product = await Product.findById(id)
+  try {
+    if (product) {
+      res.json(product)
+    } else {
+      res.status(404).json({ message: 'Unable to find product' })
+    }
+  } catch (error) {
+    res.status(404).json({ message: 'Error when fetching product' })
   }
 })
 
 // RATING  A PRODUCT
 const newReview = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
   const { rating } = req.body
 
-  const product = await Product.findById(req.params.id)
+  const product = await Product.findById(id)
 
   if (product) {
     const isReviewed = product.reviews.find(
@@ -69,12 +79,21 @@ const newReview = expressAsyncHandler(async (req, res) => {
 // MANAGER
 // DELETE /api/products/:id
 const destroyProduct = expressAsyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+  const { id } = req.params
+  const product = await Product.findById(id)
 
-  if (product) {
-    await product.remove()
-  } else {
-    res.status(404).json({ message: 'Unable to find product' })
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No product with such id was found`)
+
+  try {
+    if (product) {
+      //await product.remove()
+      await Product.findByIdAndRemove(id)
+    } else {
+      res.status(404).json({ message: 'Unable to find product' })
+    }
+  } catch (error) {
+    res.status(404).json({ message: 'Error when deleting product' })
   }
 })
 
@@ -100,15 +119,19 @@ const newProduct = expressAsyncHandler(async (req, res) => {
     numReviews: 0,
     countInStock: 0,
   })
-
-  const newProduct = await item.save()
-  res.status(201)
-  res.json(newProduct)
+  try {
+    const newProduct = await item.save()
+    res.status(201)
+    res.json(newProduct)
+  } catch (error) {
+    res.status(404).json({ message: 'Error when creating product' })
+  }
 })
 
 // MANAGER
 // PUT /api/products/:id
 const updateProduct = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
   const {
     title,
     price,
@@ -124,35 +147,71 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
     isVegan,
     isKeto,
     isOrganic,
-    numReviews,
     countInStock,
   } = req.body
-  const item = await Product.findById(req.params.id)
-  if (item) {
-    item.title = title
-    item.price = price
-    item.productImage = productImage
-    item.brand = brand
-    item.category = category
-    item.description = description
-    item.information = information
-    item.nutrition = nutrition
-    item.ingredients = ingredients
-    item.allergens = allergens
-    item.isVegeterian = isVegeterian
-    item.isVegan = isVegan
-    item.isKeto = isKeto
-    item.isOrganic = isOrganic
-    item.numReviews = numReviews
-    item.countInStock = countInStock
 
-    const updatedProduct = await item.save()
+  //fake
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send('Unable to find a recipe with such id')
 
-    res.json(updatedProduct)
-  } else {
-    res.status(404)
-    throw new Error('Product not found')
+  const updatedProduct = {
+    title,
+    price,
+    productImage,
+    brand,
+    category,
+    description,
+    information,
+    nutrition,
+    ingredients,
+    allergens,
+    isVegeterian,
+    isVegan,
+    isKeto,
+    isOrganic,
+    countInStock,
+    _id: req.params.id,
   }
+
+  await Product.findByIdAndUpdate(id, updatedProduct)
+  res.json(updatedProduct)
+  //end fake
+
+  //original
+  //const item = await Product.findById(id)
+  // if (!mongoose.Types.ObjectId.isValid(id))
+  //   return res.status(404).send(`No product with such  id`)
+
+  // try {
+  //   if (item) {
+  //     item.title = title
+  //     item.price = price
+  //     item.productImage = productImage
+  //     item.brand = brand
+  //     item.category = category
+  //     item.description = description
+  //     item.information = information
+  //     item.nutrition = nutrition
+  //     item.ingredients = ingredients
+  //     item.allergens = allergens
+  //     item.isVegeterian = isVegeterian
+  //     item.isVegan = isVegan
+  //     item.isKeto = isKeto
+  //     item.isOrganic = isOrganic
+  //     item.numReviews = numReviews
+  //     item.countInStock = countInStock
+
+  //     const updatedProduct = await item.save()
+
+  //     res.json(updatedProduct)
+  //   } else {
+  //     res.status(404)
+  //     throw new Error('Product not found')
+  //   }
+  // } catch (error) {
+  //   res.status(404).json({ message: 'Error when updating product' })
+  // }
+  // end original
 })
 
 export {

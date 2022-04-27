@@ -8,8 +8,8 @@ const orderItemsSchema = mongoose.Schema(
       required: true,
       min: [1, 'Quantity can not be less then 1.'],
     },
-    productImage: { type: String, required: false },
-    price: { type: Number, required: true },
+    productImage: { type: String, required: [false, 'Please add image'] },
+    price: { type: Number, required: [true, 'Please add a price'] },
     isVegeterian: {
       type: Boolean,
       default: false,
@@ -28,7 +28,7 @@ const orderItemsSchema = mongoose.Schema(
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: [true, 'Please add product'],
       ref: 'Product',
     },
   },

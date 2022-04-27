@@ -261,12 +261,12 @@ const AccountPage = () => {
             <Row>
               <Col>
                 <Link to={'/profiles/myrecipes'}>
-                  <Button variant='outline-dark'>My Recipes</Button>
+                  <Button variant='outline-dark'>MY RECIPES</Button>
                 </Link>
               </Col>
               <Col>
                 <Link to={'/profiles/orders'}>
-                  <Button variant='outline-dark'>My Orders</Button>
+                  <Button variant='outline-dark'>MY ORDERS</Button>
                 </Link>
               </Col>
             </Row>

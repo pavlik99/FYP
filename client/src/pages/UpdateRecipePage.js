@@ -170,13 +170,7 @@ const UpdateRecipePage = (props) => {
           </Button>
           <Row className='pt-2'>
             <Col>
-              <Image
-                src={recipe.image}
-                fluid
-                rounded
-                width={600}
-                height={600}
-              />
+              <Image className='productUpdateImage' src={recipe.image} />
 
               {/* Recipe Image*/}
               <Form.Group className='mb-3 mt-3' controlId='formBasicImage'>

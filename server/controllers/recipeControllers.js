@@ -1,23 +1,28 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import expressAsyncHandler from 'express-async-handler'
-
 import Recipe from '../models/recipeModel.js'
 import User from '../models/userModel.js'
 
 // GET /api/recipes
 const fetchAllRecipes = expressAsyncHandler(async (req, res) => {
-  const recipes = await Recipe.find()
-  res.json(recipes)
+  try {
+    const recipes = await Recipe.find()
+    res.json(recipes)
+  } catch (error) {
+    res.status(404).json({ message: 'Error when getting recipes' })
+  }
 })
 
 // GET /api/recipes/:id
 const fetchRecipe = expressAsyncHandler(async (req, res) => {
-  const recipe = await Recipe.findById(req.params.id).populate(
+  const { id } = req.params
+  const recipe = await Recipe.findById(id).populate(
     'user',
     'forename surname email'
   )
-
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`Unable to find recipe with such id`)
   try {
     res.status(200).json(recipe)
   } catch (error) {
@@ -27,8 +32,12 @@ const fetchRecipe = expressAsyncHandler(async (req, res) => {
 
 // GET USER RECIPES
 const getUserRecipes = expressAsyncHandler(async (req, res) => {
-  const recipes = await Recipe.find({ user: req.user._id })
-  res.json(recipes)
+  try {
+    const recipes = await Recipe.find({ user: req.user._id })
+    res.json(recipes)
+  } catch (error) {
+    res.status(404).json({ message: 'Error when getting user recipes' })
+  }
 })
 
 // CREATE, UPDATE AND DELETE RECIPE CONTROLLERS
@@ -67,17 +76,22 @@ const newRecipe = expressAsyncHandler(async (req, res) => {
 // DELETE A RECIPE
 // DELETE /api/recipes/:id
 const destroyRecipe = expressAsyncHandler(async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send('Recipe with such id does not exist')
+  try {
+    await Recipe.findByIdAndRemove(id)
 
-  await Recipe.findByIdAndRemove(req.params.id)
-
-  res.json({ message: 'Recipe deleted successfully.' })
+    res.json({ message: 'Recipe deleted successfully.' })
+  } catch (error) {
+    res.status(404).json({ message: 'Error when deleting user recipes' })
+  }
 })
 
 // UPDATE RECIPE
 // PUT /api/recipe/:id
 const updateRecipe = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params
   const {
     title,
     image,
@@ -95,65 +109,80 @@ const updateRecipe = expressAsyncHandler(async (req, res) => {
     isNews,
     likes,
   } = req.body
+  //fake start
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send('Unable to find a recipe with such id')
+  //fake end
+  //start original
+  // const item = await Recipe.findById(id)
+  // if (item) {
+  //   item.title = title
+  //   item.body = body
+  //   item.body2 = body2
+  //   item.image = image
+  //   item.image2 = image2
+  //   item.image3 = image3
+  //   item.description = description
+  //   item.ingredients = ingredients
+  //   item.isVegeterian = isVegeterian
+  //   item.isVegan = isVegan
+  //   item.isKeto = isKeto
+  //   item.isRecipe = isRecipe
+  //   item.isArticle = isArticle
+  //   item.isNews = isNews
 
-  // if (!mongoose.Types.ObjectId.isValid(req.params.id))
-  //   return res.status(404).send('Unable to find a recipe with such id')
+  //   const updatedRecipe = await item.save()
 
-  const item = await Recipe.findById(req.params.id)
-  if (item) {
-    item.title = title
-    item.body = body
-    item.body2 = body2
-    item.image = image
-    item.image2 = image2
-    item.image3 = image3
-    item.description = description
-    item.ingredients = ingredients
-    item.isVegeterian = isVegeterian
-    item.isVegan = isVegan
-    item.isKeto = isKeto
-    item.isRecipe = isRecipe
-    item.isArticle = isArticle
-    item.isNews = isNews
-
-    const updatedRecipe = await item.save()
-
-    res.json(updatedRecipe)
-  } else {
-    res.status(404)
-    throw new Error('Product not found')
+  //   res.json(updatedRecipe)
+  // } else {
+  //   res.status(404)
+  //   throw new Error('Product not found')
+  // }
+  //end original
+  //start fake
+  const updatedRecipe = {
+    title,
+    description,
+    body,
+    body2,
+    image2,
+    image3,
+    image,
+    ingredients,
+    isVegeterian,
+    isVegan,
+    isKeto,
+    likes,
+    isRecipe,
+    isArticle,
+    isNews,
+    _id: req.params.id,
   }
 
-  // const updatedRecipe = {
-  //   title,
-  //   description,
-  //   body,
-  //   image,
-  //   ingredients,
-  //   isVegeterian,
-  //   isVegan,
-  //   isKeto,
-  //   likes,
-  //   _id: req.params.id,
-  // }
-
-  // await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe)
-  // res.json(updatedRecipe)
+  await Recipe.findByIdAndUpdate(id, updatedRecipe)
+  res.json(updatedRecipe)
+  //edn fake
 })
 
 // LIKE A RECIPE
 // PATCH /api/recipe/:id/like
 const likeRecipe = expressAsyncHandler(async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send('Unable to find a recipe with such id ')
 
-  const recipe = await Recipe.findById(req.params.id)
+  const recipe = await Recipe.findById(id)
 
-  const likedRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
-    likes: recipe.likes + 1,
-  })
-
-  res.json(likedRecipe)
+  try {
+    const likedRecipe = await Recipe.findByIdAndUpdate(id, {
+      likes: recipe.likes + 1,
+    })
+    res.json(likedRecipe)
+  } catch (error) {
+    res
+      .status(404)
+      .json({ message: 'Error when attempting to upvote a recipe' })
+  }
 })
 
 export {

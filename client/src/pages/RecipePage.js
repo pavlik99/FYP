@@ -45,7 +45,7 @@ const RecipePage = () => {
         </Row>
         <Row className='pt-3'>
           {recipes.map((recipe) => (
-            <Col lg={4} sm={12} xl={3} md={4} key={recipe._id}>
+            <Col lg={4} sm={12} xl={3} md={4} className='pt-3' key={recipe._id}>
               <RecipeCard recipe={recipe} />
             </Col>
           ))}

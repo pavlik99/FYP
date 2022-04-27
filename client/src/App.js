@@ -24,8 +24,7 @@ import LinkNewsPage from './pages/LinkNewsPage'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
-import 'slick-carousel/slick/slick.css' //delete if no coursel
-import 'slick-carousel/slick/slick-theme.css' // -.-.-.-.-
+import 'slick-carousel/slick/slick.css'
 
 function App() {
   return (

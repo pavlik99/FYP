@@ -1,26 +1,27 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const promotionSchema = mongoose.Schema({
-
+const promotionSchema = mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true,
-        maxlength: 32
+      type: String,
+      required: [false, 'Please add title'],
+      maxlength: 32,
     },
-      description: {
-        type: String,
-        required: true,
-        maxlength: 120
+    description: {
+      type: String,
+      required: [false, 'Please add text'],
+      maxlength: 120,
     },
     promotionImage: {
-        type: String,
-        required: true
-      }
-   
-}, {
-    timestamps: true
-})
+      type: String,
+      required: [false, 'Please add an Image'],
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
-const Promotion =  mongoose.model('Promotion', promotionSchema)
+const Promotion = mongoose.model('Promotion', promotionSchema)
 
 export default Promotion

@@ -11,7 +11,7 @@ import {
   deliverOrder,
   getProfileOrder,
 } from '../controllers/orders.js'
-import { protect, manager } from '../middleware/authentication.js'
+import { protect } from '../middleware/authentication.js'
 
 //GET /api/orders/allorders
 router.get('/allorders', protect, getOrders)

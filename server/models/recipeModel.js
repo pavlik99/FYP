@@ -9,35 +9,36 @@ const recipeSchema = mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
+      required: [true, 'Please add a title'],
+      maxlength: 50,
     },
     image: {
       type: String,
-      required: false,
+      required: [false, 'Please add an Image'],
     },
     image2: {
       type: String,
-      required: false,
+      required: [false, 'Please add an Image'],
     },
     image3: {
       type: String,
-      required: false,
+      required: [false, 'Please add an Image'],
     },
     description: {
       type: String,
-      required: false,
+      required: [false, 'Please add a description'],
     },
     body: {
       type: String,
-      required: false,
+      required: [false, 'Please add text'],
     },
     body2: {
       type: String,
-      required: false,
+      required: [false, 'Please add text'],
     },
     ingredients: {
       type: String,
-      required: false,
+      required: [false, 'Please add ingredients'],
     },
     likes: {
       type: Number,

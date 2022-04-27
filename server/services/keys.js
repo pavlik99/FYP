@@ -5,5 +5,3 @@ export default {
     clientSecret: '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',
   },
 }
-
-//add to git ignore

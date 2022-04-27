@@ -42,13 +42,7 @@ const LinkRecipePage = () => {
           </Col>
           <Col></Col>
         </Row>
-        {/* <Row className='pt-3'>
-          {recipes.map((recipe) => (
-            <Col lg={4} sm={12} xl={3} md={4} key={recipe._id}>
-              {recipe.isRecipe && <RecipeCard recipe={recipe} />}
-            </Col>
-          ))}
-        </Row> */}
+
         <Row className='pt-3'>
           {recipes.map((recipe) => (
             <>
