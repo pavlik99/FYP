@@ -49,6 +49,12 @@ const AccountPage = () => {
   const getUserRecipes = useSelector((state) => state.getUserRecipes)
   const { recipes } = getUserRecipes
 
+  const newRecipe = useSelector((state) => state.newRecipe)
+  const { created } = newRecipe
+
+  const deleteRecipe = useSelector((state) => state.deleteRecipe)
+  const { deleted } = deleteRecipe
+
   useEffect(() => {
     if (!accountData) {
       history.push('/signin')
@@ -81,6 +87,7 @@ const AccountPage = () => {
           password,
         })
       )
+      window.location.reload()
     }
   }
 
@@ -109,6 +116,8 @@ const AccountPage = () => {
 
   return (
     <>
+      {created && <Alert variant='success'> Successfully created! </Alert>}
+      {deleted && <Alert variant='danger'> Successfully deleted!! </Alert>}
       {success && <Alert variant='success'>Successfully Updated!</Alert>}
       {error && <Alert variant='danger'>Unsuccessful Attempt</Alert>}
       {loading && <Loading />}
@@ -261,7 +270,7 @@ const AccountPage = () => {
             <Row>
               <Col>
                 <Link to={'/profiles/myrecipes'}>
-                  <Button variant='outline-dark'>MY RECIPES</Button>
+                  <Button variant='outline-dark'>MY BLOGS</Button>
                 </Link>
               </Col>
               <Col>

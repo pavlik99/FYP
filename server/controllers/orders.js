@@ -38,8 +38,10 @@ const putOrderProducts = expressAsyncHandler(async (req, res) => {
         deliveryPrice,
         finalPrice,
       })
-      const newOrder = await order.save()
-      res.status(201).json(newOrder)
+      order.save().then((newOrder) => res.status(201).json(newOrder))
+
+      // const newOrder = await order.save()
+      // res.status(201).json(newOrder)
     }
   } catch (error) {
     res.status(404).json({ message: 'Unable to create a new order' })
@@ -49,20 +51,30 @@ const putOrderProducts = expressAsyncHandler(async (req, res) => {
 //GET ORDER
 const getOrder = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
-  const order = await Order.findById(id).populate(
-    'user',
-    'forename surname email'
-  )
+
   try {
-    if (order) {
-      res.json(order)
-    } else {
-      res.status(404)
-      throw new Error('Unable to find order')
-    }
+    Order.findById(id)
+      .populate('user', 'forename surname email')
+      .then((order) => res.status(201).json(order))
   } catch (error) {
     res.status(404).json({ message: 'Order with such id does not exist' })
   }
+
+  //
+  // const order = await Order.findById(id).populate(
+  //   'user',
+  //   'forename surname email'
+  // )
+  // try {
+  //   if (order) {
+  //     res.json(order)
+  //   } else {
+  //     res.status(404)
+  //     throw new Error('Unable to find order')
+  //   }
+  // } catch (error) {
+  //   res.status(404).json({ message: 'Order with such id does not exist' })
+  // }
 })
 
 //STRIPE PAYMENT
@@ -90,8 +102,12 @@ const stripePayment = expressAsyncHandler(async (req, res) => {
 // GET USER ORDERS
 const getOrders = expressAsyncHandler(async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id })
-    res.json(orders)
+    Order.find({ user: req.user._id }).then((orders) =>
+      res.status(201).json(orders)
+    )
+    //
+    // const orders = await Order.find({ user: req.user._id })
+    // res.json(orders)
   } catch (error) {
     res.status(404).json({ message: 'Unable to find user orders' })
   }
@@ -119,8 +135,12 @@ const getProfileOrder = expressAsyncHandler(async (req, res) => {
 // GET All ORDERS
 const getAllOrdersManager = expressAsyncHandler(async (req, res) => {
   try {
-    const orders = await Order.find({}).populate('user', 'id forename surname')
-    res.json(orders)
+    Order.find({})
+      .populate('user', 'id forename surname')
+      .then((orders) => res.status(201).json(orders))
+    //
+    // const orders = await Order.find({}).populate('user', 'id forename surname')
+    // res.json(orders)
   } catch (error) {
     res.status(404).json({ message: 'Unable to get all orders' })
   }

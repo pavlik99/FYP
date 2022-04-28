@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Button, Row, Col, Container, ListGroup } from 'react-bootstrap'
+import { Button, Row, Col, Container, ListGroup, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
@@ -37,19 +37,21 @@ const ManagerProductsPage = () => {
       history.push('/signin')
     } else {
       if (accountData && accountData.isManager) {
-        dispatch(fetchProducts)
+        dispatch(fetchProducts())
       }
     }
     if (created) {
-      history.push(`/manager/product/${product._id}/update`)
+      history.push(`/`)
+      window.location.reload()
     } else {
-      dispatch(fetchProducts)
+      dispatch(fetchProducts())
     }
   }, [dispatch, history, accountData, deleted, created])
 
   const deleteProductHandler = (id) => {
     dispatch(managerDeleteProduct(id))
-    history.push('/manager/products')
+    history.push('/')
+    window.location.reload()
   }
   const newProduct = () => {
     dispatch(managerNewProduct())
@@ -57,6 +59,8 @@ const ManagerProductsPage = () => {
 
   return (
     <>
+      {created && <Alert variant='success'> Successfully created! </Alert>}
+      {deleted && <Alert variant='danger'> Successfully deleted!! </Alert>}
       <Container className='pt-4' fluid>
         <Row className='align-items-center'>
           <Col>

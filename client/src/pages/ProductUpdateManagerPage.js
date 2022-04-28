@@ -50,7 +50,7 @@ const ProductUpdateManagerPage = (props) => {
   useEffect(() => {
     if (updated) {
       dispatch({ type: MANAGER_UPDATE_PRODUCT_RESTART })
-      history.push('/manager/products')
+      history.push('/')
     } else {
       if (!product.title || product._id !== productID) {
         dispatch(fetchProduct(productID))

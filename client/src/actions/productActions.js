@@ -19,9 +19,15 @@ export const fetchProducts =
     try {
       dispatch({ type: FETCH_ALL_REQUEST })
 
-      const { data } = await axios.get(`/api/products?keyword=${keyword}`)
+      axios.get(`/api/products?keyword=${keyword}`).then((res) =>
+        dispatch({
+          type: FETCH_ALL_SUCCESS,
+          payload: res.data,
+        })
+      )
+      // const { data } = await axios.get(`/api/products?keyword=${keyword}`)
 
-      dispatch({ type: FETCH_ALL_SUCCESS, payload: data })
+      // dispatch({ type: FETCH_ALL_SUCCESS, payload: data })
     } catch (error) {
       dispatch({ type: FETCH_ALL_ERROR, payload: error.response })
     }

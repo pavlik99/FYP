@@ -43,11 +43,18 @@ const UserRecipe = () => {
 
   const deleteRecipeHandler = (id) => {
     dispatch(deleteRecipeAction(id))
-    history.push('/profiles/myrecipes')
+
+    history.push('/profile')
+    window.location.reload()
   }
 
   const newRecipeHandler = () => {
     dispatch(createRecipeAction())
+    {
+      created && <Alert variant='success'>Successful Attempt</Alert>
+    }
+    history.push('/profile')
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -55,6 +62,7 @@ const UserRecipe = () => {
       history.push('/signin')
     } else {
       if (!account.forename) {
+        dispatch(getAccountInfo('profile'))
         dispatch(getAllUserRecipesAction())
       }
     }
@@ -63,6 +71,8 @@ const UserRecipe = () => {
   return (
     <>
       {loading && <Loading />}
+      {created && <Alert variant='success'>Successful Attempt</Alert>}
+      {deleted && <Alert variant='danger'> Successfully deleted!! </Alert>}
 
       <Col>
         <Button

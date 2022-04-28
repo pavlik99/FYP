@@ -13,8 +13,9 @@ const fetchAllProducts = expressAsyncHandler(async (req, res) => {
           },
         }
       : {}
-    const products = await Product.find({ ...keyword })
-    res.json(products)
+    Product.find({ ...keyword }).then((products) => res.json(products))
+    // const products = await Product.find({ ...keyword })
+    // res.json(products)
   } catch (error) {
     res.status(404).json({ message: 'Error when fetching products' })
   }
@@ -23,16 +24,22 @@ const fetchAllProducts = expressAsyncHandler(async (req, res) => {
 //GET /api/products/:id
 const fetchProduct = expressAsyncHandler(async (req, res) => {
   const { id } = req.params
-  const product = await Product.findById(id)
   try {
-    if (product) {
-      res.json(product)
-    } else {
-      res.status(404).json({ message: 'Unable to find product' })
-    }
+    await Product.findById(id).then((product) => res.json(product))
   } catch (error) {
     res.status(404).json({ message: 'Error when fetching product' })
   }
+
+  // const product = await Product.findById(id)
+  // try {
+  //   if (product) {
+  //     res.json(product)
+  //   } else {
+  //     res.status(404).json({ message: 'Unable to find product' })
+  //   }
+  // } catch (error) {
+  //   res.status(404).json({ message: 'Error when fetching product' })
+  // }
 })
 
 // RATING  A PRODUCT

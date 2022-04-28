@@ -7,8 +7,10 @@ import User from '../models/userModel.js'
 // GET /api/recipes
 const fetchAllRecipes = expressAsyncHandler(async (req, res) => {
   try {
-    const recipes = await Recipe.find()
-    res.json(recipes)
+    Recipe.find().then((recipes) => res.json(recipes))
+
+    // const recipes = await Recipe.find()
+    // res.json(recipes)
   } catch (error) {
     res.status(404).json({ message: 'Error when getting recipes' })
   }
@@ -26,15 +28,17 @@ const fetchRecipe = expressAsyncHandler(async (req, res) => {
   try {
     res.status(200).json(recipe)
   } catch (error) {
-    res.status(404).json({ message: 'Unable to find recipe' })
+    res.status(404).json({ message: 'Error when fetching recipe' })
   }
 })
 
 // GET USER RECIPES
 const getUserRecipes = expressAsyncHandler(async (req, res) => {
   try {
-    const recipes = await Recipe.find({ user: req.user._id })
-    res.json(recipes)
+    Recipe.find({ user: req.user._id }).then((recipes) => res.json(recipes))
+
+    // const recipes = await Recipe.find({ user: req.user._id })
+    // res.json(recipes)
   } catch (error) {
     res.status(404).json({ message: 'Error when getting user recipes' })
   }
@@ -65,9 +69,11 @@ const newRecipe = expressAsyncHandler(async (req, res) => {
   })
 
   try {
-    const NewRecipe = await recipe.save()
-    res.status(201)
-    res.json(NewRecipe)
+    recipe.save().then((NewRecipe) => res.status(201).json(NewRecipe))
+    //
+    // const NewRecipe = await recipe.save()
+    // res.status(201)
+    // res.json(NewRecipe)
   } catch (error) {
     res.status(409).json({ message: error.message })
   }
@@ -174,10 +180,14 @@ const likeRecipe = expressAsyncHandler(async (req, res) => {
   const recipe = await Recipe.findById(id)
 
   try {
-    const likedRecipe = await Recipe.findByIdAndUpdate(id, {
+    Recipe.findByIdAndUpdate(id, {
       likes: recipe.likes + 1,
-    })
-    res.json(likedRecipe)
+    }).then((likedRecipe) => res.json(likedRecipe))
+    //
+    // const likedRecipe = await Recipe.findByIdAndUpdate(id, {
+    //   likes: recipe.likes + 1,
+    // })
+    // res.json(likedRecipe)
   } catch (error) {
     res
       .status(404)

@@ -78,20 +78,20 @@ export const rateProductReducer = (state = {}, action) => {
     case RATE_PRODUCT_REQUEST:
       return {
         loading: true,
-        // ...state,
+        ...state,
         rated: false,
       }
 
     case RATE_PRODUCT_SUCCESS:
       return {
-        // ...state,
+        ...state,
         loading: false,
         rated: true,
       }
 
     case RATE_PRODUCT_ERROR:
       return {
-        //...state,
+        ...state,
         loading: false,
         error: action.payload,
         rated: false,

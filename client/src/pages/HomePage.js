@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 // Components
@@ -21,12 +21,23 @@ const HomePage = (props) => {
   const allProducts = useSelector((state) => state.allProducts)
   const { loading, products, success, error } = allProducts
 
+  const newProductManager = useSelector((state) => state.newProductManager)
+  const { created } = newProductManager
+
+  const deleteProduct = useSelector((state) => state.deleteProductManager)
+  const { deleted } = deleteProduct
+
+  const rateProduct = useSelector((state) => state.rateProduct)
+  const { rated } = rateProduct
+
   useEffect(() => {
     dispatch(fetchProducts(keyword))
-  }, [dispatch, keyword])
+  }, [dispatch, keyword, rated])
 
   return (
     <>
+      {created && <Alert variant='success'> Successfully created! </Alert>}
+      {deleted && <Alert variant='danger'> Successfully deleted!! </Alert>}
       <Container className=' pt-2' fluid>
         <CarouselElement />
         <Row>
