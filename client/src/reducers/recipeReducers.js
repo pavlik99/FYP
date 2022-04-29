@@ -34,12 +34,12 @@ const originalState = {
 // GET ALL RECIPES
 export const recipesReducer = (state = originalState, action) => {
   switch (action.type) {
-    case FETCH_ALL_RECIPES_START:
-      return {
-        recipes: [],
-        loading: true,
-        success: false,
-      }
+    // case FETCH_ALL_RECIPES_START:
+    //   return {
+    //     recipes: [],
+    //     loading: true,
+    //     success: false,
+    //   }
 
     case FETCH_ALL_RECIPES_SUCCESS:
       return {
@@ -64,12 +64,12 @@ const initialState = {
 //  FETCH ONE SPECIFIC RECIPE
 export const recipeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_RECIPE_START:
-      return {
-        ...state,
-        loading: true,
-        success: false,
-      }
+    // case FETCH_RECIPE_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     success: false,
+    //   }
 
     case FETCH_RECIPE_SUCCESS:
       return {
@@ -90,11 +90,11 @@ export const recipeReducer = (state = initialState, action) => {
 // GET ALL USER RECIPES
 export const getUserRecipesReducer = (state = { recipes: [] }, action) => {
   switch (action.type) {
-    case GET_USER_RECIPES_START:
-      return {
-        loading: true,
-        success: false,
-      }
+    // case GET_USER_RECIPES_START:
+    //   return {
+    //     loading: true,
+    //     success: false,
+    //   }
     case GET_USER_RECIPES:
       return {
         loading: false,
@@ -119,12 +119,12 @@ export const getUserRecipesReducer = (state = { recipes: [] }, action) => {
 // LIKE A RECIPE
 export const likeRecipeReducer = (state = {}, action) => {
   switch (action.type) {
-    case LIKE_RECIPE_START:
-      return {
-        ...state,
-        loading: true,
-        liked: false,
-      }
+    // case LIKE_RECIPE_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     liked: false,
+    //   }
 
     case LIKE_RECIPE_SUCCESS:
       return {
@@ -151,12 +151,12 @@ export const likeRecipeReducer = (state = {}, action) => {
 // CREATE A NEW RECIPE
 export const newRecipeReducer = (state = {}, action) => {
   switch (action.type) {
-    case CREATE_RECIPE_START:
-      return {
-        ...state,
-        loading: true,
-        created: false,
-      }
+    // case CREATE_RECIPE_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     created: false,
+    //   }
 
     case CREATE_RECIPE:
       return {
@@ -180,12 +180,12 @@ export const newRecipeReducer = (state = {}, action) => {
 const updateInitialState = { recipe: {} }
 export const updateRecipeReducer = (state = updateInitialState, action) => {
   switch (action.type) {
-    case UPDATE_RECIPE_START:
-      return {
-        ...state,
-        loading: true,
-        updated: false,
-      }
+    // case UPDATE_RECIPE_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     updated: false,
+    //   }
 
     case UPDATE_RECIPE:
       return {
@@ -208,12 +208,12 @@ export const updateRecipeReducer = (state = updateInitialState, action) => {
 // DELETE A RECIPE
 export const deleteRecipeReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_RECIPE_START:
-      return {
-        ...state,
-        loading: true,
-        deleted: false,
-      }
+    // case DELETE_RECIPE_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     deleted: false,
+    //   }
 
     case DELETE_RECIPE:
       return {

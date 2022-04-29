@@ -15,12 +15,12 @@ import {
 const initialState = {}
 export const managerProductDeleteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MANAGER_DELETE_PRODUCT_START:
-      return {
-        ...state,
-        loading: true,
-        deleted: false,
-      }
+    // case MANAGER_DELETE_PRODUCT_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     deleted: false,
+    //   }
 
     case MANAGER_DELETE_PRODUCT:
       return {
@@ -38,12 +38,12 @@ export const managerProductDeleteReducer = (state = initialState, action) => {
 
 export const managerProductNewReducer = (state = {}, action) => {
   switch (action.type) {
-    case MANAGER_NEW_PRODUCT_START:
-      return {
-        ...state,
-        loading: true,
-        created: false,
-      }
+    // case MANAGER_NEW_PRODUCT_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     created: false,
+    //   }
 
     case MANAGER_NEW_PRODUCT:
       return {
@@ -69,12 +69,12 @@ export const managerProductUpdateReducer = (
   action
 ) => {
   switch (action.type) {
-    case MANAGER_UPDATE_PRODUCT_START:
-      return {
-        ...state,
-        loading: true,
-        updated: false,
-      }
+    // case MANAGER_UPDATE_PRODUCT_START:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     updated: false,
+    //   }
 
     case MANAGER_UPDATE_PRODUCT:
       return {

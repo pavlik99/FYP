@@ -19,12 +19,12 @@ const originalState = {
 // GET ALL PRODUCTS
 export const productsReducer = (state = originalState, action) => {
   switch (action.type) {
-    case FETCH_ALL_REQUEST:
-      return {
-        products: [],
-        loading: true,
-        success: false,
-      }
+    // case FETCH_ALL_REQUEST:
+    //   return {
+    //     products: [],
+    //     loading: true,
+    //     success: false,
+    //   }
 
     case FETCH_ALL_SUCCESS:
       return {
@@ -50,12 +50,12 @@ const initialState = {
 // GET ONE SPECIFIC PRODUCT
 export const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PRODUCT_REQUEST:
-      return {
-        loading: true,
-        ...state,
-        success: false,
-      }
+    // case FETCH_PRODUCT_REQUEST:
+    //   return {
+    //     loading: true,
+    //     ...state,
+    //     success: false,
+    //   }
 
     case FETCH_PRODUCT_SUCCESS:
       return {
@@ -75,12 +75,12 @@ export const productReducer = (state = initialState, action) => {
 // RATE A PRODUCT
 export const rateProductReducer = (state = {}, action) => {
   switch (action.type) {
-    case RATE_PRODUCT_REQUEST:
-      return {
-        loading: true,
-        ...state,
-        rated: false,
-      }
+    // case RATE_PRODUCT_REQUEST:
+    //   return {
+    //     loading: true,
+    //     ...state,
+    //     rated: false,
+    //   }
 
     case RATE_PRODUCT_SUCCESS:
       return {

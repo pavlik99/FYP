@@ -22,11 +22,11 @@ import {
 // GET ALL ORDERS
 export const managerOrdersReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
-    case GET_ALL_ORDERS_MANAGER_START:
-      return {
-        loading: true,
-        received: false,
-      }
+    // case GET_ALL_ORDERS_MANAGER_START:
+    //   return {
+    //     loading: true,
+    //     received: false,
+    //   }
 
     case GET_ALL_ORDERS_MANAGER:
       return {
@@ -50,11 +50,11 @@ export const managerOrdersReducer = (state = { orders: [] }, action) => {
 // MARK ORDER AS CONFIRMED
 export const confirmOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case CONFIRM_ORDER_MANAGER_START:
-      return {
-        loading: true,
-        confirmed: false,
-      }
+    // case CONFIRM_ORDER_MANAGER_START:
+    //   return {
+    //     loading: true,
+    //     confirmed: false,
+    //   }
 
     case CONFIRM_ORDER_MANAGER:
       return {
@@ -79,11 +79,11 @@ export const confirmOrderReducer = (state = {}, action) => {
 // MARK ORDER AS DIPATCHED
 export const dispatchOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case DISPATCH_ORDER_MANAGER_START:
-      return {
-        loading: true,
-        dispatched: false,
-      }
+    // case DISPATCH_ORDER_MANAGER_START:
+    //   return {
+    //     loading: true,
+    //     dispatched: false,
+    //   }
 
     case DISPATCH_ORDER_MANAGER:
       return {
@@ -108,11 +108,11 @@ export const dispatchOrderReducer = (state = {}, action) => {
 // MARK ORDER AS DELIVERED
 export const deliverOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELIVER_ORDER_MANAGER_START:
-      return {
-        loading: true,
-        delivered: false,
-      }
+    // case DELIVER_ORDER_MANAGER_START:
+    //   return {
+    //     loading: true,
+    //     delivered: false,
+    //   }
 
     case DELIVER_ORDER_MANAGER:
       return {
