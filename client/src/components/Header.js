@@ -42,7 +42,7 @@ const Header = () => {
 
   useEffect(() => {
     const token = googleUser?.token
-    setGoogleUser(JSON.parse(localStorage.getItem('accountData'))) //googleProfile
+    setGoogleUser(JSON.parse(localStorage.getItem('accountData')))
   }, [location])
 
   const signoutHandler = () => {
@@ -63,7 +63,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav>
-              <Nav.Link as={Link} to='/#action1'>
+              <Nav.Link as={Link} to='/allproducts'>
                 PRODUCTS
               </Nav.Link>
               <Nav.Link as={Link} to='/recipes'>

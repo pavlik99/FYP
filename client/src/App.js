@@ -21,6 +21,9 @@ import UpdateRecipePage from './pages/UpdateRecipePage'
 import LinkArticlePage from './pages/LinkArticlePage'
 import LinkRecipePage from './pages/LinkRecipePage'
 import LinkNewsPage from './pages/LinkNewsPage'
+import AllProductsPage from './pages/AllProductsPage'
+import VeganPage from './pages/VeganProducts'
+import OrganicPage from './pages/OrganicProducts'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
@@ -57,6 +60,9 @@ function App() {
             <Route path='/link/articles' component={LinkArticlePage} />
             <Route path='/link/recipes' component={LinkRecipePage} />
             <Route path='/link/news' component={LinkNewsPage} />
+            <Route path='/allproducts' component={AllProductsPage} />
+            <Route path='/veganproducts' component={VeganPage} />
+            <Route path='/organicproducts' component={OrganicPage} />
           </Container>
         </main>
         <Footer />

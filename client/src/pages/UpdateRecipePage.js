@@ -90,6 +90,8 @@ const UpdateRecipePage = (props) => {
         isNews,
       })
     )
+    history.push('/profile')
+    window.location.reload()
   }
 
   const uploadHandler = async (e) => {

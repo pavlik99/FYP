@@ -22,9 +22,9 @@ import {
 
 export const orderCreate = (order) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: CREATE_ORDER_START,
-    })
+    // dispatch({
+    //   type: CREATE_ORDER_START,
+    // })
 
     const {
       authSignin: { accountData },
@@ -37,12 +37,18 @@ export const orderCreate = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/orders`, order, config)
+    await axios.post(`/api/orders`, order, config).then((res) =>
+      dispatch({
+        type: CREATE_ORDER,
+        payload: res.data,
+      })
+    )
+    // const { data } = await axios.post(`/api/orders`, order, config)
 
-    dispatch({
-      type: CREATE_ORDER,
-      payload: data,
-    })
+    // dispatch({
+    //   type: CREATE_ORDER,
+    //   payload: data,
+    // })
   } catch (error) {
     dispatch({ type: CREATE_ORDER_ERROR, payload: error.response })
   }
@@ -51,9 +57,9 @@ export const orderCreate = (order) => async (dispatch, getState) => {
 // GET ACCOUT INFO FOR ORDER
 export const getAccountInfoOrder = (id) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: ACCOUNT_INFO_START,
-    })
+    // dispatch({
+    //   type: ACCOUNT_INFO_START,
+    // })
 
     const {
       authSignin: { accountData },
@@ -78,9 +84,9 @@ export const getAccountInfoOrder = (id) => async (dispatch, getState) => {
 // GET A SPECIFIC USER ORDER
 export const getOrderInfo = (id) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: GET_ORDER_START,
-    })
+    // dispatch({
+    //   type: GET_ORDER_START,
+    // })
     const {
       authSignin: { accountData },
     } = getState()
@@ -92,12 +98,19 @@ export const getOrderInfo = (id) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders/${id}`, config)
+    await axios.get(`/api/orders/${id}`, config).then((res) =>
+      dispatch({
+        type: GET_ORDER,
+        payload: res.data,
+      })
+    )
 
-    dispatch({
-      type: GET_ORDER,
-      payload: data,
-    })
+    // const { data } = await axios.get(`/api/orders/${id}`, config)
+
+    // dispatch({
+    //   type: GET_ORDER,
+    //   payload: data,
+    // })
   } catch (error) {
     dispatch({ type: GET_ORDER_ERROR, payload: error.response })
   }
@@ -105,9 +118,9 @@ export const getOrderInfo = (id) => async (dispatch, getState) => {
 // GET ALL USER ORDERS
 export const getOrdersAction = () => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: GET_USER_ORDERS_START,
-    })
+    // dispatch({
+    //   type: GET_USER_ORDERS_START,
+    // })
     const {
       authSignin: { accountData },
     } = getState()
@@ -118,12 +131,19 @@ export const getOrdersAction = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get('/api/orders/allorders', config)
+    await axios.get('/api/orders/allorders', config).then((res) =>
+      dispatch({
+        type: GET_USER_ORDERS,
+        payload: res.data,
+      })
+    )
 
-    dispatch({
-      type: GET_USER_ORDERS,
-      payload: data,
-    })
+    // const { data } = await axios.get('/api/orders/allorders', config)
+
+    // dispatch({
+    //   type: GET_USER_ORDERS,
+    //   payload: data,
+    // })
   } catch (error) {
     dispatch({ type: GET_USER_ORDERS_ERROR, payload: error.response })
   }
@@ -131,9 +151,9 @@ export const getOrdersAction = () => async (dispatch, getState) => {
 
 //STRIPE CHECKOUT
 export const handleToken = (token, orderId) => async (dispatch, getState) => {
-  dispatch({
-    type: PAY_ORDER_START,
-  })
+  // dispatch({
+  //   type: PAY_ORDER_START,
+  // })
   const {
     authSignin: { accountData },
   } = getState()

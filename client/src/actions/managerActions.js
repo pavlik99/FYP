@@ -30,7 +30,7 @@ import {
 // DELETE A PRODUCT
 export const managerDeleteProduct = (id) => async (dispatch, getState) => {
   try {
-    dispatch({ type: MANAGER_DELETE_PRODUCT_START })
+    // dispatch({ type: MANAGER_DELETE_PRODUCT_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -41,9 +41,16 @@ export const managerDeleteProduct = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/products/${id}`, config)
+    await axios.delete(`/api/products/${id}`, config).then((res) =>
+      dispatch({
+        type: MANAGER_DELETE_PRODUCT,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: MANAGER_DELETE_PRODUCT })
+    // await axios.delete(`/api/products/${id}`, config)
+
+    // dispatch({ type: MANAGER_DELETE_PRODUCT })
   } catch (error) {
     dispatch({
       type: MANAGER_DELETE_PRODUCT_ERROR,
@@ -55,7 +62,7 @@ export const managerDeleteProduct = (id) => async (dispatch, getState) => {
 // CREATE A NEW PRODUCT
 export const managerNewProduct = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: MANAGER_NEW_PRODUCT_START })
+    // dispatch({ type: MANAGER_NEW_PRODUCT_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -66,9 +73,16 @@ export const managerNewProduct = () => async (dispatch, getState) => {
       },
     }
 
-    const { newProduct } = await axios.post(`/api/products`, {}, config)
+    await axios.post(`/api/products`, {}, config).then((res) =>
+      dispatch({
+        type: MANAGER_NEW_PRODUCT,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: MANAGER_NEW_PRODUCT, payload: newProduct })
+    // const { newProduct } = await axios.post(`/api/products`, {}, config)
+
+    // dispatch({ type: MANAGER_NEW_PRODUCT, payload: newProduct })
   } catch (error) {
     dispatch({
       type: MANAGER_NEW_PRODUCT_ERROR,
@@ -80,7 +94,7 @@ export const managerNewProduct = () => async (dispatch, getState) => {
 // UPDATE A PRODUCT
 export const managerUpdateProduct = (product) => async (dispatch, getState) => {
   try {
-    dispatch({ type: MANAGER_UPDATE_PRODUCT_START })
+    // dispatch({ type: MANAGER_UPDATE_PRODUCT_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -92,13 +106,22 @@ export const managerUpdateProduct = (product) => async (dispatch, getState) => {
       },
     }
 
-    const { updateData } = await axios.put(
-      `/api/products/${product._id}`,
-      product,
-      headers
-    )
+    await axios
+      .put(`/api/products/${product._id}`, product, headers)
+      .then((res) =>
+        dispatch({
+          type: MANAGER_UPDATE_PRODUCT,
+          payload: res.data,
+        })
+      )
 
-    dispatch({ type: MANAGER_UPDATE_PRODUCT, payload: updateData })
+    // const { updateData } = await axios.put(
+    //   `/api/products/${product._id}`,
+    //   product,
+    //   headers
+    // )
+
+    // dispatch({ type: MANAGER_UPDATE_PRODUCT, payload: updateData })
   } catch (error) {
     dispatch({
       type: MANAGER_UPDATE_PRODUCT_ERROR,
@@ -110,7 +133,7 @@ export const managerUpdateProduct = (product) => async (dispatch, getState) => {
 // GET ALL ORDERS
 export const managerGetAllOrders = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: GET_ALL_ORDERS_MANAGER_START })
+    // dispatch({ type: GET_ALL_ORDERS_MANAGER_START })
 
     const {
       authSignin: { accountData },
@@ -122,9 +145,16 @@ export const managerGetAllOrders = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders`, config)
+    await axios.get(`/api/orders`, config).then((res) =>
+      dispatch({
+        type: GET_ALL_ORDERS_MANAGER,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: GET_ALL_ORDERS_MANAGER, payload: data })
+    // const { data } = await axios.get(`/api/orders`, config)
+
+    // dispatch({ type: GET_ALL_ORDERS_MANAGER, payload: data })
   } catch (error) {
     dispatch({
       type: GET_ALL_ORDERS_MANAGER_ERROR,
@@ -135,7 +165,7 @@ export const managerGetAllOrders = () => async (dispatch, getState) => {
 // MARK ORDER AS CONFIRMED
 export const confirmOrder = (order) => async (dispatch, getState) => {
   try {
-    dispatch({ type: CONFIRM_ORDER_MANAGER_START })
+    // dispatch({ type: CONFIRM_ORDER_MANAGER_START })
 
     const {
       authSignin: { accountData },
@@ -147,9 +177,16 @@ export const confirmOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/orders/${order._id}/confirm`, config)
+    await axios.put(`/api/orders/${order._id}/confirm`, config).then((res) =>
+      dispatch({
+        type: CONFIRM_ORDER_MANAGER,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: CONFIRM_ORDER_MANAGER, payload: data })
+    // const { data } = await axios.put(`/api/orders/${order._id}/confirm`, config)
+
+    // dispatch({ type: CONFIRM_ORDER_MANAGER, payload: data })
   } catch (error) {
     dispatch({
       type: CONFIRM_ORDER_MANAGER_ERROR,
@@ -161,7 +198,7 @@ export const confirmOrder = (order) => async (dispatch, getState) => {
 // MARK ORDER AS DISPATCHED
 export const dispatchOrder = (order) => async (dispatch, getState) => {
   try {
-    dispatch({ type: DISPATCH_ORDER_MANAGER_START })
+    // dispatch({ type: DISPATCH_ORDER_MANAGER_START })
 
     const {
       authSignin: { accountData },
@@ -173,12 +210,19 @@ export const dispatchOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(
-      `/api/orders/${order._id}/dispatch`,
-      config
+    await axios.put(`/api/orders/${order._id}/dispatch`, config).then((res) =>
+      dispatch({
+        type: DISPATCH_ORDER_MANAGER,
+        payload: res.data,
+      })
     )
 
-    dispatch({ type: DISPATCH_ORDER_MANAGER, payload: data })
+    // const { data } = await axios.put(
+    //   `/api/orders/${order._id}/dispatch`,
+    //   config
+    // )
+
+    // dispatch({ type: DISPATCH_ORDER_MANAGER, payload: data })
   } catch (error) {
     dispatch({
       type: DISPATCH_ORDER_MANAGER_ERROR,
@@ -190,7 +234,7 @@ export const dispatchOrder = (order) => async (dispatch, getState) => {
 // MARK ORDER AS DELIVERED
 export const deliverOrder = (order) => async (dispatch, getState) => {
   try {
-    dispatch({ type: DELIVER_ORDER_MANAGER_START })
+    // dispatch({ type: DELIVER_ORDER_MANAGER_START })
 
     const {
       authSignin: { accountData },
@@ -202,9 +246,16 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/orders/${order._id}/deliver`, config)
+    await axios.put(`/api/orders/${order._id}/deliver`, config).then((res) =>
+      dispatch({
+        type: DELIVER_ORDER_MANAGER,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: DELIVER_ORDER_MANAGER, payload: data })
+    // const { data } = await axios.put(`/api/orders/${order._id}/deliver`, config)
+
+    // dispatch({ type: DELIVER_ORDER_MANAGER, payload: data })
   } catch (error) {
     dispatch({
       type: DELIVER_ORDER_MANAGER_ERROR,

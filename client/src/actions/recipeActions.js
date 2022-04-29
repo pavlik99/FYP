@@ -30,11 +30,18 @@ import {
 // FETCH ALL RECIPES
 export const fetchRecipesAction = () => async (dispatch) => {
   try {
-    dispatch({ type: FETCH_ALL_RECIPES_START })
+    // dispatch({ type: FETCH_ALL_RECIPES_START })
 
-    const { data } = await axios.get('/api/recipes')
+    await axios.get('/api/recipes').then((res) =>
+      dispatch({
+        type: FETCH_ALL_RECIPES_SUCCESS,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: FETCH_ALL_RECIPES_SUCCESS, payload: data })
+    // const { data } = await axios.get('/api/recipes')
+
+    // dispatch({ type: FETCH_ALL_RECIPES_SUCCESS, payload: data })
   } catch (error) {
     dispatch({ type: FETCH_ALL_RECIPES_ERROR, payload: error.response })
   }
@@ -43,11 +50,18 @@ export const fetchRecipesAction = () => async (dispatch) => {
 // FETCH ONE RECIPE BY ID
 export const fetchRecipeAction = (id) => async (dispatch) => {
   try {
-    dispatch({ type: FETCH_RECIPE_START })
+    // dispatch({ type: FETCH_RECIPE_START })
 
-    const { data } = await axios.get(`/api/recipes/${id}`)
+    await axios.get(`/api/recipes/${id}`).then((res) =>
+      dispatch({
+        type: FETCH_RECIPE_SUCCESS,
+        payload: res.data,
+      })
+    )
 
-    dispatch({ type: FETCH_RECIPE_SUCCESS, payload: data })
+    // const { data } = await axios.get(`/api/recipes/${id}`)
+
+    // dispatch({ type: FETCH_RECIPE_SUCCESS, payload: data })
   } catch (error) {
     dispatch({
       type: FETCH_RECIPE_ERROR,
@@ -59,9 +73,9 @@ export const fetchRecipeAction = (id) => async (dispatch) => {
 // GET ALL USER RECIPES
 export const getAllUserRecipesAction = () => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: GET_USER_RECIPES_START,
-    })
+    // dispatch({
+    //   type: GET_USER_RECIPES_START,
+    // })
     const {
       authSignin: { accountData },
     } = getState()
@@ -73,12 +87,19 @@ export const getAllUserRecipesAction = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get('/api/recipes/myrecipes', config)
+    await axios.get('/api/recipes/myrecipes', config).then((res) =>
+      dispatch({
+        type: GET_USER_RECIPES,
+        payload: res.data,
+      })
+    )
 
-    dispatch({
-      type: GET_USER_RECIPES,
-      payload: data,
-    })
+    // const { data } = await axios.get('/api/recipes/myrecipes', config)
+
+    // dispatch({
+    //   type: GET_USER_RECIPES,
+    //   payload: data,
+    // })
   } catch (error) {
     dispatch({ type: GET_USER_RECIPES_ERROR, payload: error.response })
   }
@@ -87,7 +108,7 @@ export const getAllUserRecipesAction = () => async (dispatch, getState) => {
 // LIKE RECIPE
 export const likeRecipeAction = (id) => async (dispatch, getState) => {
   try {
-    dispatch({ type: LIKE_RECIPE_START })
+    // dispatch({ type: LIKE_RECIPE_START })
 
     const {
       authSignin: { accountData },
@@ -100,9 +121,15 @@ export const likeRecipeAction = (id) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.patch(`/api/recipes/${id}/like`, config)
+    await axios.patch(`/api/recipes/${id}/like`, config).then((res) =>
+      dispatch({
+        type: LIKE_RECIPE_SUCCESS,
+        payload: res.data,
+      })
+    )
+    // const { data } = await axios.patch(`/api/recipes/${id}/like`, config)
 
-    dispatch({ type: LIKE_RECIPE_SUCCESS, payload: data })
+    // dispatch({ type: LIKE_RECIPE_SUCCESS, payload: data })
   } catch (error) {
     dispatch({
       type: LIKE_RECIPE_ERROR,
@@ -114,7 +141,7 @@ export const likeRecipeAction = (id) => async (dispatch, getState) => {
 // DELETE A RECIPE
 export const deleteRecipeAction = (id) => async (dispatch, getState) => {
   try {
-    dispatch({ type: DELETE_RECIPE_START })
+    // dispatch({ type: DELETE_RECIPE_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -125,9 +152,14 @@ export const deleteRecipeAction = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/recipes/${id}`, config)
+    await axios.delete(`/api/recipes/${id}`, config).then((res) =>
+      dispatch({
+        type: DELETE_RECIPE,
+      })
+    )
 
-    dispatch({ type: DELETE_RECIPE })
+    // await axios.delete(`/api/recipes/${id}`, config)
+    // dispatch({ type: DELETE_RECIPE })
   } catch (error) {
     dispatch({
       type: DELETE_RECIPE_ERROR,
@@ -139,7 +171,7 @@ export const deleteRecipeAction = (id) => async (dispatch, getState) => {
 // CREATE A NEW RECIPE
 export const createRecipeAction = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: CREATE_RECIPE_START })
+    // dispatch({ type: CREATE_RECIPE_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -150,9 +182,15 @@ export const createRecipeAction = () => async (dispatch, getState) => {
       },
     }
 
-    const { newRecipe } = await axios.post(`/api/recipes`, {}, config)
+    await axios.post(`/api/recipes`, {}, config).then((res) =>
+      dispatch({
+        type: CREATE_RECIPE,
+        payload: res.data,
+      })
+    )
+    // const { newRecipe } = await axios.post(`/api/recipes`, {}, config)
 
-    dispatch({ type: CREATE_RECIPE, payload: newRecipe })
+    // dispatch({ type: CREATE_RECIPE, payload: newRecipe })
   } catch (error) {
     dispatch({
       type: CREATE_RECIPE_ERROR,
@@ -164,7 +202,7 @@ export const createRecipeAction = () => async (dispatch, getState) => {
 // UPDATE A RECIPE
 export const updateRecipeAction = (recipe) => async (dispatch, getState) => {
   try {
-    dispatch({ type: UPDATE_RECIPE_START })
+    // dispatch({ type: UPDATE_RECIPE_START })
     const {
       authSignin: { accountData },
     } = getState()
@@ -176,13 +214,14 @@ export const updateRecipeAction = (recipe) => async (dispatch, getState) => {
       },
     }
 
-    const { updateData } = await axios.put(
-      `/api/recipes/${recipe._id}`,
-      recipe,
-      headers
+    await axios.put(`/api/recipes/${recipe._id}`, recipe, headers).then((res) =>
+      dispatch({
+        type: UPDATE_RECIPE,
+        payload: res.data,
+      })
     )
 
-    dispatch({ type: UPDATE_RECIPE, payload: updateData })
+    // dispatch({ type: UPDATE_RECIPE, payload: updateData })
   } catch (error) {
     dispatch({
       type: UPDATE_RECIPE_ERROR,

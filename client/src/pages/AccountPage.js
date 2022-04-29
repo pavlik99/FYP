@@ -52,6 +52,9 @@ const AccountPage = () => {
   const newRecipe = useSelector((state) => state.newRecipe)
   const { created } = newRecipe
 
+  const updateRecipe = useSelector((state) => state.oneRecipe)
+  const { updated } = updateRecipe
+
   const deleteRecipe = useSelector((state) => state.deleteRecipe)
   const { deleted } = deleteRecipe
 
@@ -117,6 +120,7 @@ const AccountPage = () => {
   return (
     <>
       {created && <Alert variant='success'> Successfully created! </Alert>}
+      {updated && <Alert variant='success'> Successfully updated! </Alert>}
       {deleted && <Alert variant='danger'> Successfully deleted!! </Alert>}
       {success && <Alert variant='success'>Successfully Updated!</Alert>}
       {error && <Alert variant='danger'>Unsuccessful Attempt</Alert>}

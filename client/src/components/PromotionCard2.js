@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button, Image } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const PromotionCard2 = () => {
   return (
@@ -14,10 +15,11 @@ const PromotionCard2 = () => {
       <Card.ImgOverlay>
         <div className='pt-2 promotionText'>
           <Card.Title>Shop our Organic Range</Card.Title>
-
-          <Button className='btn' variant='outline-dark'>
-            SHOP NOW
-          </Button>
+          <Link to={'/organicproducts'}>
+            <Button className='btn' variant='outline-dark'>
+              SHOP NOW
+            </Button>
+          </Link>
         </div>
       </Card.ImgOverlay>
     </Card>
